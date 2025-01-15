@@ -1,6 +1,7 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public enum TileType { Grass, Mountain, Water }
+public enum TileType { Grass, Mountain, Water, Station }
 
 public class Tile : MonoBehaviour
 {
@@ -84,5 +85,44 @@ public class Tile : MonoBehaviour
     public void SetOccupied(bool occupied)
     {
         isOccupied = occupied;
+    }
+
+    // Quand la souris entre sur la tuile, on change la couleur si c'est un placement valide
+    private void OnMouseEnter()
+    {
+        if (GridInteraction.Instance != null)
+        {
+            // Vérifier si un objet peut être placé
+            bool canPlace = CanPlaceObject(GridInteraction.Instance.objectTypeToPlace);
+            HighlightTile(canPlace);
+        }
+    }
+
+    // Quand la souris quitte la tuile, on réinitialise la couleur de la tuile
+    private void OnMouseExit()
+    {
+        ResetColor();
+    }
+
+    // Vérifie si la tuile est connectée à une station
+    public bool CanPlaceRail(Tile tile, GridManager gridManager)
+    {
+        // Récupérer les tuiles voisines à partir de la grille
+        foreach (Tile neighbor in GetNeighboringTiles(tile, gridManager))
+        {
+            if (neighbor.isOccupied && neighbor.tileType == TileType.Station)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Cette méthode doit être implémentée pour récupérer les tuiles voisines à partir de la grille
+    private List<Tile> GetNeighboringTiles(Tile tile, GridManager gridManager)
+    {
+        List<Tile> neighbors = new List<Tile>();
+        // Ajouter la logique pour obtenir les tuiles voisines
+        return neighbors;
     }
 }

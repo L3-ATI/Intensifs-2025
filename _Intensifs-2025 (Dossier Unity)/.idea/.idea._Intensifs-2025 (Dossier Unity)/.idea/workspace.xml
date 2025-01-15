@@ -11,6 +11,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -34,7 +35,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1736938285467</updated>
-      <workItem from="1736938290509" duration="1263000" />
+      <workItem from="1736938290509" duration="4304000" />
+      <workItem from="1736944369275" duration="6776000" />
     </task>
     <servers />
   </component>
