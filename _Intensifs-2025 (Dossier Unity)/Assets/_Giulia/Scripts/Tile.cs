@@ -18,6 +18,9 @@ public class Tile : MonoBehaviour
     // Référence au Renderer pour changer la couleur (highlight)
     private Renderer tileRenderer;
 
+    // Liste des voisins détectés via les triggers
+    private List<Tile> neighboringTiles = new List<Tile>();
+
     // Couleurs pour l'état de la tuile
     public Color defaultColor = Color.white;
     public Color highlightValidColor = Color.green;
@@ -36,6 +39,60 @@ public class Tile : MonoBehaviour
         gridX = x;
         gridZ = z;
     }
+    
+    public void AddNeighbor(Tile neighbor)
+    {
+        if (!neighboringTiles.Contains(neighbor))
+        {
+            neighboringTiles.Add(neighbor);
+            UpdateNeighbors(neighboringTiles); // Méthode pour gérer la logique de mise à jour des voisins
+        }
+    }
+
+    public void RemoveNeighbor(Tile neighbor)
+    {
+        if (neighboringTiles.Contains(neighbor))
+        {
+            neighboringTiles.Remove(neighbor);
+            UpdateNeighbors(neighboringTiles); // Met à jour la liste après suppression
+        }
+    }
+
+    public void UpdateNeighbors(List<Tile> neighbors)
+    {
+        // Logique pour mettre à jour les voisins dans le Tile (peut-être afficher la liste ou l'utiliser ailleurs)
+    }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            PrintNeighbors();
+        }
+    }
+    private void PrintNeighbors()
+    {
+        if (neighboringTiles.Count == 0)
+        {
+            Debug.Log($"Aucun voisin trouvé pour la tuile {name}");
+        }
+        else
+        {
+            Debug.Log($"Voisins de la tuile {name}:");
+            foreach (Tile neighbor in neighboringTiles)
+            {
+                // Vérifie si le voisin est une station ou un autre type
+                if (neighbor.tileType == TileType.Station)
+                {
+                    Debug.Log($"- {neighbor.name} (Station)");
+                }
+                else
+                {
+                    Debug.Log($"- {neighbor.name} ({neighbor.tileType})");
+                }
+            }
+        }
+    }
 
     // Vérifie si un objet peut être placé sur cette tuile.
     public bool CanPlaceObject(string objectType)
@@ -47,6 +104,11 @@ public class Tile : MonoBehaviour
         switch (tileType)
         {
             case TileType.Grass:
+                if (objectType == "RailStraight" || objectType == "RailCurved")
+                {
+                    // Vérifie si le rail peut être placé à proximité d'une station
+                    return CanPlaceRail();
+                }
                 // Aucun objet spécifique n'est interdit sur l'herbe
                 return true;
 
@@ -92,8 +154,19 @@ public class Tile : MonoBehaviour
     {
         if (GridInteraction.Instance != null)
         {
-            // Vérifier si un objet peut être placé
-            bool canPlace = CanPlaceObject(GridInteraction.Instance.objectTypeToPlace);
+            bool canPlace = false;
+
+            // Si on veut placer un rail, on utilise CanPlaceRail()
+            if (GridInteraction.Instance.objectTypeToPlace == "RailStraight" || GridInteraction.Instance.objectTypeToPlace == "RailCurved")
+            {
+                canPlace = CanPlaceRail();
+            }
+            else
+            {
+                // Pour les autres objets, utilise la méthode de vérification générique
+                canPlace = CanPlaceObject(GridInteraction.Instance.objectTypeToPlace);
+            }
+
             HighlightTile(canPlace);
         }
     }
@@ -103,26 +176,21 @@ public class Tile : MonoBehaviour
     {
         ResetColor();
     }
-
-    // Vérifie si la tuile est connectée à une station
-    public bool CanPlaceRail(Tile tile, GridManager gridManager)
+    
+    // Exemple de méthode de placement de rail
+    public bool CanPlaceRail()
     {
-        // Récupérer les tuiles voisines à partir de la grille
-        foreach (Tile neighbor in GetNeighboringTiles(tile, gridManager))
+        
+        // Vérifie si l'une des tuiles voisines est une station
+        foreach (Tile neighbor in neighboringTiles)
         {
-            if (neighbor.isOccupied && neighbor.tileType == TileType.Station)
+            if (neighbor != null && neighbor.isOccupied && neighbor.tileType == TileType.Station)
+            
             {
                 return true;
             }
         }
         return false;
     }
-
-    // Cette méthode doit être implémentée pour récupérer les tuiles voisines à partir de la grille
-    private List<Tile> GetNeighboringTiles(Tile tile, GridManager gridManager)
-    {
-        List<Tile> neighbors = new List<Tile>();
-        // Ajouter la logique pour obtenir les tuiles voisines
-        return neighbors;
-    }
+    
 }

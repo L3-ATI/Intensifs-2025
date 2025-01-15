@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GridInteraction : MonoBehaviour
@@ -31,10 +32,11 @@ public class GridInteraction : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Tile tile = hit.collider.GetComponent<Tile>();
-                if (tile != null && !tile.isOccupied)
+                if (tile != null)
                 {
+                    
                     // Vérifier les règles de placement ici si nécessaire
-                    if (tile.CanPlaceObject(objectTypeToPlace))
+                    if (!tile.isOccupied && tile.CanPlaceObject(objectTypeToPlace))
                     {
                         if (objectTypeToPlace == "Station")
                         {
@@ -60,17 +62,29 @@ public class GridInteraction : MonoBehaviour
         if (objectTypeToPlace == "RailStraight" || objectTypeToPlace == "RailCurved")
         {
             // Vérifier si le rail peut être placé
-            if (!tile.CanPlaceRail(tile, GridManager.Instance))
+            if (!tile.CanPlaceRail())  // Appel modifié
             {
-                Debug.LogWarning("Rail non connecté à une station !");
+                Debug.LogWarning("Placement du rail impossible. Règles de placement non respectées.");
                 return;
             }
         }
+
+        // Log avant instanciation pour vérifier si le placement est autorisé
+        Debug.Log($"Placing object {objectTypeToPlace} on tile {tile.name} at position {tile.transform.position}");
 
         // Instancier l'objet (la station ou le rail) à la position de la tuile
         GameObject structure = Instantiate(prefabToPlace, tile.transform.position, Quaternion.identity);
         structure.transform.SetParent(tile.transform);
         tile.SetOccupied(true);
+
+        // Si l'objet placé est une station, change le type de la tuile en Station
+        if (objectTypeToPlace == "Station")
+        {
+            tile.tileType = TileType.Station; // Met à jour le type de la tuile
+        }
+
         Debug.Log($"Objet placé sur la tuile : {tile.name}");
     }
+
+
 }
