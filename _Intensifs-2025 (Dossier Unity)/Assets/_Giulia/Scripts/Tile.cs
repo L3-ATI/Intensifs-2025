@@ -156,20 +156,27 @@ public class Tile : MonoBehaviour
         {
             bool canPlace = false;
 
-            // Si on veut placer un rail, on utilise CanPlaceRail()
+            // On exclut d'emblée les montagnes et l'eau
+            if (tileType == TileType.Mountain || tileType == TileType.Water)
+            {
+                HighlightTile(false);
+                return;
+            }
+
+            // Vérification selon le type d'objet
             if (GridInteraction.Instance.objectTypeToPlace == "RailStraight" || GridInteraction.Instance.objectTypeToPlace == "RailCurved")
             {
                 canPlace = CanPlaceRail();
             }
             else
             {
-                // Pour les autres objets, utilise la méthode de vérification générique
                 canPlace = CanPlaceObject(GridInteraction.Instance.objectTypeToPlace);
             }
 
             HighlightTile(canPlace);
         }
     }
+
 
     // Quand la souris quitte la tuile, on réinitialise la couleur de la tuile
     private void OnMouseExit()
@@ -180,17 +187,20 @@ public class Tile : MonoBehaviour
     // Exemple de méthode de placement de rail
     public bool CanPlaceRail()
     {
-        
-        // Vérifie si l'une des tuiles voisines est une station
+        // La tuile doit être de l'herbe et non occupée
+        if (tileType != TileType.Grass || isOccupied)
+            return false;
+
+        // Vérifie si un voisin est une station
         foreach (Tile neighbor in neighboringTiles)
         {
-            if (neighbor != null && neighbor.isOccupied && neighbor.tileType == TileType.Station)
-            
+            if (neighbor != null && neighbor.tileType == TileType.Station && neighbor.isOccupied)
             {
                 return true;
             }
         }
         return false;
     }
+
     
 }

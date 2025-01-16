@@ -64,7 +64,7 @@ public class GridInteraction : MonoBehaviour
             // Vérifier si le rail peut être placé
             if (!tile.CanPlaceRail())  // Appel modifié
             {
-                Debug.LogWarning("Placement du rail impossible. Règles de placement non respectées.");
+                Debug.LogWarning("Placement du rail impossible.");
                 return;
             }
         }

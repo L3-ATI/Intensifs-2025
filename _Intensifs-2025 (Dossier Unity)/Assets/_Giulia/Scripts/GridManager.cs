@@ -10,6 +10,8 @@ public class GridManager : MonoBehaviour
     public float tileSizeX = 1f; // Taille des tuiles sur l'axe X
     public float tileSizeZ = 1f; // Taille des tuiles sur l'axe Z
     public GameObject tilePrefab; // Préfabriqué pour les tuiles
+    public GameObject mountainPrefab; // Préfab pour les montagnes
+    public GameObject riverTilePrefab; // Préfab pour les tuiles de rivière
 
     private Tile[,] tiles; // Tableau 2D pour stocker les tuiles
 
@@ -46,20 +48,37 @@ public class GridManager : MonoBehaviour
                 // Calculer la position dans le monde
                 Vector3 position = new Vector3(x * tileSizeX + xOffset, 0, z * tileSizeZ);
 
+                // Déterminer le type de tuile
+                TileType tileType = GetRandomTileType();
+
+                // Sélectionner le prefab en fonction du type de tuile
+                GameObject prefabToInstantiate = tilePrefab; // Par défaut, herbe
+                if (tileType == TileType.Water && riverTilePrefab != null)
+                {
+                    prefabToInstantiate = riverTilePrefab; // Utiliser le prefab de rivière
+                }
+
                 // Instancier la tuile
-                GameObject newTile = Instantiate(tilePrefab, position, Quaternion.identity, transform);
+                GameObject newTile = Instantiate(prefabToInstantiate, position, Quaternion.identity, transform);
                 newTile.name = $"Tile_{x}_{z}";
 
                 // Configurer la tuile
                 Tile tileComponent = newTile.GetComponent<Tile>();
                 tileComponent.SetPosition(x, z);
                 tiles[x, z] = tileComponent;
+                tileComponent.tileType = tileType;
 
-                // Définir le type de tuile de manière contrôlée
-                tileComponent.tileType = GetRandomTileType();
+                // Si la tuile est une montagne, instancier le prefab de montagne
+                if (tileType == TileType.Mountain && mountainPrefab != null)
+                {
+                    GameObject mountain = Instantiate(mountainPrefab, newTile.transform.position, Quaternion.identity, newTile.transform);
+                    mountain.name = $"Mountain_{x}_{z}";
+                }
             }
         }
     }
+
+
 
     // Obtenir un type de tuile aléatoire
     TileType GetRandomTileType()

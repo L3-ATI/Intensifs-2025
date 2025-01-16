@@ -2774,6 +2774,8 @@ MonoBehaviour:
   tileSizeX: 10
   tileSizeZ: 8.66
   tilePrefab: {fileID: 7878982099941731297, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
+  mountainPrefab: {fileID: 6680752679857288398, guid: 1b7905aa305f6454c958f7a9f156e6bf, type: 3}
+  riverTilePrefab: {fileID: 6185400647594969858, guid: b316d3409c0ad5a459286a4eabc0d731, type: 3}
 --- !u!4 &2017914824
 Transform:
   m_ObjectHideFlags: 0
