@@ -177,7 +177,7 @@
     "m_FunctionName": "toon_shader",
     "m_FunctionSource": "",
     "m_FunctionSourceUsePragmas": true,
-    "m_FunctionBody": "Enter function body here..."
+    "m_FunctionBody": "void ToonShading_float(in float3 Normal, in float ToonRampSmoothness, in float3 ClipSpacePos, in float3 WorldPos, in float4 ToonRampTinting,\r\nin float ToonRampOffset, out float3 ToonRampOutput, out float3 Direction)\r\n{\r\n \r\n    // set the shader graph node previews\r\n    #ifdef SHADERGRAPH_PREVIEW\r\n        ToonRampOutput = float3(0.5,0.5,0);\r\n        Direction = float3(0.5,0.5,0);\r\n    #else\r\n \r\n        // grab the shadow coordinates\r\n        #if SHADOWS_SCREEN\r\n            half4 shadowCoord = ComputeScreenPos(ClipSpacePos);\r\n        #else\r\n            half4 shadowCoord = TransformWorldToShadowCoord(WorldPos);\r\n        #endif \r\n \r\n        // grab the main light\r\n        #if _MAIN_LIGHT_SHADOWS_CASCADE || _MAIN_LIGHT_SHADOWS\r\n            Light light = GetMainLight(shadowCoord);\r\n        #else\r\n            Light light = GetMainLight();\r\n        #endif\r\n \r\n        // dot product for toonramp\r\n        half d = dot(Normal, light.direction) * 0.5 + 0.5;\r\n        \r\n        // toonramp in a smoothstep\r\n        half toonRamp = smoothstep(ToonRampOffset, ToonRampOffset+ ToonRampSmoothness, d );\r\n        // multiply with shadows;\r\n        toonRamp *= light.shadowAttenuation;\r\n        // add in lights and extra tinting\r\n        ToonRampOutput = light.color * (toonRamp + ToonRampTinting) ;\r\n        // output direction for rimlight\r\n        Direction = light.direction;\r\n    #endif\r\n \r\n}"
 }
 
 {
