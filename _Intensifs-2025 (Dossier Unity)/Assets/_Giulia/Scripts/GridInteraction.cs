@@ -1,13 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GridInteraction : MonoBehaviour
 {
     public static GridInteraction Instance;  // Singleton pour accéder à cette classe partout
     public string objectTypeToPlace;  // Détermine le type d'objet à placer (par exemple, "Station")
     public GameObject stationPrefab;  // Prefab à placer pour la station
-    public GameObject railStraightPrefab;  // Prefab à placer pour le rail droit
-    public GameObject railCurvedPrefab;  // Prefab à placer pour le rail courbé
+    public GameObject railPrefab00, railPrefab01, railPrefab02, railPrefab03, railPrefab04, railPrefab05;
+
+    private GameObject objectToPlace;
+    private Tile currentTile; 
 
     void Awake()
     {
@@ -19,72 +23,147 @@ public class GridInteraction : MonoBehaviour
 
     void Update()
     {
-        // Choisir un type d'objet à placer (par exemple "Station")
-        if (Input.GetKeyDown(KeyCode.S))  // Exemple de changement d'objet à placer
-        {
-            objectTypeToPlace = "Station";  // Change ici pour un autre type (comme "Tunnel", "Bridge", etc.)
-        }
 
-        // Si l'utilisateur clique sur une tuile valide, on place l'objet
-        if (Input.GetMouseButtonDown(0))
+        if (objectTypeToPlace == "Station")
+        {
+            objectToPlace = stationPrefab;  // Associe le prefab de station
+        }
+        else if (objectTypeToPlace.StartsWith("Rail"))
+        {
+            objectToPlace = GetRailPrefab(objectTypeToPlace);  // Associe le prefab de rail
+        }
+        
+        // Vérifie si la souris pointe sur un élément UI, y compris en World Space
+        if (IsPointerOverUIElement())
+        {
+            return; // Ne pas lancer de raycast si la souris est sur l'UI
+        }
+        
+        if (Input.GetMouseButtonDown(0)) // Clic gauche
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                Tile tile = hit.collider.GetComponent<Tile>();
-                if (tile != null)
+                currentTile = hit.collider.GetComponent<Tile>();
+                if (currentTile != null)
                 {
-                    
-                    // Vérifier les règles de placement ici si nécessaire
-                    if (!tile.isOccupied && tile.CanPlaceObject(objectTypeToPlace))
-                    {
-                        if (objectTypeToPlace == "Station")
-                        {
-                            PlaceObject(tile, stationPrefab);
-                        }
-                        else if (objectTypeToPlace == "RailStraight" || objectTypeToPlace == "RailCurved")
-                        {
-                            GameObject prefab = objectTypeToPlace == "RailStraight" ? railStraightPrefab : railCurvedPrefab;
-                            PlaceObject(tile, prefab);
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Placement non valide sur cette tuile !");
-                    }
+                    HandleTileClick(currentTile);
                 }
+            }
+            else
+            {
+                currentTile.CancelPlacement(7);  // Par exemple, pour supprimer l'enfant à l'index 7
+                ;
             }
         }
     }
 
-    void PlaceObject(Tile tile, GameObject prefabToPlace)
+    private bool IsPointerOverUIElement()
     {
-        if (objectTypeToPlace == "RailStraight" || objectTypeToPlace == "RailCurved")
+        // Crée un objet PointerEventData pour utiliser dans le système d'événements UI
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {
-            // Vérifier si le rail peut être placé
-            if (!tile.CanPlaceRail())  // Appel modifié
+            position = Input.mousePosition
+        };
+
+        // Liste des résultats du raycast
+        List<RaycastResult> results = new List<RaycastResult>();
+
+        // Effectue le raycast
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        // Retourne true si des éléments ont été trouvés, ce qui signifie que la souris est au-dessus de l'UI
+        return results.Count > 0;
+    }
+
+    private void HandleTileClick(Tile tile)
+    {
+        if (!tile.CanPlaceObject(objectTypeToPlace))
+        {
+            string reason = GetPlacementErrorMessage(tile);
+            TooltipManager.Instance.ShowTooltip(reason);
+        }
+        else
+        {
+            // Placement valide
+            TooltipManager.Instance.HideTooltip(); // Cache le tooltip si visible
+
+            // Si l'objet à placer est une station
+            if (objectTypeToPlace == "Station")
             {
-                Debug.LogWarning("Placement du rail impossible.");
-                return;
+                tile.ShowPlacementUI(objectToPlace);  // Utilise objectToPlace ici
+            }
+            else if (objectTypeToPlace.StartsWith("Rail"))
+            {
+                // Vérifie si le rail peut être placé
+                if (!tile.CanPlaceRail(objectTypeToPlace))
+                {
+                    TooltipManager.Instance.ShowTooltip("Rails need to be connected to a station!");
+                    return;
+                }
+                tile.ShowPlacementUI(objectToPlace);  // Utilise objectToPlace ici aussi
+            }
+
+            // Place l'objet immédiatement après avoir validé
+            if (objectToPlace != null)
+            {
+                PlaceObject(tile, objectToPlace);  // Utilise objectToPlace
             }
         }
+    }
 
-        // Log avant instanciation pour vérifier si le placement est autorisé
-        Debug.Log($"Placing object {objectTypeToPlace} on tile {tile.name} at position {tile.transform.position}");
 
-        // Instancier l'objet (la station ou le rail) à la position de la tuile
+    private string GetPlacementErrorMessage(Tile tile)
+    {
+        switch (tile.tileType)
+        {
+            case TileType.Mountain:
+                return "Can't build here : there's a mountain.";
+            case TileType.Water:
+                return "Can't build here : there's water.";
+            case TileType.Station:
+                return "Can't build here : there's a station.";
+            default:
+                if (!tile.CanPlaceRail(Instance.objectTypeToPlace))
+                {
+                    return "Rails need to be connected to a station !";
+                }
+                else
+                {
+                    return "Can't build here.";
+                }
+        }
+    }
+
+    public GameObject GetRailPrefab(string railType)
+    {
+        switch (railType)
+        {
+            case "Rail00": return railPrefab00;
+            case "Rail01": return railPrefab01;
+            case "Rail02": return railPrefab02;
+            case "Rail03": return railPrefab03;
+            case "Rail04": return railPrefab04;
+            case "Rail05": return railPrefab05;
+            default: return null;
+        }
+    }
+
+    public void PlaceObject(Tile tile, GameObject prefabToPlace)
+    {
+        Debug.Log("Placing object...");
         GameObject structure = Instantiate(prefabToPlace, tile.transform.position, Quaternion.identity);
         structure.transform.SetParent(tile.transform);
         tile.SetOccupied(true);
 
-        // Si l'objet placé est une station, change le type de la tuile en Station
-        if (objectTypeToPlace == "Station")
+        // Définir la tuile comme une station ou un rail (selon l'objet)
+        if (prefabToPlace == stationPrefab)
         {
-            tile.tileType = TileType.Station; // Met à jour le type de la tuile
+            tile.tileType = TileType.Station;
         }
-
-        Debug.Log($"Objet placé sur la tuile : {tile.name}");
+        else
+        {
+            tile.tileType = TileType.Rail00; // Exemple: vous pourriez définir cela dynamiquement selon le type de rail
+        }
     }
-
-
 }

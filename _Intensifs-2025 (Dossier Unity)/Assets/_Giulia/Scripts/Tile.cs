@@ -1,36 +1,62 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public enum TileType { Grass, Mountain, Water, Station }
-
+public enum TileType { Grass, Mountain, Water, Station, Rail00, Rail01, Rail02, Rail03, Rail04, Rail05 }
 public class Tile : MonoBehaviour
 {
-    // Coordonnées de la tuile dans la grille
+    
+    [Space(20)]
+
+    public Material highlightValidMaterial;
+    public Material highlightInvalidMaterial;
+    private Material originalMaterial;
+
+    [Space(20)]
+    
     public int gridX;
     public int gridZ;
 
-    // État de la tuile
-    public bool isOccupied = false;
+    [Space(20)]
 
-    // Type de la tuile
+    public bool isOccupied = false;
     public TileType tileType;
 
-    // Référence au Renderer pour changer la couleur (highlight)
+    [Space(20)]
+    
+    public Canvas tileCanvas;
+    public Button rotateButton;
+    public Button validateButton;
+    public Button cancelButton;
+    public GameObject objectToPlace;
+    private float rotationAngle = 0f;
+
+    [Space(20)]
+
+    
+
+    private GameObject placedObject;
     private Renderer tileRenderer;
-
-    // Liste des voisins détectés via les triggers
     private List<Tile> neighboringTiles = new List<Tile>();
-
-    // Couleurs pour l'état de la tuile
-    public Color defaultColor = Color.white;
-    public Color highlightValidColor = Color.green;
-    public Color highlightInvalidColor = Color.red;
 
     private void Awake()
     {
-        // Initialisation du Renderer
         tileRenderer = GetComponent<Renderer>();
-        ResetColor();
+        if (tileRenderer != null)
+        {
+            originalMaterial = tileRenderer.material; // Sauvegarde du material de base
+        }
+        RemoveHighlight(highlightValidMaterial);
+        RemoveHighlight(highlightInvalidMaterial);
+
+        tileCanvas.enabled = false;  // Désactive le Canvas par défaut
+
+        // Ajouter des listeners aux boutons
+        rotateButton.onClick.AddListener(RotateTile);
+        validateButton.onClick.AddListener(ValidatePlacement);
+        cancelButton.onClick.AddListener(() => CancelPlacement(7));  // Exemple : supprimer l'enfant à l'index 0
     }
 
     // Définit la position de la tuile dans la grille.
@@ -60,7 +86,10 @@ public class Tile : MonoBehaviour
 
     public void UpdateNeighbors(List<Tile> neighbors)
     {
-        // Logique pour mettre à jour les voisins dans le Tile (peut-être afficher la liste ou l'utiliser ailleurs)
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            PrintNeighbors();
+        }
     }
     
     private void Update()
@@ -81,7 +110,6 @@ public class Tile : MonoBehaviour
             Debug.Log($"Voisins de la tuile {name}:");
             foreach (Tile neighbor in neighboringTiles)
             {
-                // Vérifie si le voisin est une station ou un autre type
                 if (neighbor.tileType == TileType.Station)
                 {
                     Debug.Log($"- {neighbor.name} (Station)");
@@ -94,30 +122,27 @@ public class Tile : MonoBehaviour
         }
     }
 
-    // Vérifie si un objet peut être placé sur cette tuile.
     public bool CanPlaceObject(string objectType)
     {
         if (isOccupied)
             return false;
 
-        // Règles de placement spécifiques selon le type de tuile et d'objet
+        RemoveHighlight(highlightValidMaterial);
+        RemoveHighlight(highlightInvalidMaterial);
+
         switch (tileType)
         {
             case TileType.Grass:
-                if (objectType == "RailStraight" || objectType == "RailCurved")
+                if (objectType.StartsWith("Rail"))
                 {
-                    // Vérifie si le rail peut être placé à proximité d'une station
-                    return CanPlaceRail();
+                    return CanPlaceRail(objectType);
                 }
-                // Aucun objet spécifique n'est interdit sur l'herbe
                 return true;
 
             case TileType.Mountain:
-                // Seuls les tunnels peuvent être placés sur les montagnes
                 return objectType == "Tunnel";
 
             case TileType.Water:
-                // Seuls les ponts peuvent être placés sur l'eau
                 return objectType == "Bridge";
 
             default:
@@ -125,73 +150,134 @@ public class Tile : MonoBehaviour
         }
     }
 
-    // Met en surbrillance la tuile selon la validité d'un placement.
-    public void HighlightTile(bool isValid)
+    private void ApplyHighlight(Material highlightMaterial)
     {
-        if (tileRenderer != null)
+        if (tileRenderer != null && highlightMaterial != null)
         {
-            tileRenderer.material.color = isValid ? highlightValidColor : highlightInvalidColor;
+            Material[] materials = tileRenderer.materials;
+            List<Material> newMaterials = new List<Material>(materials);
+
+            if (!newMaterials.Contains(highlightMaterial))
+            {
+                newMaterials.Add(highlightMaterial);
+                tileRenderer.materials = newMaterials.ToArray();
+            }
         }
     }
 
-    // Réinitialise la couleur de la tuile à sa couleur par défaut.
-    public void ResetColor()
+    private void RemoveHighlight(Material highlightMaterial)
     {
-        if (tileRenderer != null)
+        if (tileRenderer != null && highlightMaterial != null)
         {
-            tileRenderer.material.color = defaultColor;
+            Material[] materials = tileRenderer.materials;
+            List<Material> newMaterials = new List<Material>(materials);
+
+            if (newMaterials.Contains(highlightMaterial))
+            {
+                newMaterials.Remove(highlightMaterial);
+                tileRenderer.materials = newMaterials.ToArray();
+            }
         }
     }
+
+
 
     // Marque la tuile comme occupée ou libre.
     public void SetOccupied(bool occupied)
     {
         isOccupied = occupied;
     }
-
-    // Quand la souris entre sur la tuile, on change la couleur si c'est un placement valide
-    private void OnMouseEnter()
+    
+    
+    private void OnMouseDown()
     {
+        if (IsPointerOverUIElement())
+        {
+            return;
+        }
+        
         if (GridInteraction.Instance != null)
         {
-            bool canPlace = false;
-
-            // On exclut d'emblée les montagnes et l'eau
-            if (tileType == TileType.Mountain || tileType == TileType.Water)
-            {
-                HighlightTile(false);
-                return;
-            }
-
-            // Vérification selon le type d'objet
             if (GridInteraction.Instance.objectTypeToPlace == "RailStraight" || GridInteraction.Instance.objectTypeToPlace == "RailCurved")
             {
-                canPlace = CanPlaceRail();
+                if (!CanPlaceRail(GridInteraction.Instance.objectTypeToPlace))
+                {
+                    TooltipManager.Instance.ShowTooltip("Rails need to be connected to a station!");
+                    return;
+                }
+            }
+            else
+            {
+                if (!CanPlaceObject(GridInteraction.Instance.objectTypeToPlace))
+                {
+                    TooltipManager.Instance.ShowTooltip("Can't build here.");
+                    return;
+                }
+            }
+
+            // Si l'objet à placer est une station ou un rail
+            if (GridInteraction.Instance.objectTypeToPlace == "Station")
+            {
+                ShowPlacementUI(GridInteraction.Instance.stationPrefab);
+            }
+            else if (GridInteraction.Instance.objectTypeToPlace.StartsWith("Rail"))
+            {
+                GameObject prefab = GridInteraction.Instance.GetRailPrefab(GridInteraction.Instance.objectTypeToPlace);
+                ShowPlacementUI(prefab);
+            }
+        }
+    }
+    private void OnMouseEnter()
+    {
+        if (IsPointerOverUIElement())
+        {
+            return;
+        }
+
+        if (GridInteraction.Instance != null)
+        {
+            OnMouseExit();
+
+            bool canPlace = false;
+
+            if (GridInteraction.Instance.objectTypeToPlace == "RailStraight" || GridInteraction.Instance.objectTypeToPlace == "RailCurved")
+            {
+                canPlace = CanPlaceRail(GridInteraction.Instance.objectTypeToPlace);
             }
             else
             {
                 canPlace = CanPlaceObject(GridInteraction.Instance.objectTypeToPlace);
             }
 
-            HighlightTile(canPlace);
+            if (canPlace)
+            {
+                ApplyHighlight(highlightValidMaterial);
+            }
+            else
+            {
+                ApplyHighlight(highlightInvalidMaterial);
+            }
         }
     }
 
-
-    // Quand la souris quitte la tuile, on réinitialise la couleur de la tuile
     private void OnMouseExit()
     {
-        ResetColor();
+    
+        if (tileRenderer != null && originalMaterial != null)
+        {
+            tileRenderer.materials = new Material[] { originalMaterial };
+        }
+        else
+        {
+            Debug.LogWarning("TileRenderer or OriginalMaterial is null. Cannot reset materials.");
+        }
     }
     
-    // Exemple de méthode de placement de rail
-    public bool CanPlaceRail()
+    public bool CanPlaceRail(string railType)
     {
-        // La tuile doit être de l'herbe et non occupée
         if (tileType != TileType.Grass || isOccupied)
             return false;
 
-        // Vérifie si un voisin est une station
         foreach (Tile neighbor in neighboringTiles)
         {
             if (neighbor != null && neighbor.tileType == TileType.Station && neighbor.isOccupied)
@@ -199,8 +285,76 @@ public class Tile : MonoBehaviour
                 return true;
             }
         }
+
         return false;
+    }
+    
+    // Lorsqu'on clique sur la tuile, on active le Canvas
+    public void ShowPlacementUI(GameObject objectToPlacePrefab)
+    {
+        PlaceObjectOnTile();
+        tileCanvas.enabled = true;
+    }
+
+    private void RotateTile()
+    {
+        Debug.Log("Rotation clicked");
+        rotationAngle -= 60f;
+        if (rotationAngle < 0f) 
+            rotationAngle += 360f;
+        
+        transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+
+
+        // Applique une rotation absolue au canvas (en fonction du monde)
+        tileCanvas.transform.rotation = Quaternion.Euler(90, 0, 180);
+    }
+    private void ValidatePlacement()
+    {
+        PlaceObjectOnTile();
+        tileCanvas.enabled = false;
+    }
+
+    public void CancelPlacement(int childIndex)
+    {
+        // Vérifie si l'index est valide (l'enfant existe)
+        if (transform.childCount > childIndex && childIndex >= 0)
+        {
+            // Trouve et détruit l'enfant spécifique à l'index
+            Destroy(transform.GetChild(childIndex).gameObject);
+        }
+
+        // Réinitialise l'état de la tuile
+        SetOccupied(false);
+        tileType = TileType.Grass;  // Réinitialisation du type de tuile à herbe (ou autre type par défaut)
+        tileCanvas.enabled = false;
     }
 
     
+    private void PlaceObjectOnTile()
+    {
+        Debug.Log("Tuile cliquée");
+        if (objectToPlace != null && !isOccupied)
+        {
+            Debug.Log("Lancement de l'autre script de placement");
+            GridInteraction.Instance.PlaceObject(this, objectToPlace);
+        }
+    }
+    private bool IsPointerOverUIElement()
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        // Liste des résultats du raycast
+        List<RaycastResult> results = new List<RaycastResult>();
+
+        // Effectue le raycast pour tous les éléments UI
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        // Retourne vrai si la souris est sur un élément UI
+        return results.Count > 0;
+    }
+
 }
