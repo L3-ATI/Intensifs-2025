@@ -10,8 +10,7 @@ public class MoveAlongSpline : MonoBehaviour
     private float distancePercentage = 0f;
     private float splineLength;
     private bool movingForward = true;
-    private bool isRotated = false; // Gère la rotation de 180° en Y
-
+    private bool isRotated = false;
     private void Start()
     {
         Thespline = TrainsSplineController.Path;
