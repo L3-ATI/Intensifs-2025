@@ -7,6 +7,7 @@ public class TrainsSplineController : MonoBehaviour
     public GameObject PointA;
     public GameObject PointB;
     public GameObject PointC;
+    public GameObject Locomotive;
     public GameObject Wagon;
 
     public static SplineContainer Path;
@@ -25,10 +26,10 @@ public class TrainsSplineController : MonoBehaviour
         AddAutoSmoothSplinePoint(PointC.transform.position);
 
         // Instancier le premier wagon
-        Instantiate(Wagon);
+        Instantiate(Locomotive);
 
         // Démarrer la coroutine pour ajouter un autre wagon après 0.1 seconde
-        StartCoroutine(InstantiateWagonAfterDelay(0.1f));
+        StartCoroutine(InstantiateWagonAfterDelay(1f));
     }
 
     void AddAutoSmoothSplinePoint(Vector3 position)

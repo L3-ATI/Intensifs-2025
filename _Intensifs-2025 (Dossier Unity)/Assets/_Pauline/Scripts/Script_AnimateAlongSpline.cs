@@ -9,7 +9,8 @@ public class MoveAlongSpline : MonoBehaviour
     public float speed = 1f;
     private float distancePercentage = 0f;
     private float splineLength;
-    private bool movingForward = true; // Pour savoir si on avance ou recule
+    private bool movingForward = true;
+    private bool isRotated = false; // Gère la rotation de 180° en Y
 
     private void Start()
     {
@@ -17,35 +18,42 @@ public class MoveAlongSpline : MonoBehaviour
         splineLength = Thespline.CalculateLength();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (movingForward)
         {
             distancePercentage += speed * Time.deltaTime / splineLength;
-            if (distancePercentage >= 1f) // On atteint la fin de la spline
+            if (distancePercentage >= 1f)
             {
-                distancePercentage = 1f;  // On s'assure de ne pas dépasser 1
-                movingForward = false;    // Inverser la direction
+                distancePercentage = 1f;
+                movingForward = false;
+                RotateObject(); // Appliquer la rotation à 180°
             }
         }
         else
         {
             distancePercentage -= speed * Time.deltaTime / splineLength;
-            if (distancePercentage <= 0f) // On atteint le début de la spline
+            if (distancePercentage <= 0f)
             {
-                distancePercentage = 0f;  // On s'assure de ne pas dépasser 0
-                movingForward = true;     // Inverser la direction
+                distancePercentage = 0f;
+                movingForward = true;
+                RotateObject(); // Remettre l’orientation initiale
             }
         }
 
-        // Mise à jour de la position de l'objet
+        // Mise à jour de la position
         Vector3 currentPosition = Thespline.EvaluatePosition(distancePercentage);
         transform.position = currentPosition;
 
-        // Calcul de la direction pour que l'objet regarde dans la direction de déplacement
+        // Calcul de la direction
         Vector3 nextPosition = Thespline.EvaluatePosition(distancePercentage + 0.05f);
         Vector3 direction = nextPosition - currentPosition;
-        transform.rotation = Quaternion.LookRotation(direction, transform.up);
+        transform.rotation = Quaternion.LookRotation(direction) * (isRotated ? Quaternion.Euler(0, 180, 0) : Quaternion.identity);
+    }
+
+    // Fonction pour faire tourner l'objet
+    private void RotateObject()
+    {
+        isRotated = !isRotated;
     }
 }
