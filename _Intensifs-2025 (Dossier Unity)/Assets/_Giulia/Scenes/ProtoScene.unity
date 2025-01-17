@@ -841,6 +841,8 @@ MonoBehaviour:
   rail03Button: {fileID: 400997112}
   rail04Button: {fileID: 890962849}
   rail05Button: {fileID: 680711111}
+  bridgeButton: {fileID: 2036113776}
+  tunnelButton: {fileID: 1462996029}
 --- !u!1 &372030419
 GameObject:
   m_ObjectHideFlags: 0
@@ -2887,6 +2889,8 @@ MonoBehaviour:
   railPrefab03: {fileID: 3469885834757533722, guid: c995c88267514674381fe70eccb51109, type: 3}
   railPrefab04: {fileID: 5792318117400833856, guid: 2fac71c9964d37a4b845ee3dd536b30c, type: 3}
   railPrefab05: {fileID: 8829547334932738216, guid: 0299f8c3bd672e740a939d9349e41f12, type: 3}
+  bridgePrefab: {fileID: 567995661720785451, guid: 5c382e2204ffdd44eba48f847f2e2eb6, type: 3}
+  tunnelPrefab: {fileID: 6680752679857288398, guid: bd09ba9c2aca36a41bbab4c40da44579, type: 3}
 --- !u!4 &1361597291
 Transform:
   m_ObjectHideFlags: 0

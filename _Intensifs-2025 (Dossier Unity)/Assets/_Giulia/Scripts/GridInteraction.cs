@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class GridInteraction : MonoBehaviour
 {
-    public static GridInteraction Instance;  // Singleton pour accéder à cette classe partout
-    public string objectTypeToPlace;  // Détermine le type d'objet à placer (par exemple, "Station")
-    public GameObject stationPrefab;  // Prefab à placer pour la station
+    public static GridInteraction Instance;
+    public string objectTypeToPlace;
+    public GameObject stationPrefab;
     public GameObject railPrefab00, railPrefab01, railPrefab02, railPrefab03, railPrefab04, railPrefab05;
+    public GameObject bridgePrefab, tunnelPrefab;
 
     private GameObject objectToPlace;
     private Tile currentTile; 
@@ -18,7 +19,7 @@ public class GridInteraction : MonoBehaviour
         if (Instance == null)
             Instance = this;
         else
-            Destroy(gameObject);  // Assure qu'il n'y a qu'une seule instance
+            Destroy(gameObject);
     }
 
     void Update()
@@ -26,17 +27,24 @@ public class GridInteraction : MonoBehaviour
 
         if (objectTypeToPlace == "Station")
         {
-            objectToPlace = stationPrefab;  // Associe le prefab de station
+            objectToPlace = stationPrefab;
         }
         else if (objectTypeToPlace.StartsWith("Rail"))
         {
-            objectToPlace = GetRailPrefab(objectTypeToPlace);  // Associe le prefab de rail
+            objectToPlace = GetRailPrefab(objectTypeToPlace);
+        }
+        else if (objectTypeToPlace == "Bridge")
+        {
+            objectToPlace = bridgePrefab;
+        }
+        else if (objectTypeToPlace == "Tunnel")
+        {
+            objectToPlace = tunnelPrefab;
         }
         
-        // Vérifie si la souris pointe sur un élément UI, y compris en World Space
         if (IsPointerOverUIElement())
         {
-            return; // Ne pas lancer de raycast si la souris est sur l'UI
+            return;
         }
         
         if (Input.GetMouseButtonDown(0)) // Clic gauche
@@ -161,9 +169,17 @@ public class GridInteraction : MonoBehaviour
         {
             tile.tileType = TileType.Station;
         }
+        else if (prefabToPlace == bridgePrefab)
+        {
+            tile.tileType = TileType.Bridge;
+        }
+        else if (prefabToPlace == tunnelPrefab)
+        {
+            tile.tileType = TileType.Tunnel;
+        }
         else
         {
-            tile.tileType = TileType.Rail00; // Exemple: vous pourriez définir cela dynamiquement selon le type de rail
+            tile.tileType = (TileType)System.Enum.Parse(typeof(TileType), objectTypeToPlace);
         }
     }
 }
