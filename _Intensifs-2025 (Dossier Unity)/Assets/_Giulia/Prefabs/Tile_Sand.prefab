@@ -11,11 +11,11 @@ PrefabInstance:
     - target: {fileID: 490421104436062870, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -2432090755550338912, guid: 5526a1b487acc734f8e91797239c0206, type: 3}
+      objectReference: {fileID: -2432090755550338912, guid: 584c0224327f50c46a6001c56da5fa45, type: 3}
     - target: {fileID: 1233493849167878193, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -2432090755550338912, guid: 5526a1b487acc734f8e91797239c0206, type: 3}
+      objectReference: {fileID: -2432090755550338912, guid: 584c0224327f50c46a6001c56da5fa45, type: 3}
     - target: {fileID: 4172600630588552487, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
