@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rails_02
       objectReference: {fileID: 0}
+    - target: {fileID: 5735940069638694092, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}
+      propertyPath: m_TagString
+      value: Rail
+      objectReference: {fileID: 0}
     - target: {fileID: 7259291370363594885, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -52,7 +56,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2490335056885656933, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}
+    - {fileID: 6758489908242511227, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}
+    - {fileID: 6394669884981627575, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}
+    - {fileID: 7107841614442667706, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8411810581462898198, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}
     - {fileID: 1715025146189679452, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}

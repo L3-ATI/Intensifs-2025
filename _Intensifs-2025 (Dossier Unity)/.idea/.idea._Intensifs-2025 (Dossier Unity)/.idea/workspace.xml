@@ -5,21 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../_Alice/SM_tuiles_sol_sable.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/train.blend" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/train.blend1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/train.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/train.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles.blend" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles.blend1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles_sable.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Alice/SM_tuiles_sol_sable.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Alice/train.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Alice/tuiles.blend.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_00.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_00.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_01.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_01.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_02.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_02.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_03.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_03.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_04.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_04.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_05.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_05.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TooltipManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TooltipManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +104,7 @@
       <workItem from="1736971877713" duration="2882000" />
       <workItem from="1737022266013" duration="15860000" />
       <workItem from="1737044163887" duration="6071000" />
+      <workItem from="1737109541578" duration="3435000" />
     </task>
     <servers />
   </component>

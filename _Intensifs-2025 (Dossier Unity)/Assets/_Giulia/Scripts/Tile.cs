@@ -12,8 +12,6 @@ public class Tile : MonoBehaviour
 
     public Material highlightValidMaterial;
     public Material highlightInvalidMaterial;
-    private Material originalMaterial;
-
     [Space(20)]
     
     public int gridX;
@@ -31,15 +29,16 @@ public class Tile : MonoBehaviour
     public Button validateButton;
     public Button cancelButton;
     public GameObject objectToPlace;
-    private float rotationAngle = 0f;
 
     [Space(20)]
-
     
-
+    public List<Tile> neighboringTiles = new List<Tile>();
+    public List<GameObject> connectedRails = new List<GameObject>();
+    
     private GameObject placedObject;
     private Renderer tileRenderer;
-    private List<Tile> neighboringTiles = new List<Tile>();
+    private float rotationAngle = 0f;
+    private Material originalMaterial;
 
     private void Awake()
     {
@@ -202,7 +201,7 @@ public class Tile : MonoBehaviour
             {
                 if (!CanPlaceRail(GridInteraction.Instance.objectTypeToPlace))
                 {
-                    TooltipManager.Instance.ShowTooltip("Rails need to be connected to a station!");
+                    TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
                     return;
                 }
             }
@@ -278,9 +277,19 @@ public class Tile : MonoBehaviour
         if (tileType != TileType.Grass || isOccupied)
             return false;
 
+        // Vérifie s'il est connecté à une station occupée
         foreach (Tile neighbor in neighboringTiles)
         {
             if (neighbor != null && neighbor.tileType == TileType.Station && neighbor.isOccupied)
+            {
+                return true;
+            }
+        }
+
+        // Vérifie s'il est connecté à un autre rail valide
+        foreach (Tile neighbor in neighboringTiles)
+        {
+            if (neighbor != null && neighbor.tileType.ToString().StartsWith("Rail") && neighbor.isOccupied)
             {
                 return true;
             }
@@ -298,7 +307,6 @@ public class Tile : MonoBehaviour
 
     private void RotateTile()
     {
-        Debug.Log("Rotation clicked");
         rotationAngle -= 60f;
         if (rotationAngle < 0f) 
             rotationAngle += 360f;
@@ -311,9 +319,32 @@ public class Tile : MonoBehaviour
     }
     private void ValidatePlacement()
     {
+        bool isConnected = false;
+
+        if (connectedRails.Count == 0 && tileType.ToString().StartsWith("Rail"))
+        {
+            foreach (Tile neighbor in neighboringTiles)
+            {
+                if (neighbor.tileType == TileType.Station)
+                {
+                    isConnected = true;
+                    break;
+                }
+            }
+
+            if (!isConnected)
+            {
+                TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
+                return;
+            }
+        }
+
+        Debug.Log("Placement validé !");
         PlaceObjectOnTile();
         tileCanvas.enabled = false;
     }
+
+
 
     public void CancelPlacement(int childIndex)
     {
@@ -333,10 +364,8 @@ public class Tile : MonoBehaviour
     
     private void PlaceObjectOnTile()
     {
-        Debug.Log("Tuile cliquée");
         if (objectToPlace != null && !isOccupied)
         {
-            Debug.Log("Lancement de l'autre script de placement");
             GridInteraction.Instance.PlaceObject(this, objectToPlace);
         }
     }

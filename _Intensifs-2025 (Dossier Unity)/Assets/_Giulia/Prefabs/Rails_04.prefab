@@ -420,7 +420,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5735940069638694092, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}
       propertyPath: m_Name
-      value: Rail_04
+      value: Rails_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735940069638694092, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}
+      propertyPath: m_TagString
+      value: Rail
       objectReference: {fileID: 0}
     - target: {fileID: 7259291370363594885, guid: 38c351d1c16a51b43aee5646bc84047a, type: 3}
       propertyPath: m_LocalPosition.x

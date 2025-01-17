@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TooltipManager : MonoBehaviour
 {
@@ -8,9 +9,10 @@ public class TooltipManager : MonoBehaviour
     public GameObject tooltipPanel;
     public TMP_Text tooltipText;
     public float defaultDuration = 2f;
+    public Vector2 tooltipOffset = new Vector2(10f, 10f);
 
-    private Coroutine hideCoroutine; 
-    
+    private Coroutine hideCoroutine;
+
     private void Awake()
     {
         if (Instance == null)
@@ -33,6 +35,9 @@ public class TooltipManager : MonoBehaviour
             RectTransform canvasRect = tooltipPanel.transform.parent.GetComponent<RectTransform>();
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, mousePosition, null, out Vector2 localPoint);
 
+            // Ajout du décalage
+            localPoint += tooltipOffset;
+
             tooltipPanel.GetComponent<RectTransform>().anchoredPosition = localPoint;
         }
 
@@ -46,10 +51,12 @@ public class TooltipManager : MonoBehaviour
     {
         ShowTooltip(message, defaultDuration);
     }
-    
+
     public void ShowTooltip(string message, float duration)
     {
-        tooltipText.text = message;
+        tooltipText.text = message; // Mise à jour du texte
+        LayoutRebuilder.ForceRebuildLayoutImmediate(tooltipPanel.GetComponent<RectTransform>()); // Recalcule la taille
+
         tooltipPanel.SetActive(true);
 
         if (hideCoroutine != null)
@@ -57,7 +64,7 @@ public class TooltipManager : MonoBehaviour
 
         hideCoroutine = StartCoroutine(HideAfterDelay(duration));
     }
-    
+
     public void HideTooltip()
     {
         tooltipPanel.SetActive(false);
