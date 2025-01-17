@@ -5,22 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/TileGrass.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/TileGrass.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/TileMountain.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/TileMountain.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/TileSand.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/TileSand.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rail_Curved.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rail_Curved.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rail_Straight.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rail_Straight.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Station.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Station.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_Alice/SM_tuiles_sol_sable.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_Alice/train.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_Alice/train.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_Alice/train.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_Alice/train.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles_sable.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Alice/SM_tuiles_sol_sable.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Alice/train.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Alice/tuiles.blend.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +107,7 @@
       <workItem from="1736955150291" duration="14251000" />
       <workItem from="1736971877713" duration="2882000" />
       <workItem from="1737022266013" duration="15860000" />
-      <workItem from="1737044163887" duration="5461000" />
+      <workItem from="1737044163887" duration="6071000" />
     </task>
     <servers />
   </component>
