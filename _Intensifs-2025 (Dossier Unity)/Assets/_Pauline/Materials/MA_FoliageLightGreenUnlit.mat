@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MA_FoliageLit
-  m_Shader: {fileID: -6465566751694194690, guid: 2099a7f917393b94eb75df22a7e8ae84, type: 3}
+  m_Name: MA_FoliageLightGreenUnlit
+  m_Shader: {fileID: -6465566751694194690, guid: 75d95ed7a1d566f4aacdff1869400b28, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -175,7 +175,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LeavesColor: {r: 0.5058824, g: 1, b: 0.52719826, a: 0}
+    - _LeavesColor: {r: 0.7502051, g: 1, b: 0.504717, a: 0}
     - _NormalTangentSpace: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Test: {r: 0, g: 0, b: 0, a: 0}
