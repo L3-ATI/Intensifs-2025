@@ -3979,12 +3979,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectTypeToPlace: 
   stationPrefab: {fileID: 5735940069638694092, guid: 4b85e51c7b5b32e4ab6ccf496654e306, type: 3}
-  railPrefab00: {fileID: 5429235174950946897, guid: 5f07e5f1d8ac04b419d617c1872e7cdd, type: 3}
-  railPrefab01: {fileID: 1093057704790848094, guid: 3f1986efd13642247a240e48309273c0, type: 3}
-  railPrefab02: {fileID: 7522213600077296172, guid: 41ba85b77e4a5ab43b2f540fc75104ea, type: 3}
-  railPrefab03: {fileID: 3469885834757533722, guid: c995c88267514674381fe70eccb51109, type: 3}
-  railPrefab04: {fileID: 5792318117400833856, guid: 2fac71c9964d37a4b845ee3dd536b30c, type: 3}
-  railPrefab05: {fileID: 8829547334932738216, guid: 0299f8c3bd672e740a939d9349e41f12, type: 3}
+  railPrefab00: {fileID: 5768397484973014561, guid: c6162814d61a4a14b9c2d7d3fd6731c0, type: 3}
+  railPrefab01: {fileID: 5740255029304303854, guid: dc2864f6b0fb0b84d95255be00a460d7, type: 3}
+  railPrefab02: {fileID: 7047178267273646811, guid: b544211ca19974046b44fbe8ba707995, type: 3}
+  railPrefab03: {fileID: 2054672842415204575, guid: 8b1a844caf5f3fe408f4dd07eb875125, type: 3}
+  railPrefab04: {fileID: 480862737415096638, guid: 4a3d9d669609b2547a2c0478ba476a9a, type: 3}
+  railPrefab05: {fileID: 4935448681006949255, guid: 7431ff39f3e369140941ede46f6a9fb6, type: 3}
   bridgePrefab: {fileID: 1214372180965721025, guid: ded2375b5bcdb2c44a596cb463efa4de, type: 3}
   tunnelPrefab: {fileID: 3622665134095800341, guid: bd09ba9c2aca36a41bbab4c40da44579, type: 3}
 --- !u!4 &1361597291
