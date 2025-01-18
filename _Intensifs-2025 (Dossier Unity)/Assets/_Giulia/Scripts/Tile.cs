@@ -356,6 +356,7 @@ public class Tile : MonoBehaviour
             Destroy(transform.GetChild(7).gameObject);
         }
     
+        Debug.Log("Placement validé !");
         PlaceObjectOnTile();
         tileCanvas.enabled = false;
     }
@@ -377,7 +378,7 @@ public class Tile : MonoBehaviour
     {
         if (objectToPlace != null && !isOccupied)
         {
-            placedObject = Instantiate(objectToPlace, transform.position, Quaternion.identity, transform);
+            GridInteraction.Instance.PlaceObject(this, objectToPlace);
             isOccupied = true;
         }
     }
