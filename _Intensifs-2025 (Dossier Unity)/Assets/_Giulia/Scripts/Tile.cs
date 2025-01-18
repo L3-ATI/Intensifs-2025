@@ -10,8 +10,7 @@ public class Tile : MonoBehaviour
     
     [Space(20)]
 
-    public Material highlightValidMaterial;
-    public Material highlightInvalidMaterial;
+    public Material highlightValidMaterial, highlightInvalidMaterial, highlightDestroyingMaterial;
     [Space(20)]
     
     public int gridX;
@@ -39,7 +38,9 @@ public class Tile : MonoBehaviour
     private Renderer tileRenderer;
     private float rotationAngle = 0f;
     private Material originalMaterial;
-
+    
+    public bool isAwaitingDestruction = false;
+    
     private void Awake()
     {
         tileRenderer = GetComponent<Renderer>();
@@ -150,9 +151,9 @@ public class Tile : MonoBehaviour
         }
     }
 
-    private void ApplyHighlight(Material highlightMaterial)
+    public void ApplyHighlight(Material highlightMaterial)
     {
-        if (tileRenderer != null && highlightMaterial != null)
+        if (tileRenderer != null && highlightMaterial != null && !isAwaitingDestruction)
         {
             Material[] materials = tileRenderer.materials;
             List<Material> newMaterials = new List<Material>(materials);
@@ -165,9 +166,9 @@ public class Tile : MonoBehaviour
         }
     }
 
-    private void RemoveHighlight(Material highlightMaterial)
+    public void RemoveHighlight(Material highlightMaterial)
     {
-        if (tileRenderer != null && highlightMaterial != null)
+        if (tileRenderer != null && highlightMaterial != null && !isAwaitingDestruction)
         {
             Material[] materials = tileRenderer.materials;
             List<Material> newMaterials = new List<Material>(materials);

@@ -1343,6 +1343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightValidMaterial: {fileID: 2100000, guid: 48001414c0281b34da096caf518b0343, type: 2}
   highlightInvalidMaterial: {fileID: 2100000, guid: d6c826335c5688e46ba8f590c65dc0ca, type: 2}
+  highlightDestroyingMaterial: {fileID: 2100000, guid: f9352b2c57bf6e942a69a061abc8e6b3, type: 2}
   gridX: 0
   gridZ: 0
   isOccupied: 0

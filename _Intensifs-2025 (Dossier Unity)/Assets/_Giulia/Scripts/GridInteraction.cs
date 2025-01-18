@@ -60,7 +60,10 @@ public class GridInteraction : MonoBehaviour
             }
             else
             {
-                currentTile.CancelPlacement(7);
+                if (currentTile != null)
+                {
+                    currentTile.CancelPlacement(7);
+                }
             }
         }
     }
