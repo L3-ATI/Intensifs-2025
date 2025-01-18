@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour
     
     [Space(20)]
 
-    public Material highlightValidMaterial, highlightInvalidMaterial, highlightDestroyingMaterial;
+    public Material highlightValidMaterial, highlightInvalidMaterial;
     [Space(20)]
     
     public int gridX;
@@ -122,6 +122,9 @@ public class Tile : MonoBehaviour
 
     public bool CanPlaceObject(string objectType)
     {
+        if (isAwaitingDestruction)
+            return false;
+
         if (isOccupied && objectType != "Mountain")
         {
             return false;
@@ -188,6 +191,8 @@ public class Tile : MonoBehaviour
     
     private void OnMouseDown()
     {
+        if (isAwaitingDestruction)
+            return;
         if (IsPointerOverUIElement())
         {
             return;
@@ -233,6 +238,8 @@ public class Tile : MonoBehaviour
     }
     private void OnMouseEnter()
     {
+        if (isAwaitingDestruction)
+            return;
         if (IsPointerOverUIElement())
         {
             return;

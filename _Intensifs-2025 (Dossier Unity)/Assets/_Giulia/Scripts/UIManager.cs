@@ -10,10 +10,14 @@ public class UIManager : MonoBehaviour
     public Button shovelButton;
 
     public RectTransform shovelIcon;
+    public Material constructionMaterial; // Matériau temporaire de "construction"
 
     private bool isShovelActive = false;
     private Tile selectedTileForDestruction = null;
+    private Tile previousTileHovered = null;
     private GameObject confirmationUI;
+
+    private Material[] originalMaterials; // Sauvegarde des matériaux originaux de la tuile ciblée
 
     private void Start()
     {
@@ -26,7 +30,7 @@ public class UIManager : MonoBehaviour
         rail05Button.onClick.AddListener(() => SetObjectType("Rail05"));
         bridgeButton.onClick.AddListener(() => SetObjectType("Bridge"));
         tunnelButton.onClick.AddListener(() => SetObjectType("Tunnel"));
-        
+
         shovelButton.onClick.AddListener(ToggleShovel);
 
         confirmationUI = GameObject.Find("ConfirmationUI");
@@ -35,12 +39,14 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        selectedTileForDestruction = GridInteraction.Instance.GetSelectedTile();
-            
         if (isShovelActive)
         {
             Vector2 mousePosition = Input.mousePosition;
             shovelIcon.position = mousePosition;
+
+            Tile hoveredTile = GridInteraction.Instance.GetSelectedTile();
+
+            HandleTileHover(hoveredTile);
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -58,81 +64,117 @@ public class UIManager : MonoBehaviour
         {
             TooltipManager.Instance.ShowTooltip("Click on a tile to destroy it.");
             Debug.Log("Click on a tile to destroy it.");
+            SetAllTilesEnabled(false);
         }
         else
         {
             Debug.Log("The shovel is now inactive.");
+            RestoreOriginalMaterialsToPreviousTile();
+            SetAllTilesEnabled(true);
+        }
+    }
+
+    private void RestoreOriginalMaterialsToPreviousTile()
+    {
+        if (previousTileHovered != null)
+        {
+            Renderer renderer = previousTileHovered.GetComponent<Renderer>();
+            if (renderer != null && originalMaterials != null)
+            {
+                renderer.materials = originalMaterials;
+            }
+            previousTileHovered = null;
+        }
+    }
+
+    private void HandleTileHover(Tile hoveredTile)
+    {
+        // Si la tuile survolée change
+        if (hoveredTile != previousTileHovered)
+        {
+            // Restauration des matériaux de la tuile précédemment survolée
+            RestoreOriginalMaterialsToPreviousTile();
+
+            // Appliquer le matériau temporaire sur la nouvelle tuile survolée
+            if (hoveredTile != null && hoveredTile != selectedTileForDestruction)
+            {
+                Renderer renderer = hoveredTile.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    originalMaterials = renderer.materials;
+                    renderer.materials = new Material[] { constructionMaterial };
+                }
+            }
+
+            // Mise à jour de la référence à la tuile survolée
+            previousTileHovered = hoveredTile;
         }
     }
 
     private void HandleTileClick()
+{
+    if (previousTileHovered != null)
     {
-
-        if (selectedTileForDestruction != null)
+        // Si la tuile survolée est valide et n'est pas une montagne ou déjà vide
+        if (previousTileHovered.isOccupied && previousTileHovered.tileType != TileType.Mountain)
         {
-            if (selectedTileForDestruction.isOccupied && (selectedTileForDestruction.tileType != TileType.Mountain))
+            // Si une tuile a été précédemment sélectionnée pour destruction
+            if (selectedTileForDestruction != null)
             {
-                DisableAllTileScripts();
-                selectedTileForDestruction.isAwaitingDestruction = true;
-                ShowConfirmationUI();
+                // Si ce n'est pas la même tuile qui était déjà sélectionnée
+                if (selectedTileForDestruction != previousTileHovered)
+                {
+                    // Restaurer les matériaux de la tuile précédemment sélectionnée
+                    RestoreOriginalMaterialsToTile(selectedTileForDestruction);
+                }
             }
-            else
+
+            // Marquer la nouvelle tuile comme celle à détruire
+            selectedTileForDestruction = previousTileHovered;
+
+            // Appliquer le matériau de construction à la nouvelle tuile sélectionnée
+            Renderer renderer = selectedTileForDestruction.GetComponent<Renderer>();
+            if (renderer != null)
             {
-                TooltipManager.Instance.ShowTooltip("You can't destroy an empty tile!");
-                Debug.Log("You can't destroy an empty tile!");
+                originalMaterials = renderer.materials;
+                renderer.materials = new Material[] { constructionMaterial };
             }
+
+            // Afficher l'UI de confirmation de destruction
+            ShowConfirmationUI();
+
+            Debug.Log("Nouvelle tuile sélectionnée pour destruction : " + selectedTileForDestruction.name);
         }
         else
         {
-            TooltipManager.Instance.ShowTooltip("PAS DE TILE SELECTIONNÉE");
-            Debug.Log("PAS DE TILE SELECTIONNÉE");
+            TooltipManager.Instance.ShowTooltip("Vous ne pouvez pas détruire une tuile vide !");
+            Debug.Log("Vous ne pouvez pas détruire une tuile vide !");
         }
     }
+}
+
 
     private void ShowConfirmationUI()
     {
-        selectedTileForDestruction.ApplyHighlight(selectedTileForDestruction.highlightDestroyingMaterial);
-        selectedTileForDestruction.RemoveHighlight(selectedTileForDestruction.highlightValidMaterial);
-        selectedTileForDestruction.RemoveHighlight(selectedTileForDestruction.highlightInvalidMaterial);
-
         confirmationUI.SetActive(true);
     }
-
-    private void DisableAllTileScripts()
-    {
-        // Récupérer toutes les tuiles de la grille et désactiver leur script Tile
-        Tile[] allTiles = UnityEngine.Object.FindObjectsByType<Tile>(UnityEngine.FindObjectsSortMode.None);
-        foreach (Tile tile in allTiles)
-        {
-            tile.enabled = false;
-        }
-    }
-
-    private void EnableAllTileScripts()
-    {
-        // Récupérer toutes les tuiles de la grille et réactiver leur script Tile
-        Tile[] allTiles = UnityEngine.Object.FindObjectsByType<Tile>(UnityEngine.FindObjectsSortMode.None);
-        foreach (Tile tile in allTiles)
-        {
-            tile.enabled = true;
-        }
-    }
-
 
     public void ConfirmDestruction()
     {
         if (selectedTileForDestruction != null)
         {
             selectedTileForDestruction.DestroyChildrenFromIndex(7);
-            
-            selectedTileForDestruction.isAwaitingDestruction = false;
-            selectedTileForDestruction.RemoveHighlight(selectedTileForDestruction.highlightDestroyingMaterial);
+
+            Debug.Log("Destruction confirmed for tile: " + selectedTileForDestruction.name);
+
             confirmationUI.SetActive(false);
             isShovelActive = false;
             shovelIcon.gameObject.SetActive(false);
-            Debug.Log("Destruction confirmed.");
 
-            EnableAllTileScripts();
+            selectedTileForDestruction = null;
+            RestoreOriginalMaterialsToPreviousTile();
+            SetAllTilesEnabled(true);
+            
         }
     }
 
@@ -140,20 +182,45 @@ public class UIManager : MonoBehaviour
     {
         if (selectedTileForDestruction != null)
         {
-            selectedTileForDestruction.isAwaitingDestruction = false;
-            selectedTileForDestruction.RemoveHighlight(selectedTileForDestruction.highlightDestroyingMaterial);
+            Renderer renderer = selectedTileForDestruction.GetComponent<Renderer>();
+            if (renderer != null && originalMaterials != null)
+            {
+                renderer.materials = originalMaterials;
+            }
+
+            selectedTileForDestruction = null;
         }
 
         confirmationUI.SetActive(false);
         isShovelActive = false;
         shovelIcon.gameObject.SetActive(false);
         Debug.Log("Destruction canceled.");
-
-        EnableAllTileScripts();
+        SetAllTilesEnabled(true);
     }
 
     private void SetObjectType(string objectType)
     {
         GridInteraction.Instance.objectTypeToPlace = objectType;
     }
+
+    private void SetAllTilesEnabled(bool isEnabled)
+    {
+        Tile[] allTiles = FindObjectsOfType<Tile>();
+        foreach (Tile tile in allTiles)
+        {
+            tile.enabled = isEnabled;
+        }
+    }
+    private void RestoreOriginalMaterialsToTile(Tile tile)
+    {
+        if (tile != null)
+        {
+            Renderer renderer = tile.GetComponent<Renderer>();
+            if (renderer != null && originalMaterials != null)
+            {
+                renderer.materials = originalMaterials;
+            }
+        }
+    }
+
 }
