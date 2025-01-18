@@ -89,14 +89,37 @@ public class GridInteraction : MonoBehaviour
             string reason = GetPlacementErrorMessage(tile);
             TooltipManager.Instance.ShowTooltip(reason);
         }
-        else
+        /*else
         {
-            TooltipManager.Instance.HideTooltip();
             tile.ShowPlacementUI(objectToPlace);
 
             if (objectToPlace != null)
             {
                 currentTile.DestroyChildrenFromIndex(7);
+                PlaceObject(tile, objectToPlace);
+            }
+        }*/
+        else
+        {
+            TooltipManager.Instance.HideTooltip();
+            
+            if (objectTypeToPlace.StartsWith("Rail"))
+            {
+                if (!tile.CanPlaceRail(objectTypeToPlace))
+                {
+                    TooltipManager.Instance.ShowTooltip("Rails need to be connected to a station!");
+                    return;
+                }
+                tile.ShowPlacementUI(objectToPlace);
+            }
+
+            else
+            {
+                tile.ShowPlacementUI(objectToPlace);
+            }
+
+            if (objectToPlace != null)
+            {
                 PlaceObject(tile, objectToPlace);
             }
         }

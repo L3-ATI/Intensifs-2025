@@ -123,7 +123,7 @@ public class Tile : MonoBehaviour
     public bool CanPlaceObject(string objectType)
     {
 
-        if (isOccupied && objectType != "Mountain")
+        if (isOccupied)
         {
             return false;
         }
@@ -193,23 +193,17 @@ public class Tile : MonoBehaviour
         {
             return;
         }
-        
+    
         if (GridInteraction.Instance != null)
         {
             if (GridInteraction.Instance.objectTypeToPlace == "RailStraight" || GridInteraction.Instance.objectTypeToPlace == "RailCurved")
             {
                 if (!CanPlaceRail(GridInteraction.Instance.objectTypeToPlace))
                 {
-                    if (isOccupied)
-                    {
-                        TooltipManager.Instance.ShowTooltip("You can't build on another build.");
-                    }
-
-                    else
-                    {
-                        TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station !");
-                        return;
-                    }
+                    TooltipManager.Instance.ShowTooltip(isOccupied ? 
+                        "You can't build on another build." : 
+                        "Rails need to be connected to another rail or a station!");
+                    return;
                 }
             }
             else
@@ -225,6 +219,18 @@ public class Tile : MonoBehaviour
             {
                 ShowPlacementUI(GridInteraction.Instance.stationPrefab);
             }
+            else if (GridInteraction.Instance.objectTypeToPlace == "Bridge")
+            {
+                ShowPlacementUI(GridInteraction.Instance.bridgePrefab);
+            }
+            else if (GridInteraction.Instance.objectTypeToPlace == "Tunnel")
+            {
+                if (transform.childCount > 7 && 7 >= 0)
+                {
+                    Destroy(transform.GetChild(7).gameObject);
+                }
+                ShowPlacementUI(GridInteraction.Instance.tunnelPrefab);
+            }
             else if (GridInteraction.Instance.objectTypeToPlace.StartsWith("Rail"))
             {
                 GameObject prefab = GridInteraction.Instance.GetRailPrefab(GridInteraction.Instance.objectTypeToPlace);
@@ -232,6 +238,7 @@ public class Tile : MonoBehaviour
             }
         }
     }
+    
     private void OnMouseEnter()
     {
         if (isShovelActive || IsPointerOverUIElement())
@@ -303,15 +310,13 @@ public class Tile : MonoBehaviour
 
         return false;
     }
-
     
     public void ShowPlacementUI(GameObject objectToPlacePrefab)
     {
         tileCanvas.enabled = true;
         objectToPlace = objectToPlacePrefab;
     }
-
-
+    
     private void RotateTile()
     {
         rotationAngle -= 60f;
@@ -324,11 +329,6 @@ public class Tile : MonoBehaviour
     }
     private void ValidatePlacement()
     {
-        if (isOccupied)
-        {
-            tileCanvas.enabled = false;
-            return;
-        }
 
         bool isConnected = false;
 
@@ -349,8 +349,12 @@ public class Tile : MonoBehaviour
                 return;
             }
         }
+        if (isOccupied)
+        {
+            tileCanvas.enabled = false;
+            return;
+        }
 
-        // Autres vérifications pour valider le placement d'objets
         if (transform.childCount > 7 && 7 >= 0)
         {
             Destroy(transform.GetChild(7).gameObject);
@@ -379,7 +383,6 @@ public class Tile : MonoBehaviour
         if (objectToPlace != null && !isOccupied)
         {
             GridInteraction.Instance.PlaceObject(this, objectToPlace);
-            isOccupied = true;
         }
     }
 
@@ -396,6 +399,7 @@ public class Tile : MonoBehaviour
 
         return results.Count > 0;
     }
+    
     public void DestroyChildrenFromIndex(int startIndex)
     {
         if (startIndex < 0 || startIndex >= transform.childCount)
