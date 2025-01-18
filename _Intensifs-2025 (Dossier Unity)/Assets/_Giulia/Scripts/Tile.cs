@@ -234,9 +234,8 @@ public class Tile : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        if (isShovelActive || IsPointerOverUIElement())        {
+        if (isShovelActive || IsPointerOverUIElement())
             return;
-        }
 
         if (GridInteraction.Instance != null)
         {
@@ -286,28 +285,23 @@ public class Tile : MonoBehaviour
         if (tileType != TileType.Grass || isOccupied)
             return false;
 
-        bool isConnected = false;
-
         foreach (Tile neighbor in neighboringTiles)
         {
-            if (neighbor != null)
+            if (neighbor != null && neighbor.tileType == TileType.Station && neighbor.isOccupied)
             {
-                if ((neighbor.tileType == TileType.Station && neighbor.isOccupied) || 
-                    (neighbor.tileType.ToString().StartsWith("Rail") && neighbor.isOccupied))
-                {
-                    isConnected = true;
-                    break;
-                }
+                return true;
             }
         }
 
-        if (!isConnected)
+        foreach (Tile neighbor in neighboringTiles)
         {
-            TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
-            return false;
+            if (neighbor != null && neighbor.tileType.ToString().StartsWith("Rail") && neighbor.isOccupied)
+            {
+                return true;
+            }
         }
 
-        return true;
+        return false;
     }
 
     
@@ -338,14 +332,11 @@ public class Tile : MonoBehaviour
 
         bool isConnected = false;
 
-        // Si la tuile est de type Rail et que connectedRails est vide, vérifier les voisins
         if (connectedRails.Count == 0 && tileType.ToString().StartsWith("Rail"))
         {
             foreach (Tile neighbor in neighboringTiles)
             {
-                // Vérifier si le voisin est une station occupée ou un rail connecté
-                if ((neighbor.tileType == TileType.Station && neighbor.isOccupied) ||
-                    (neighbor.tileType.ToString().StartsWith("Rail") && neighbor.isOccupied))
+                if (neighbor.tileType == TileType.Station)
                 {
                     isConnected = true;
                     break;
