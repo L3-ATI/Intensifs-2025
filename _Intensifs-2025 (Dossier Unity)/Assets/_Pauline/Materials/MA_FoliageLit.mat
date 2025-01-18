@@ -203,6 +203,6 @@ Material:
     - _NormalTangentSpace: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Test: {r: 0, g: 0, b: 0, a: 0}
-    - _TulipColor: {r: 0.6603774, g: 0.26648417, b: 0.12771446, a: 0}
+    - _TulipColor: {r: 1, g: 0.7971698, b: 0.94300646, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
