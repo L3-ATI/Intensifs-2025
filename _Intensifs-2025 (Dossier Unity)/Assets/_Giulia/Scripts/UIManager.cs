@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,10 +6,10 @@ public class UIManager : MonoBehaviour
 {
     public Button stationButton;
     public Button rail00Button, rail01Button, rail02Button, rail03Button, rail04Button, rail05Button;
+    public Button bridgeButton, tunnelButton;
 
     private void Start()
     {
-        // Assurez-vous que les boutons sont assignés dans l'inspecteur
         stationButton.onClick.AddListener(() => SetObjectType("Station"));
         rail00Button.onClick.AddListener(() => SetObjectType("Rail00"));
         rail01Button.onClick.AddListener(() => SetObjectType("Rail01"));
@@ -16,6 +17,8 @@ public class UIManager : MonoBehaviour
         rail03Button.onClick.AddListener(() => SetObjectType("Rail03"));
         rail04Button.onClick.AddListener(() => SetObjectType("Rail04"));
         rail05Button.onClick.AddListener(() => SetObjectType("Rail05"));
+        bridgeButton.onClick.AddListener(() => SetObjectType("Bridge"));
+        tunnelButton.onClick.AddListener(() => SetObjectType("Tunnel"));
     }
 
     private void SetObjectType(string objectType)

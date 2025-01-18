@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../_Alice/SM_tuiles_sol_sable.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/train.blend" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/train.blend1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/train.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/train.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles.blend" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles.blend1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_Alice/tuiles_sable.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Alice/SM_tuiles_sol_sable.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Alice/train.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Alice/tuiles.blend.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" afterDir="false" />
-    </list>
+    <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,33 +14,22 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/84f0d810adef4e6c8deab33e4ae93f7c1dec00/42/d9a31419/Object.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 1
-}</component>
   <component name="ProjectId" id="2rf7T7EQpTuXwNr5OfvzVpnAJrC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;Giulia&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
-  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.33f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;D:\Git Repositories\Intensifs-2025\_Intensifs-2025 (Dossier Unity)&quot; -debugCodeOptimization" />
@@ -108,6 +81,15 @@
       <workItem from="1736971877713" duration="2882000" />
       <workItem from="1737022266013" duration="15860000" />
       <workItem from="1737044163887" duration="6071000" />
+      <workItem from="1737109541578" duration="5029000" />
+      <workItem from="1737149471470" duration="13311000" />
+      <workItem from="1737196605160" duration="10405000" />
+      <workItem from="1737207388053" duration="256000" />
+      <workItem from="1737207849446" duration="312000" />
+      <workItem from="1737219055791" duration="280000" />
+      <workItem from="1737219573300" duration="1230000" />
+      <workItem from="1737221203369" duration="1190000" />
+      <workItem from="1737224668740" duration="1489000" />
     </task>
     <servers />
   </component>
@@ -122,7 +104,6 @@
   </component>
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
-    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
 </project>

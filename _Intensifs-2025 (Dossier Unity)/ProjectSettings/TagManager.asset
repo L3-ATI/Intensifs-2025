@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Train
   - TileTrigger
+  - Rail
   layers:
   - Default
   - TransparentFX
