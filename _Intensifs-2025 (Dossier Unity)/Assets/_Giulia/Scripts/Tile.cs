@@ -39,7 +39,7 @@ public class Tile : MonoBehaviour
     private float rotationAngle = 0f;
     private Material originalMaterial;
     
-    public bool isAwaitingDestruction = false;
+    public static bool isShovelActive = false;
     
     private void Awake()
     {
@@ -122,8 +122,6 @@ public class Tile : MonoBehaviour
 
     public bool CanPlaceObject(string objectType)
     {
-        if (isAwaitingDestruction)
-            return false;
 
         if (isOccupied && objectType != "Mountain")
         {
@@ -156,7 +154,7 @@ public class Tile : MonoBehaviour
 
     public void ApplyHighlight(Material highlightMaterial)
     {
-        if (tileRenderer != null && highlightMaterial != null && !isAwaitingDestruction)
+        if (tileRenderer != null && highlightMaterial != null)
         {
             Material[] materials = tileRenderer.materials;
             List<Material> newMaterials = new List<Material>(materials);
@@ -171,7 +169,7 @@ public class Tile : MonoBehaviour
 
     public void RemoveHighlight(Material highlightMaterial)
     {
-        if (tileRenderer != null && highlightMaterial != null && !isAwaitingDestruction)
+        if (tileRenderer != null && highlightMaterial != null)
         {
             Material[] materials = tileRenderer.materials;
             List<Material> newMaterials = new List<Material>(materials);
@@ -191,9 +189,7 @@ public class Tile : MonoBehaviour
     
     private void OnMouseDown()
     {
-        if (isAwaitingDestruction)
-            return;
-        if (IsPointerOverUIElement())
+        if (isShovelActive || IsPointerOverUIElement())
         {
             return;
         }
@@ -238,10 +234,7 @@ public class Tile : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        if (isAwaitingDestruction)
-            return;
-        if (IsPointerOverUIElement())
-        {
+        if (isShovelActive || IsPointerOverUIElement())        {
             return;
         }
 
@@ -273,7 +266,11 @@ public class Tile : MonoBehaviour
 
     private void OnMouseExit()
     {
-    
+        if (isShovelActive || IsPointerOverUIElement())
+        {
+            return;
+        }
+
         if (tileRenderer != null && originalMaterial != null)
         {
             tileRenderer.materials = new Material[] { originalMaterial };
@@ -289,31 +286,36 @@ public class Tile : MonoBehaviour
         if (tileType != TileType.Grass || isOccupied)
             return false;
 
-        foreach (Tile neighbor in neighboringTiles)
-        {
-            if (neighbor != null && neighbor.tileType == TileType.Station && neighbor.isOccupied)
-            {
-                return true;
-            }
-        }
+        bool isConnected = false;
 
         foreach (Tile neighbor in neighboringTiles)
         {
-            if (neighbor != null && neighbor.tileType.ToString().StartsWith("Rail") && neighbor.isOccupied)
+            if (neighbor != null)
             {
-                return true;
+                if ((neighbor.tileType == TileType.Station && neighbor.isOccupied) || 
+                    (neighbor.tileType.ToString().StartsWith("Rail") && neighbor.isOccupied))
+                {
+                    isConnected = true;
+                    break;
+                }
             }
         }
 
-        return false;
+        if (!isConnected)
+        {
+            TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
+            return false;
+        }
+
+        return true;
     }
+
     
     public void ShowPlacementUI(GameObject objectToPlacePrefab)
     {
         tileCanvas.enabled = true;
         objectToPlace = objectToPlacePrefab;
     }
-
 
 
     private void RotateTile()
@@ -336,11 +338,14 @@ public class Tile : MonoBehaviour
 
         bool isConnected = false;
 
+        // Si la tuile est de type Rail et que connectedRails est vide, vérifier les voisins
         if (connectedRails.Count == 0 && tileType.ToString().StartsWith("Rail"))
         {
             foreach (Tile neighbor in neighboringTiles)
             {
-                if (neighbor.tileType == TileType.Station)
+                // Vérifier si le voisin est une station occupée ou un rail connecté
+                if ((neighbor.tileType == TileType.Station && neighbor.isOccupied) ||
+                    (neighbor.tileType.ToString().StartsWith("Rail") && neighbor.isOccupied))
                 {
                     isConnected = true;
                     break;
@@ -354,13 +359,16 @@ public class Tile : MonoBehaviour
             }
         }
 
+        // Autres vérifications pour valider le placement d'objets
         if (transform.childCount > 7 && 7 >= 0)
         {
             Destroy(transform.GetChild(7).gameObject);
         }
+    
         PlaceObjectOnTile();
         tileCanvas.enabled = false;
     }
+
     public void CancelPlacement(int childIndex)
     {
         if (transform.childCount > childIndex && childIndex >= 0)
@@ -400,7 +408,6 @@ public class Tile : MonoBehaviour
     {
         if (startIndex < 0 || startIndex >= transform.childCount)
         {
-            Debug.LogWarning($"Index {startIndex} is out of bounds for tile {name} with {transform.childCount} children.");
             return;
         }
 
@@ -408,8 +415,6 @@ public class Tile : MonoBehaviour
         {
             Destroy(transform.GetChild(i).gameObject);
         }
-
-        Debug.Log($"Destroyed all children from index {startIndex} on tile {name}.");
     }
 
 

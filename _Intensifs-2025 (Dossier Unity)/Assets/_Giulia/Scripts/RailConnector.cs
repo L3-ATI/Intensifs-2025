@@ -17,7 +17,7 @@ public class RailConnector : MonoBehaviour
 
             if (otherTile != null)
             {
-                //Debug.Log($"Rail connected to: {otherTile.name}");
+                Debug.Log($"Rail connected to: {otherTile.name}");
                 if (!parentTile.connectedRails.Contains(otherTile.gameObject))
                 {
                     parentTile.connectedRails.Add(otherTile.gameObject);
@@ -34,7 +34,7 @@ public class RailConnector : MonoBehaviour
 
             if (otherTile != null)
             {
-                //Debug.Log($"Rail disconnected from: {otherTile.name}");
+                Debug.Log($"Rail disconnected from: {otherTile.name}");
                 if (parentTile.connectedRails.Contains(otherTile.gameObject))
                 {
                     parentTile.connectedRails.Remove(otherTile.gameObject);
