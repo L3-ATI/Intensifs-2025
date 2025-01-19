@@ -3,8 +3,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
-public enum TileType { Grass, Mountain, Water, Station, Rail00, Rail01, Rail02, Rail03, Rail04, Rail05, Bridge, Tunnel }
+public enum TileType { Grass, Mountain, Water, Station, Rail00, Rail01, Rail02, Rail03, Rail04, Rail05, Bridge, Tunnel, Mine,
+    Sawmill,
+    StoneQuarry
+}
 public class Tile : MonoBehaviour
 {
     
@@ -145,6 +149,15 @@ public class Tile : MonoBehaviour
 
             case TileType.Water:
                 return objectType == "Bridge";
+            
+            case TileType.Sawmill:
+                return objectType == "Sawmill";
+            
+            case TileType.Mine:
+                return objectType == "Mine";
+            
+            case TileType.StoneQuarry:
+                return objectType == "Stone Quarry";
 
             default:
                 Debug.LogWarning($"Invalid tile type {tileType} for {objectType}");
@@ -345,7 +358,7 @@ public class Tile : MonoBehaviour
 
             if (!isConnected)
             {
-                TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
+                //TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
                 return;
             }
         }
@@ -369,13 +382,18 @@ public class Tile : MonoBehaviour
     {
         if (transform.childCount > childIndex && childIndex >= 0)
         {
-            Destroy(transform.GetChild(childIndex).gameObject);
+            GameObject childObject = transform.GetChild(childIndex).gameObject;
+
+            childObject.transform.DOScale(Vector3.zero, 0.3f)
+                .SetEase(Ease.InBack)
+                .OnComplete(() => Destroy(childObject));
         }
 
         SetOccupied(false);
         tileType = TileType.Grass;
         tileCanvas.enabled = false;
     }
+
 
     
     private void PlaceObjectOnTile()
@@ -409,9 +427,14 @@ public class Tile : MonoBehaviour
 
         for (int i = transform.childCount - 1; i >= startIndex; i--)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            GameObject child = transform.GetChild(i).gameObject;
+
+            child.transform.DOScale(Vector3.zero, 0.3f)
+                .SetEase(Ease.InBack)
+                .OnComplete(() => Destroy(child));
         }
     }
+
 
 
 }

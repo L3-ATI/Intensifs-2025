@@ -9,11 +9,18 @@ public class GridManager : MonoBehaviour
     public int height;
     public float tileSizeX = 1f;
     public float tileSizeZ = 1f;
+
     public GameObject tilePrefab;
-    public GameObject mountainPrefab;
     public GameObject riverTilePrefab;
+    public GameObject stoneQuarryTilePrefab;
+    public GameObject mountainPrefab;
+    public GameObject minePrefab;
+    public GameObject sawmillPrefab;
+    public GameObject stoneQuarryPrefab; // Préfab de Stone Quarry
 
     private Tile[,] tiles;
+
+    private TileGenerationManager tileGenerationManager;
 
     void Awake()
     {
@@ -25,6 +32,8 @@ public class GridManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        tileGenerationManager = FindObjectOfType<TileGenerationManager>();
     }
 
     void Start()
@@ -36,6 +45,9 @@ public class GridManager : MonoBehaviour
     {
         tiles = new Tile[width, height];
 
+        // Grille de probabilité pour les tuiles d'eau
+        float[,] waterProbabilityMap = new float[width, height];
+
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
@@ -44,12 +56,15 @@ public class GridManager : MonoBehaviour
 
                 Vector3 position = new Vector3(x * tileSizeX + xOffset, 0, z * tileSizeZ);
 
-                TileType tileType = GetRandomTileType();
-
+                TileType tileType = tileGenerationManager.GetRandomTileType(x, z, waterProbabilityMap);
                 GameObject prefabToInstantiate = tilePrefab;
                 if (tileType == TileType.Water && riverTilePrefab != null)
                 {
                     prefabToInstantiate = riverTilePrefab;
+                }
+                else if (tileType == TileType.StoneQuarry && stoneQuarryTilePrefab != null)
+                {
+                    prefabToInstantiate = stoneQuarryTilePrefab;
                 }
 
                 GameObject newTile = Instantiate(prefabToInstantiate, position, Quaternion.identity, transform);
@@ -62,20 +77,54 @@ public class GridManager : MonoBehaviour
 
                 if (tileType == TileType.Mountain && mountainPrefab != null)
                 {
-                    GameObject mountain = Instantiate(mountainPrefab, newTile.transform.position, Quaternion.identity, newTile.transform);
-                    mountain.name = $"Mountain_{x}_{z}";
+                    CreatePrefabOnTile(mountainPrefab, newTile, x, z);
+                }
+                else if (tileType == TileType.Mine && minePrefab != null)
+                {
+                    CreatePrefabOnTile(minePrefab, newTile, x, z);
+                }
+                else if (tileType == TileType.Sawmill && sawmillPrefab != null)
+                {
+                    CreatePrefabOnTile(sawmillPrefab, newTile, x, z);
+                }
+                else if (tileType == TileType.StoneQuarry && stoneQuarryPrefab != null)
+                {
+                    CreatePrefabOnTile(stoneQuarryPrefab, newTile, x, z);
+                }
+                
+
+                // Mettre à jour la probabilité d'eau dans la carte des probabilités
+                if (tileType == TileType.Water)
+                {
+                    waterProbabilityMap[x, z] = 1f; // L'eau est placée ici
                 }
             }
         }
     }
-    
-    TileType GetRandomTileType()
+    private bool IsWaterNear(int x, int z, float[,] waterProbabilityMap)
     {
-        float randomValue = Random.value;
+        // Vérifier les voisins directs pour une probabilité d'eau plus élevée
+        float probabilityThreshold = 0.3f;
+        for (int dx = -1; dx <= 1; dx++)
+        {
+            for (int dz = -1; dz <= 1; dz++)
+            {
+                int nx = x + dx;
+                int nz = z + dz;
 
-        if (randomValue < 0.2f) return TileType.Water;
-        if (randomValue < 0.3f) return TileType.Mountain;
-        return TileType.Grass;
+                // Vérifier si le voisin est dans les limites de la grille et si de l'eau existe autour
+                if (nx >= 0 && nx < width && nz >= 0 && nz < height && waterProbabilityMap[nx, nz] > probabilityThreshold)
+                {
+                    return true; // S'il y a de l'eau à proximité
+                }
+            }
+        }
+        return false;
+    }
+    private void CreatePrefabOnTile(GameObject prefab, GameObject tile, int x, int z)
+    {
+        GameObject instance = Instantiate(prefab, tile.transform.position, Quaternion.identity, tile.transform);
+        instance.name = $"{prefab.name}_{x}_{z}";
     }
 
     public Tile GetTileAtPosition(int x, int z)

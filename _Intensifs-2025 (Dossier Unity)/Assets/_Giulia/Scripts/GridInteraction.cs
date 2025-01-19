@@ -1,7 +1,8 @@
-using System.Collections.Generic;
+using System.Collections.Generic;using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GridInteraction : MonoBehaviour
 {
@@ -138,23 +139,18 @@ public class GridInteraction : MonoBehaviour
 
             case TileType.Station:
                 return "Can't build here : there's a station.";
+            
             default:
                 if (!tile.CanPlaceRail(Instance.objectTypeToPlace))
                 {
                     if (tile.isOccupied)
-                    {
                         return "You can't build on another build.";
-                    }
 
                     else
-                    {
                         return "Rails need to be connected to another rail or a station !";
-                    }
                 }
                 else
-                {
                     return "Can't build here.";
-                }
         }
     }
 
@@ -178,6 +174,12 @@ public class GridInteraction : MonoBehaviour
         structure.transform.SetParent(tile.transform);
         tile.SetOccupied(true);
 
+        structure.transform.localScale = Vector3.zero;
+        structure.transform.DOScale(Vector3.one, 0.3f)
+            .SetEase(Ease.OutBack);
+        structure.transform.DORotate(new Vector3(0, 360, 0), 0.25f, RotateMode.FastBeyond360)
+            .SetEase(Ease.InOutSine);
+
         if (prefabToPlace == stationPrefab)
         {
             tile.tileType = TileType.Station;
@@ -195,6 +197,7 @@ public class GridInteraction : MonoBehaviour
             tile.tileType = (TileType)System.Enum.Parse(typeof(TileType), objectTypeToPlace);
         }
     }
+
     public Tile GetSelectedTile()
     {
         return currentTile;

@@ -56,6 +56,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6082777237880216548, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
+      propertyPath: tileType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082777237880216548, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
+      propertyPath: highlightValidMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: c959a347dd025dc419a68a04fe4ea0af, type: 2}
+    - target: {fileID: 6082777237880216548, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
+      propertyPath: highlightInvalidMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: e61a773969882b447835ceb86a5fbcdb, type: 2}
     - target: {fileID: 7878982099941731297, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: m_Name
       value: Tile_Sand
