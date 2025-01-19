@@ -2812,7 +2812,7 @@ Transform:
   m_GameObject: {fileID: 930871697}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.92387956, z: -0.38268343, w: 0}
-  m_LocalPosition: {x: 48, y: 270, z: 311}
+  m_LocalPosition: {x: 85, y: 250, z: 325}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2903,7 +2903,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 7.5
+  field of view: 7
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2933,17 +2933,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cdf82b71e1281b4eb7ab228093a9f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minZoom: 2
-  maxZoom: 15
+  minZoom: 4
+  maxZoom: 10
   zoomSpeed: 5
-  minX: 20
-  maxX: 60
+  minX: 30
+  maxX: 140
   minZ: 250
   maxZ: 400
   minRotationX: 40
   maxRotationX: 50
-  minRotationY: 175
-  maxRotationY: 185
+  minRotationY: 170
+  maxRotationY: 210
   rotationSpeed: 5
 --- !u!1 &934330044
 GameObject:
@@ -4942,8 +4942,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596b6635eaf1a4b42a7b7be2c8de13c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 10
+  width: 20
+  height: 20
   tileSizeX: 8.66
   tileSizeZ: 7.5
   tilePrefab: {fileID: 7878982099941731297, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
@@ -4980,7 +4980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3303b8824cbdc4f8c08ed5c16594c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileSettings: {fileID: 11400000, guid: 646c32b12cc076c4b87d773b163d4db0, type: 2}
+  tileSettings: {fileID: 11400000, guid: c5f4cf08b176b7942a1f6e124cfa19f0, type: 2}
 --- !u!1 &2036113774
 GameObject:
   m_ObjectHideFlags: 0
@@ -5181,12 +5181,12 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 930871698}
   - {fileID: 501928063}
   - {fileID: 372030422}
   - {fileID: 159458824}
   - {fileID: 2017914824}
   - {fileID: 1361597291}
-  - {fileID: 930871698}
   - {fileID: 796128149}
   - {fileID: 369660113}
   - {fileID: 415703516}

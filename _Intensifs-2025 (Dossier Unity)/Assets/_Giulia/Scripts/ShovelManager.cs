@@ -8,7 +8,7 @@ public class ShovelManager : MonoBehaviour
 {
     public Button shovelButton;
     public RectTransform shovelIcon;
-    public Material highlightMaterial; 
+    public Material highlightBaseMaterial; 
     public Material highlightGrassMaterial;
     public Material highlightWaterMaterial;
     public GameObject confirmationPanel;
@@ -147,18 +147,17 @@ public class ShovelManager : MonoBehaviour
         {
             originalMaterial = tileRenderer.material;
 
-            // Applique le bon matériau en fonction du type de tuile
             if (selectedTile.tileType == TileType.Water)
             {
-                tileRenderer.material = highlightWaterMaterial;  // Matériel pour Water
+                tileRenderer.material = highlightWaterMaterial;
             }
-            else if (selectedTile.tileType == TileType.Grass)
+            else if (selectedTile.tileType == TileType.StoneQuarry)
             {
-                tileRenderer.material = highlightGrassMaterial;  // Matériel pour Grass
+                tileRenderer.material = highlightBaseMaterial;
             }
             else
             {
-                tileRenderer.material = highlightMaterial;  // Utilisez le matériau par défaut si ce n'est ni Water ni Grass
+                tileRenderer.material = highlightGrassMaterial;
             }
         }
     }
