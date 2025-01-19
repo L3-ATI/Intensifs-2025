@@ -20,19 +20,16 @@ public class ShovelManager : MonoBehaviour
     private GridInteraction gridInteractionScript;
     private Tile selectedTile = null;
     private Material originalMaterial = null;
-    private TooltipManager tooltipManager;
 
     private void Start()
     {
         shovelButton.onClick.AddListener(ToggleShovel);
         gridInteractionScript = FindFirstObjectByType<GridInteraction>();
-        tooltipManager = FindFirstObjectByType<TooltipManager>();
         confirmationPanel.SetActive(false); 
         
         confirmButton.onClick.AddListener(OnConfirm);
         cancelButton.onClick.AddListener(OnCancel);
     }
-
     private void Update()
     {
         if (isShovelActive)
@@ -108,16 +105,33 @@ public class ShovelManager : MonoBehaviour
             Tile tile = hit.collider.GetComponent<Tile>();
             if (tile != null)
             {
-                if (tile.tileType != TileType.Mountain)
+                if (tile.tileType == TileType.Mountain)
                 {
-                    confirmationPanel.SetActive(true);
+                    TooltipManager.Instance.ShowTooltip("You can't destroy a mountain.");
+                }
+                if (tile.tileType == TileType.Mine)
+                {
+                    TooltipManager.Instance.ShowTooltip("You can't destroy a mine.");
+                }
+                if (tile.tileType == TileType.Sawmill)
+                {
+                    TooltipManager.Instance.ShowTooltip("You can't destroy a sawmill.");
+                }
+                if (tile.tileType == TileType.StoneQuarry)
+                {
+                    TooltipManager.Instance.ShowTooltip("You can't destroy a stone quarry.");
+                }
+                if (tile.tileType == TileType.Water)
+                {
+                    TooltipManager.Instance.ShowTooltip("You can't destroy water.");
+                }
+                if (tile.tileType == TileType.Grass)
+                {
+                    TooltipManager.Instance.ShowTooltip("You can't destroy an empty tile.");
                 }
                 else
                 {
-                    if (tile.tileType == TileType.Mountain)
-                        tooltipManager.ShowTooltip("You can't destroy a mountain.");
-                    else
-                        tooltipManager.ShowTooltip("You can't destroy an empty tile.");
+                    confirmationPanel.SetActive(true);
                 }
 
                 SelectTile(tile);
@@ -168,7 +182,12 @@ public class ShovelManager : MonoBehaviour
         {
             Debug.Log("Selected tile type: " + selectedTile.tileType);
 
-            if (selectedTile.tileType != TileType.Mountain)
+            if (selectedTile.tileType != TileType.Mountain &&
+                selectedTile.tileType != TileType.Mine &&
+                selectedTile.tileType != TileType.Sawmill &&
+                selectedTile.tileType != TileType.StoneQuarry &&
+                selectedTile.tileType != TileType.Water &&
+                selectedTile.tileType != TileType.Grass)
             {
                 for (int i = 7; i < selectedTile.transform.childCount; i++)
                 {

@@ -105,14 +105,20 @@ public class GridManager : MonoBehaviour
                     else if (tileType == TileType.Mine && minePrefab != null)
                     {
                         CreatePrefabOnTile(minePrefab, newTile, x, z);
+                        tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
+                        tileComponent.isOccupied = true;
                     }
                     else if (tileType == TileType.Sawmill && sawmillPrefab != null)
                     {
                         CreatePrefabOnTile(sawmillPrefab, newTile, x, z);
+                        tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
+                        tileComponent.isOccupied = true;
                     }
                     else if (tileType == TileType.StoneQuarry && stoneQuarryPrefab != null)
                     {
                         CreatePrefabOnTile(stoneQuarryPrefab, newTile, x, z);
+                        tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
+                        tileComponent.isOccupied = true;
                     }
                 }
             }

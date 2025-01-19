@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using Unity.VisualScripting;
+using Object = UnityEngine.Object;
 
-public enum TileType { Grass, Mountain, Water, Station, Rail00, Rail01, Rail02, Rail03, Rail04, Rail05, Bridge, Tunnel, Mine,
-    Sawmill,
-    StoneQuarry
+public enum TileType {
+    Grass, Mountain, Water, Station,
+    Rail00, Rail01, Rail02, Rail03, Rail04, Rail05,
+    Bridge, Tunnel, Mine, Sawmill, StoneQuarry
 }
 public class Tile : MonoBehaviour
 {
@@ -44,6 +47,7 @@ public class Tile : MonoBehaviour
     private Material originalMaterial;
     
     public static bool isShovelActive = false;
+    public GameObject mountainPrefab;
     
     private void Awake()
     {
@@ -126,7 +130,6 @@ public class Tile : MonoBehaviour
 
     public bool CanPlaceObject(string objectType)
     {
-
         if (isOccupied)
         {
             return false;
@@ -138,9 +141,31 @@ public class Tile : MonoBehaviour
         switch (tileType)
         {
             case TileType.Grass:
+                if (objectType == "Station")
+                {
+                    // Vérifie si au moins un voisin a le tag "Structure" (ex: Sawmill, Mine, etc.)
+                    bool hasStructureNeighbor = false;
+                    foreach (Tile neighbor in neighboringTiles)
+                    {
+                        if (neighbor != null && (neighbor.CompareTag("Structure") || neighbor.tileType == TileType.Sawmill || neighbor.tileType == TileType.Mine || neighbor.tileType == TileType.StoneQuarry))
+                        {
+                            hasStructureNeighbor = true;
+                            break;
+                        }
+                    }
+                    if (!hasStructureNeighbor)
+                    {
+                        return false; // Aucun voisin structure
+                    }
+                }
+
                 if (objectType.StartsWith("Rail"))
                 {
                     return CanPlaceRail(objectType);
+                }
+                else if (objectType == "Tunnel" || objectType == "Bridge")
+                {
+                    return CanPlaceTunnelOrBridge(objectType);
                 }
                 return true;
 
@@ -149,13 +174,13 @@ public class Tile : MonoBehaviour
 
             case TileType.Water:
                 return objectType == "Bridge";
-            
+
             case TileType.Sawmill:
                 return objectType == "Sawmill";
-            
+
             case TileType.Mine:
                 return objectType == "Mine";
-            
+
             case TileType.StoneQuarry:
                 return objectType == "Stone Quarry";
 
@@ -163,6 +188,20 @@ public class Tile : MonoBehaviour
                 Debug.LogWarning($"Invalid tile type {tileType} for {objectType}");
                 return false;
         }
+    }
+
+    private bool CanPlaceTunnelOrBridge(string objectType)
+    {
+        // Vérifie que le tunnel ou le pont est adjacent à un rail ou une station
+        foreach (Tile neighbor in neighboringTiles)
+        {
+            if (neighbor != null && (neighbor.tileType.ToString().StartsWith("Rail") || neighbor.tileType == TileType.Station))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void ApplyHighlight(Material highlightMaterial)
@@ -342,7 +381,6 @@ public class Tile : MonoBehaviour
     }
     private void ValidatePlacement()
     {
-
         bool isConnected = false;
 
         if (connectedRails.Count == 0 && tileType.ToString().StartsWith("Rail"))
@@ -358,10 +396,30 @@ public class Tile : MonoBehaviour
 
             if (!isConnected)
             {
-                //TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
+                TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
                 return;
             }
         }
+        
+        else if (tileType == TileType.Tunnel || tileType == TileType.Bridge)
+        {
+            // Vérifie la connexion pour Tunnel et Bridge
+            foreach (Tile neighbor in neighboringTiles)
+            {
+                if (neighbor.tileType.ToString().StartsWith("Rail") || neighbor.tileType == TileType.Station)
+                {
+                    isConnected = true;
+                    break;
+                }
+            }
+
+            if (!isConnected)
+            {
+                TooltipManager.Instance.ShowTooltip("Tunnels and bridges need to be connected to another rail or a station!");
+                return;
+            }
+        }
+
         if (isOccupied)
         {
             tileCanvas.enabled = false;
@@ -372,27 +430,51 @@ public class Tile : MonoBehaviour
         {
             Destroy(transform.GetChild(7).gameObject);
         }
-    
+
         Debug.Log("Placement validé !");
         PlaceObjectOnTile();
         tileCanvas.enabled = false;
     }
 
+
     public void CancelPlacement(int childIndex)
     {
+        SetTileType();
+        
         if (transform.childCount > childIndex && childIndex >= 0)
         {
             GameObject childObject = transform.GetChild(childIndex).gameObject;
 
             childObject.transform.DOScale(Vector3.zero, 0.3f)
                 .SetEase(Ease.InBack)
-                .OnComplete(() => Destroy(childObject));
+                .OnComplete(() =>
+                {
+                    Destroy(childObject);
+                });
         }
 
-        SetOccupied(false);
-        tileType = TileType.Grass;
         tileCanvas.enabled = false;
+        isOccupied = false;
     }
+
+    private void SetTileType()
+    {
+        if (tileType == TileType.Tunnel)
+        {
+            Object newMountain = Instantiate(mountainPrefab, transform.position, Quaternion.identity);
+            newMountain.GameObject().transform.SetParent(transform);
+            tileType = TileType.Mountain;
+        }
+        if (tileType == TileType.Bridge)
+        {
+            tileType = TileType.Water;
+        }
+        else if (tileType.ToString().StartsWith("Rail") || tileType == TileType.Station)
+        {
+            tileType = TileType.Grass;
+        }
+    }
+
 
 
     

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -132,27 +133,60 @@ public class GridInteraction : MonoBehaviour
         switch (tile.tileType)
         {
             case TileType.Mountain:
-                return objectTypeToPlace == "Tunnel" ? "You can only place tunnels on mountains." : "Can't build here: only tunnels allowed on mountains.";
+                return objectTypeToPlace == "Tunnel" 
+                    ? "You can only build tunnels on mountains." 
+                    : "Can't build here: only tunnels allowed on mountains.";
 
             case TileType.Water:
-                return objectTypeToPlace == "Bridge" ? "You can only place bridges on water." : "Can't build here: only bridges allowed on water.";
+                return objectTypeToPlace == "Bridge" 
+                    ? "You can only build bridges on water." 
+                    : "Can't build here: only bridges allowed on water.";
 
             case TileType.Station:
-                return "Can't build here : there's a station.";
-            
+                return "Can't build here: there's a station.";
+
+            case TileType.Grass:
+                if (objectTypeToPlace == "Station" && !tile.CanPlaceObject("Station"))
+                {
+                    return "Stations must be placed next to a structure !";
+                }
+                if (objectTypeToPlace == "Tunnel")
+                {
+                    return "You can only build tunnels on mountains.";
+                }
+                if (objectTypeToPlace == "Bridge")
+                {
+                    return "You can only build bridges on water.";
+                }
+                break;
+
             default:
-                if (!tile.CanPlaceRail(Instance.objectTypeToPlace))
+                if (!tile.CanPlaceRail(objectTypeToPlace))
                 {
                     if (tile.isOccupied)
+                    {
                         return "You can't build on another build.";
-
+                    }
+                    else if (tile.tileType.ToString().StartsWith("Rail"))
+                    {
+                        return "Rails need to be connected to another rail or a station!";
+                    }
                     else
-                        return "Rails need to be connected to another rail or a station !";
+                    {
+                        return "Can't build here.";
+                    }
                 }
                 else
+                {
                     return "Can't build here.";
+                }
         }
+
+        return "Can't build here.";
     }
+
+
+
 
     public GameObject GetRailPrefab(string railType)
     {

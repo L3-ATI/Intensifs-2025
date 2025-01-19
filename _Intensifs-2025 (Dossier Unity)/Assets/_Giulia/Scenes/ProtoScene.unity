@@ -995,7 +995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shovelButton: {fileID: 1782856919}
   shovelIcon: {fileID: 2143371132}
-  highlightMaterial: {fileID: 2100000, guid: e69efa9a0970c5545a459b18f6b04219, type: 2}
+  highlightBaseMaterial: {fileID: 0}
   highlightGrassMaterial: {fileID: 2100000, guid: f9352b2c57bf6e942a69a061abc8e6b3, type: 2}
   highlightWaterMaterial: {fileID: 2100000, guid: eeebd76fa9e818442a7b26ed09ea9be2, type: 2}
   confirmationPanel: {fileID: 1238293683}
@@ -1918,7 +1918,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 24ba73e9986e96f4ab6c208eda8b9aee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 67626f61a2a699042b7abe7df1d41e92, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2629,7 +2629,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 67626f61a2a699042b7abe7df1d41e92, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 24ba73e9986e96f4ab6c208eda8b9aee, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2731,8 +2731,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
