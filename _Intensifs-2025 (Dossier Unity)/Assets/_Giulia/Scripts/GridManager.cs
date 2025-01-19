@@ -11,11 +11,12 @@ public class GridManager : MonoBehaviour
     public float tileSizeZ = 1f;
 
     public GameObject tilePrefab;
-    public GameObject mountainPrefab;
     public GameObject riverTilePrefab;
+    public GameObject stoneQuarryTilePrefab;
+    public GameObject mountainPrefab;
     public GameObject minePrefab;
     public GameObject sawmillPrefab;
-    public GameObject stoneQuarryTilePrefab;
+    public GameObject stoneQuarryPrefab; // Préfab de Stone Quarry
 
     private Tile[,] tiles;
 
@@ -72,7 +73,7 @@ public class GridManager : MonoBehaviour
                 tiles[x, z] = tileComponent;
                 tileComponent.tileType = tileType;
 
-                // Add prefabs for specific tile types
+                // Ajout des préfab pour des types de tuiles spécifiques
                 if (tileType == TileType.Mountain && mountainPrefab != null)
                 {
                     CreatePrefabOnTile(mountainPrefab, newTile, x, z);
@@ -84,6 +85,10 @@ public class GridManager : MonoBehaviour
                 else if (tileType == TileType.Sawmill && sawmillPrefab != null)
                 {
                     CreatePrefabOnTile(sawmillPrefab, newTile, x, z);
+                }
+                else if (tileType == TileType.StoneQuarry && stoneQuarryPrefab != null) // Vérification et instanciation pour Stone Quarry
+                {
+                    CreatePrefabOnTile(stoneQuarryPrefab, newTile, x, z);
                 }
             }
         }

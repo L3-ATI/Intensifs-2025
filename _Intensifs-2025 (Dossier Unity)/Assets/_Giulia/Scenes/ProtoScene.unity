@@ -4947,11 +4947,12 @@ MonoBehaviour:
   tileSizeX: 8.66
   tileSizeZ: 7.5
   tilePrefab: {fileID: 7878982099941731297, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
-  mountainPrefab: {fileID: 6680752679857288398, guid: 1b7905aa305f6454c958f7a9f156e6bf, type: 3}
   riverTilePrefab: {fileID: 6185400647594969858, guid: b316d3409c0ad5a459286a4eabc0d731, type: 3}
+  stoneQuarryTilePrefab: {fileID: 8939263264206872950, guid: f51ccb38273435d4ca2dac417b6dbc1b, type: 3}
+  mountainPrefab: {fileID: 6680752679857288398, guid: 1b7905aa305f6454c958f7a9f156e6bf, type: 3}
   minePrefab: {fileID: 5735940069638694092, guid: d07a2093bc10b204b97c5b829021127f, type: 3}
   sawmillPrefab: {fileID: 5735940069638694092, guid: eb3f456a7b778634a85e7709eeb52c67, type: 3}
-  stoneQuarryTilePrefab: {fileID: 8939263264206872950, guid: f51ccb38273435d4ca2dac417b6dbc1b, type: 3}
+  stoneQuarryPrefab: {fileID: 5735940069638694092, guid: cec454aef3b96694b8708a8ca6ec11c6, type: 3}
 --- !u!4 &2017914824
 Transform:
   m_ObjectHideFlags: 0
