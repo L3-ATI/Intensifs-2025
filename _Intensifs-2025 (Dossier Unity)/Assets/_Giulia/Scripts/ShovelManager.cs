@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class ShovelManager : MonoBehaviour
 {
     public Button shovelButton;
     public RectTransform shovelIcon;
-    public Material highlightMaterial;
+    public Material highlightMaterial; 
+    public Material highlightGrassMaterial;
+    public Material highlightWaterMaterial;
     public GameObject confirmationPanel;
     public Button confirmButton;
     public Button cancelButton;
@@ -16,7 +21,7 @@ public class ShovelManager : MonoBehaviour
     private Tile selectedTile = null;
     private Material originalMaterial = null;
     private TooltipManager tooltipManager;
-    
+
     private void Start()
     {
         shovelButton.onClick.AddListener(ToggleShovel);
@@ -122,6 +127,11 @@ public class ShovelManager : MonoBehaviour
 
     private void SelectTile(Tile tile)
     {
+        if (IsPointerOverUIElement())
+        {
+            return;
+        }
+        
         if (selectedTile != null)
         {
             Renderer selectedRenderer = selectedTile.GetComponent<Renderer>();
@@ -136,7 +146,20 @@ public class ShovelManager : MonoBehaviour
         if (tileRenderer != null)
         {
             originalMaterial = tileRenderer.material;
-            tileRenderer.material = highlightMaterial;
+
+            // Applique le bon matériau en fonction du type de tuile
+            if (selectedTile.tileType == TileType.Water)
+            {
+                tileRenderer.material = highlightWaterMaterial;  // Matériel pour Water
+            }
+            else if (selectedTile.tileType == TileType.Grass)
+            {
+                tileRenderer.material = highlightGrassMaterial;  // Matériel pour Grass
+            }
+            else
+            {
+                tileRenderer.material = highlightMaterial;  // Utilisez le matériau par défaut si ce n'est ni Water ni Grass
+            }
         }
     }
 
@@ -150,8 +173,12 @@ public class ShovelManager : MonoBehaviour
             {
                 for (int i = 7; i < selectedTile.transform.childCount; i++)
                 {
-                    Destroy(selectedTile.transform.GetChild(i).gameObject);
+                    GameObject childObject = selectedTile.transform.GetChild(i).gameObject;
 
+                    childObject.transform.DOScale(Vector3.zero, 0.3f)
+                        .SetEase(Ease.InBack)
+                        .OnComplete(() => Destroy(childObject));
+                    
                     if (selectedTile.tileType == TileType.Tunnel)
                     {
                         selectedTile.isOccupied = false;
@@ -160,6 +187,7 @@ public class ShovelManager : MonoBehaviour
                         selectedTile.tileType = TileType.Mountain;
                         Debug.Log("Destroyed tunnel, replaced with mountain.");
 
+                        ToggleShovel();
                         confirmationPanel.SetActive(false);
                         return;
                     }
@@ -168,6 +196,7 @@ public class ShovelManager : MonoBehaviour
                         selectedTile.isOccupied = false;
                         selectedTile.tileType = TileType.Water;
 
+                        ToggleShovel();
                         confirmationPanel.SetActive(false);
                         return;
                     }
@@ -176,6 +205,7 @@ public class ShovelManager : MonoBehaviour
                         selectedTile.isOccupied = false;
                         selectedTile.tileType = TileType.Grass;
 
+                        ToggleShovel();
                         confirmationPanel.SetActive(false);
                         return;
                     }
@@ -184,10 +214,23 @@ public class ShovelManager : MonoBehaviour
         }
     }
 
-
     private void OnCancel()
     {
         ToggleShovel();
         confirmationPanel.SetActive(false);
+    }
+    
+    private bool IsPointerOverUIElement()
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        return results.Count > 0;
     }
 }

@@ -995,7 +995,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shovelButton: {fileID: 1782856919}
   shovelIcon: {fileID: 2143371132}
-  highlightMaterial: {fileID: 2100000, guid: f9352b2c57bf6e942a69a061abc8e6b3, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: e69efa9a0970c5545a459b18f6b04219, type: 2}
+  highlightGrassMaterial: {fileID: 2100000, guid: f9352b2c57bf6e942a69a061abc8e6b3, type: 2}
+  highlightWaterMaterial: {fileID: 2100000, guid: eeebd76fa9e818442a7b26ed09ea9be2, type: 2}
   confirmationPanel: {fileID: 1238293683}
   confirmButton: {fileID: 436036779}
   cancelButton: {fileID: 553366709}
@@ -2460,7 +2462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4920,6 +4922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2017914824}
   - component: {fileID: 2017914823}
+  - component: {fileID: 2017914825}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -4946,6 +4949,9 @@ MonoBehaviour:
   tilePrefab: {fileID: 7878982099941731297, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
   mountainPrefab: {fileID: 6680752679857288398, guid: 1b7905aa305f6454c958f7a9f156e6bf, type: 3}
   riverTilePrefab: {fileID: 6185400647594969858, guid: b316d3409c0ad5a459286a4eabc0d731, type: 3}
+  minePrefab: {fileID: 5735940069638694092, guid: d07a2093bc10b204b97c5b829021127f, type: 3}
+  sawmillPrefab: {fileID: 5735940069638694092, guid: eb3f456a7b778634a85e7709eeb52c67, type: 3}
+  stoneQuarryTilePrefab: {fileID: 8939263264206872950, guid: f51ccb38273435d4ca2dac417b6dbc1b, type: 3}
 --- !u!4 &2017914824
 Transform:
   m_ObjectHideFlags: 0
@@ -4961,6 +4967,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2017914825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017914822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e3303b8824cbdc4f8c08ed5c16594c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileSettings: {fileID: 11400000, guid: 646c32b12cc076c4b87d773b163d4db0, type: 2}
 --- !u!1 &2036113774
 GameObject:
   m_ObjectHideFlags: 0
@@ -5114,7 +5133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5155,7 +5174,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

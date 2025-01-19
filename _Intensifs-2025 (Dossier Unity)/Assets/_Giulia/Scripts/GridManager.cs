@@ -9,11 +9,17 @@ public class GridManager : MonoBehaviour
     public int height;
     public float tileSizeX = 1f;
     public float tileSizeZ = 1f;
+
     public GameObject tilePrefab;
     public GameObject mountainPrefab;
     public GameObject riverTilePrefab;
+    public GameObject minePrefab;
+    public GameObject sawmillPrefab;
+    public GameObject stoneQuarryTilePrefab;
 
     private Tile[,] tiles;
+
+    private TileGenerationManager tileGenerationManager;
 
     void Awake()
     {
@@ -25,6 +31,8 @@ public class GridManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        tileGenerationManager = FindObjectOfType<TileGenerationManager>();
     }
 
     void Start()
@@ -44,12 +52,16 @@ public class GridManager : MonoBehaviour
 
                 Vector3 position = new Vector3(x * tileSizeX + xOffset, 0, z * tileSizeZ);
 
-                TileType tileType = GetRandomTileType();
+                TileType tileType = tileGenerationManager.GetRandomTileType();
 
                 GameObject prefabToInstantiate = tilePrefab;
                 if (tileType == TileType.Water && riverTilePrefab != null)
                 {
                     prefabToInstantiate = riverTilePrefab;
+                }
+                else if (tileType == TileType.StoneQuarry && stoneQuarryTilePrefab != null)
+                {
+                    prefabToInstantiate = stoneQuarryTilePrefab;
                 }
 
                 GameObject newTile = Instantiate(prefabToInstantiate, position, Quaternion.identity, transform);
@@ -60,22 +72,27 @@ public class GridManager : MonoBehaviour
                 tiles[x, z] = tileComponent;
                 tileComponent.tileType = tileType;
 
+                // Add prefabs for specific tile types
                 if (tileType == TileType.Mountain && mountainPrefab != null)
                 {
-                    GameObject mountain = Instantiate(mountainPrefab, newTile.transform.position, Quaternion.identity, newTile.transform);
-                    mountain.name = $"Mountain_{x}_{z}";
+                    CreatePrefabOnTile(mountainPrefab, newTile, x, z);
+                }
+                else if (tileType == TileType.Mine && minePrefab != null)
+                {
+                    CreatePrefabOnTile(minePrefab, newTile, x, z);
+                }
+                else if (tileType == TileType.Sawmill && sawmillPrefab != null)
+                {
+                    CreatePrefabOnTile(sawmillPrefab, newTile, x, z);
                 }
             }
         }
     }
-    
-    TileType GetRandomTileType()
-    {
-        float randomValue = Random.value;
 
-        if (randomValue < 0.2f) return TileType.Water;
-        if (randomValue < 0.3f) return TileType.Mountain;
-        return TileType.Grass;
+    private void CreatePrefabOnTile(GameObject prefab, GameObject tile, int x, int z)
+    {
+        GameObject instance = Instantiate(prefab, tile.transform.position, Quaternion.identity, tile.transform);
+        instance.name = $"{prefab.name}_{x}_{z}";
     }
 
     public Tile GetTileAtPosition(int x, int z)

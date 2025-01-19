@@ -17,6 +17,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="2rf7T7EQpTuXwNr5OfvzVpnAJrC" />
@@ -90,6 +91,7 @@
       <workItem from="1737219573300" duration="1230000" />
       <workItem from="1737221203369" duration="1190000" />
       <workItem from="1737224668740" duration="1489000" />
+      <workItem from="1737292953066" duration="6192000" />
     </task>
     <servers />
   </component>
