@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 26bcea81ed664f74c858373d154fdf8f, type: 2}
+  - {fileID: 2100000, guid: b6ac01fc03b81754fbc5a9e2cccfde0c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 6064365142961808880}
   m_Layer: 0
   m_Name: Tunnel
-  m_TagString: Untagged
+  m_TagString: Rail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

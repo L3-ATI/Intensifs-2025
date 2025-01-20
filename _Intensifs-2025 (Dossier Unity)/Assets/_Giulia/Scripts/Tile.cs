@@ -44,7 +44,7 @@ public class Tile : MonoBehaviour
     private GameObject placedObject;
     private Renderer tileRenderer;
     private float rotationAngle = 0f;
-    private Material originalMaterial;
+    private Material originalMaterial0, originalMaterial1;
     
     public static bool isShovelActive = false;
     public GameObject mountainPrefab;
@@ -54,7 +54,8 @@ public class Tile : MonoBehaviour
         tileRenderer = GetComponent<Renderer>();
         if (tileRenderer != null)
         {
-            originalMaterial = tileRenderer.material;
+            originalMaterial0 = tileRenderer.materials.Length > 0 ? tileRenderer.materials[0] : null;
+            originalMaterial1 = tileRenderer.materials.Length > 1 ? tileRenderer.materials[1] : null;
         }
         RemoveHighlight(highlightValidMaterial);
         RemoveHighlight(highlightInvalidMaterial);
@@ -65,6 +66,7 @@ public class Tile : MonoBehaviour
         validateButton.onClick.AddListener(ValidatePlacement);
         cancelButton.onClick.AddListener(() => CancelPlacement(7));
     }
+
 
     public void SetPosition(int x, int z)
     {
@@ -130,10 +132,10 @@ public class Tile : MonoBehaviour
 
     public bool CanPlaceObject(string objectType)
     {
-        if (isOccupied)
+        /*if (isOccupied)
         {
             return false;
-        }
+        }*/
 
         RemoveHighlight(highlightValidMaterial);
         RemoveHighlight(highlightInvalidMaterial);
@@ -329,10 +331,29 @@ public class Tile : MonoBehaviour
             return;
         }
 
-        if (tileRenderer != null && originalMaterial != null)
+        if (tileRenderer != null)
         {
-            tileRenderer.materials = new Material[] { originalMaterial };
+            // Supprime tous les matériaux actuels
+            tileRenderer.materials = new Material[0];
+
+            // Remet les matériaux originaux
+            if (originalMaterial0 != null)
+            {
+                List<Material> originalMaterials = new List<Material> { originalMaterial0 };
+
+                if (originalMaterial1 != null)
+                {
+                    originalMaterials.Add(originalMaterial1);
+                }
+
+                tileRenderer.materials = originalMaterials.ToArray();
+            }
+            else
+            {
+                Debug.LogWarning("OriginalMaterial0 is null. Cannot reset materials.");
+            }
         }
+        
         else
         {
             Debug.LogWarning("TileRenderer or OriginalMaterial is null. Cannot reset materials.");
@@ -354,7 +375,15 @@ public class Tile : MonoBehaviour
 
         foreach (Tile neighbor in neighboringTiles)
         {
-            if (neighbor != null && neighbor.tileType.ToString().StartsWith("Rail") && neighbor.isOccupied)
+            if (neighbor != null && neighbor.isOccupied && neighbor.tileType.ToString().StartsWith("Rail") )
+            {
+                return true;
+            }
+            if (neighbor != null && neighbor.isOccupied && neighbor.tileType == TileType.Tunnel)
+            {
+                return true;
+            }
+            if (neighbor != null && neighbor.isOccupied && neighbor.tileType == TileType.Bridge)
             {
                 return true;
             }
@@ -516,7 +545,4 @@ public class Tile : MonoBehaviour
                 .OnComplete(() => Destroy(child));
         }
     }
-
-
-
 }
