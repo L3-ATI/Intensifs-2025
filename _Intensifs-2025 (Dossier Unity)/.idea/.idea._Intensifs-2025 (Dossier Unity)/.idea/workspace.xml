@@ -6,42 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Alice/SM_gare_ressource.mtl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Alice/SM_mine.mtl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_00.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_00.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_01.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_01.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_02.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_02.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_03.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_03.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_04.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_04.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_05.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Rails_05.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_StoneQuarry.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_StoneQuarry.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Bush01.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Bush01.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Bush_02.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Bush_02.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Flower1.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Flower1.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Flower2.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Flower2.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Grass01.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Grass01.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Grass02.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Grass02.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Grass03.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Grass03.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Grass04.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Grass04.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_PineTree1.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_PineTree1.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_PineTree2.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_PineTree2.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Tree1.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Tree1.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Tree2.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Tree2.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Tree3.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/SM_Tree3.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Models/Sm_Flower3.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Models/Sm_Flower3.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Scenes/PaulineTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Scenes/PaulineTestScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/CameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/CameraController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
