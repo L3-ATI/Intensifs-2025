@@ -1,5 +1,74 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1399232496972415611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5795411053572511945}
+  - component: {fileID: 1396216806305163873}
+  m_Layer: 0
+  m_Name: Vegetation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5795411053572511945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399232496972415611}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4172600630588552487}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1396216806305163873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399232496972415611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0adb59d7526e434fa160288a1758970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassPrefabs:
+  - {fileID: 8072670815926787273, guid: 7fb278458e1e7e74491717fe3cfc2197, type: 3}
+  - {fileID: 3421181699608546712, guid: aca4db36acbb8054a8207e2a97b262a0, type: 3}
+  - {fileID: 2817483093866971674, guid: 438b825f92aed474cb1d9c87981b2625, type: 3}
+  - {fileID: 2469867795360580162, guid: 8cfec0e3b4e4f584895bca3707cfd2cf, type: 3}
+  bushPrefabs:
+  - {fileID: 219967438664070764, guid: 2a72679e5ca345b47a4af809537c4053, type: 3}
+  - {fileID: 6941427332172395493, guid: f07a1c8a976ac3f45b5ab6885792652e, type: 3}
+  flowerPrefabs:
+  - {fileID: 6946263498866097638, guid: 1b85036a060d1594b833f01b2593df5e, type: 3}
+  - {fileID: 1850328040390680958, guid: 16b3666b81d576947ad73d80d3295bad, type: 3}
+  - {fileID: 5026234149490489199, guid: 233ef02ef9fee39479d4581e0f486157, type: 3}
+  treePrefabs:
+  - {fileID: 3150596308007222635, guid: 9c5262cf692bf4a488ad283fb21104c1, type: 3}
+  - {fileID: 3380927248755804059, guid: 590456df70c81114ebbd7bc0b57aa822, type: 3}
+  - {fileID: 6748234104700929385, guid: 123863ea6103ef347bd05307b22b787b, type: 3}
+  - {fileID: 323495883081305133, guid: 407015328fa533d4c83219bf1538cb18, type: 3}
+  - {fileID: 336022082155299784, guid: 169f8858ee5f56348a7cf61242e7b8d5, type: 3}
+  vegetationScaleRange: {x: 1, y: 1}
+  vegetationParent: {fileID: 5795411053572511945}
+  isGrassTile: 1
+  grassProbability: 0.6
+  bushProbability: 0.3
+  flowerProbability: 0.5
+  treeProbability: 0.5
 --- !u!1 &1457668999076622447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,6 +1396,7 @@ Transform:
   - {fileID: 995617982421376760}
   - {fileID: 1392015593384433966}
   - {fileID: 850287701173788854}
+  - {fileID: 5795411053572511945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6082777237880216548
@@ -1355,6 +1425,7 @@ MonoBehaviour:
   neighboringTiles: []
   connectedRails: []
   mountainPrefab: {fileID: 6680752679857288398, guid: 1b7905aa305f6454c958f7a9f156e6bf, type: 3}
+  vegetation: {fileID: 1399232496972415611}
 --- !u!33 &490421104436062870
 MeshFilter:
   m_ObjectHideFlags: 0

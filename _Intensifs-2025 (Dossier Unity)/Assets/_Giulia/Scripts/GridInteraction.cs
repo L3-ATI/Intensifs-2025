@@ -216,19 +216,20 @@ public class GridInteraction : MonoBehaviour
 
         if (prefabToPlace == stationPrefab)
         {
-            tile.tileType = TileType.Station;
+            tile.SetTileType(TileType.Station);
         }
         else if (prefabToPlace == bridgePrefab)
         {
-            tile.tileType = TileType.Bridge;
+            tile.SetTileType(TileType.Bridge);
         }
         else if (prefabToPlace == tunnelPrefab)
         {
-            tile.tileType = TileType.Tunnel;
+            tile.SetTileType(TileType.Tunnel);
         }
         else
         {
-            tile.tileType = (TileType)System.Enum.Parse(typeof(TileType), objectTypeToPlace);
+            
+            tile.SetTileType((TileType)System.Enum.Parse(typeof(TileType), objectTypeToPlace));
         }
     }
 
