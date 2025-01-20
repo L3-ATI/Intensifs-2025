@@ -38,65 +38,88 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        GenerateGrid();
+        GenerateIrregularGrid();
     }
-
-    void GenerateGrid()
+    void GenerateIrregularGrid()
     {
-        tiles = new Tile[width, height];
+        bool[,] isTileValid = new bool[width, height];
+        float[,] waterProbabilityMap = new float[width, height];  // Initialise la carte des probabilités d'eau
 
-        // Grille de probabilité pour les tuiles d'eau
-        float[,] waterProbabilityMap = new float[width, height];
-
+        // Remplir ce tableau avec une forme aléatoire ou basée sur une règle.
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
             {
-                float xOffset = (z % 2 != 0) ? tileSizeX * 0.5f : 0;
+                // Exemple : créer une forme aléatoire en fonction de la distance au centre
+                float distance = Vector2.Distance(new Vector2(x, z), new Vector2(width / 2, height / 2));
+                isTileValid[x, z] = distance < (width / 2) - Random.Range(0, width / 4); // Permet une variation dans la forme
 
-                Vector3 position = new Vector3(x * tileSizeX + xOffset, 0, z * tileSizeZ);
+                // Ajoute ici un calcul de probabilité pour l'eau (si nécessaire)
+                if (isTileValid[x, z])
+                {
+                    waterProbabilityMap[x, z] = Random.Range(0f, 1f);  // Exemple simple de probabilité d'eau
+                }
+                else
+                {
+                    waterProbabilityMap[x, z] = 0f;  // Pas d'eau dans les cases invalides
+                }
+            }
+        }
 
-                TileType tileType = tileGenerationManager.GetRandomTileType(x, z, waterProbabilityMap);
-                GameObject prefabToInstantiate = tilePrefab;
-                if (tileType == TileType.Water && riverTilePrefab != null)
-                {
-                    prefabToInstantiate = riverTilePrefab;
-                }
-                else if (tileType == TileType.StoneQuarry && stoneQuarryTilePrefab != null)
-                {
-                    prefabToInstantiate = stoneQuarryTilePrefab;
-                }
+        tiles = new Tile[width, height];
 
-                GameObject newTile = Instantiate(prefabToInstantiate, position, Quaternion.identity, transform);
-                newTile.name = $"Tile_{x}_{z}";
+        // Génère les tuiles en fonction des cases valides
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                if (isTileValid[x, z])
+                {
+                    float xOffset = (z % 2 != 0) ? tileSizeX * 0.5f : 0;
+                    Vector3 position = new Vector3(x * tileSizeX + xOffset, 0, z * tileSizeZ);
 
-                Tile tileComponent = newTile.GetComponent<Tile>();
-                tileComponent.SetPosition(x, z);
-                tiles[x, z] = tileComponent;
-                tileComponent.tileType = tileType;
+                    TileType tileType = tileGenerationManager.GetRandomTileType(x, z, waterProbabilityMap);  // Passe waterProbabilityMap
+                    GameObject prefabToInstantiate = tilePrefab;
 
-                if (tileType == TileType.Mountain && mountainPrefab != null)
-                {
-                    CreatePrefabOnTile(mountainPrefab, newTile, x, z);
-                }
-                else if (tileType == TileType.Mine && minePrefab != null)
-                {
-                    CreatePrefabOnTile(minePrefab, newTile, x, z);
-                }
-                else if (tileType == TileType.Sawmill && sawmillPrefab != null)
-                {
-                    CreatePrefabOnTile(sawmillPrefab, newTile, x, z);
-                }
-                else if (tileType == TileType.StoneQuarry && stoneQuarryPrefab != null)
-                {
-                    CreatePrefabOnTile(stoneQuarryPrefab, newTile, x, z);
-                }
-                
+                    if (tileType == TileType.Water && riverTilePrefab != null)
+                    {
+                        prefabToInstantiate = riverTilePrefab;
+                    }
+                    else if (tileType == TileType.StoneQuarry && stoneQuarryTilePrefab != null)
+                    {
+                        prefabToInstantiate = stoneQuarryTilePrefab;
+                    }
 
-                // Mettre à jour la probabilité d'eau dans la carte des probabilités
-                if (tileType == TileType.Water)
-                {
-                    waterProbabilityMap[x, z] = 1f; // L'eau est placée ici
+                    GameObject newTile = Instantiate(prefabToInstantiate, position, Quaternion.identity, transform);
+                    newTile.name = $"Tile_{x}_{z}";
+
+                    Tile tileComponent = newTile.GetComponent<Tile>();
+                    tileComponent.SetPosition(x, z);
+                    tiles[x, z] = tileComponent;
+                    tileComponent.tileType = tileType;
+
+                    if (tileType == TileType.Mountain && mountainPrefab != null)
+                    {
+                        CreatePrefabOnTile(mountainPrefab, newTile, x, z);
+                    }
+                    else if (tileType == TileType.Mine && minePrefab != null)
+                    {
+                        CreatePrefabOnTile(minePrefab, newTile, x, z);
+                        tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
+                        tileComponent.isOccupied = true;
+                    }
+                    else if (tileType == TileType.Sawmill && sawmillPrefab != null)
+                    {
+                        CreatePrefabOnTile(sawmillPrefab, newTile, x, z);
+                        tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
+                        tileComponent.isOccupied = true;
+                    }
+                    else if (tileType == TileType.StoneQuarry && stoneQuarryPrefab != null)
+                    {
+                        CreatePrefabOnTile(stoneQuarryPrefab, newTile, x, z);
+                        tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
+                        tileComponent.isOccupied = true;
+                    }
                 }
             }
         }
