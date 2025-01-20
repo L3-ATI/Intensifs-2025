@@ -4,6 +4,8 @@ public class TileGenerationManager : MonoBehaviour
 {
     public TileGenerationSettings tileSettings;
     
+    public GrassTile[] allGrassTiles;  // Référence aux tuiles Grass
+    
     // Méthode qui permet de récupérer la probabilité d'eau en fonction des voisins
     public float GetWaterProbability(int x, int z, float[,] waterProbabilityMap)
     {
@@ -68,5 +70,53 @@ public class TileGenerationManager : MonoBehaviour
 
         // Si aucune des conditions précédentes n'est remplie, renvoyer de l'herbe
         return TileType.Grass;
+        
+    }
+    
+    public float GetGrassProbability(int x, int z, float[,] grassProbabilityMap)
+    {
+        // Probabilité de base
+        float grassProbability = 0.6f;
+
+        // Vérifier la proximité des tuiles du même type
+        float proximityFactor = 0f;
+
+        for (int dx = -1; dx <= 1; dx++)
+        {
+            for (int dz = -1; dz <= 1; dz++)
+            {
+                int nx = x + dx;
+                int nz = z + dz;
+
+                // Vérifier que les voisins sont dans les limites de la grille
+                if (nx >= 0 && nx < grassProbabilityMap.GetLength(0) && nz >= 0 && nz < grassProbabilityMap.GetLength(1))
+                {
+                    // Augmenter la probabilité de même type si les voisins sont proches
+                    proximityFactor += grassProbabilityMap[nx, nz];
+                }
+            }
+        }
+
+        // Appliquer le facteur de proximité pour augmenter la probabilité
+        grassProbability += proximityFactor * 0.1f; // Ajustez le facteur de proximité selon vos besoins
+
+        return Mathf.Clamp01(grassProbability);
+    }
+
+    public GrassType GetRandomGrassType(int x, int z, float[,] grassProbabilityMap)
+    {
+        float randomValue = Random.value;
+
+        // Récupérer la probabilité ajustée par la proximité des voisins
+        float grassProbability = GetGrassProbability(x, z, grassProbabilityMap);
+
+        // Choisir le type de herbe en fonction de la probabilité ajustée
+        if (randomValue < grassProbability)
+            return GrassType.Woods;
+
+        if (randomValue < grassProbability + 0.2f)
+            return GrassType.Forest;
+
+        return GrassType.Land;
     }
 }

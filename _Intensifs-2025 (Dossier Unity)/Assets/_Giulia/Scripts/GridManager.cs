@@ -79,6 +79,11 @@ public class GridManager : MonoBehaviour
                     Vector3 position = new Vector3(x * tileSizeX + xOffset, 0, z * tileSizeZ);
 
                     TileType tileType = tileGenerationManager.GetRandomTileType(x, z, waterProbabilityMap);  // Passe waterProbabilityMap
+                    if (tileType == TileType.Grass)
+                    {
+                        // Appliquez le type de herbe à la tuile ou effectuez d'autres actions ici
+                    }
+
                     GameObject prefabToInstantiate = tilePrefab;
 
                     if (tileType == TileType.Water && riverTilePrefab != null)
