@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: ac510fb46e1761a44b0cc0fef42d35f2
+guid: 2f91b79aa5a1e1a49af4e7dce68cafb2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Foliage
-    second: {fileID: 2100000, guid: a158c21ee3c84574ebc131638fbb4e81, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -38,7 +33,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1

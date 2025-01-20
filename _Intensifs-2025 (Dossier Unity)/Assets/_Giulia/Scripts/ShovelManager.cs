@@ -195,7 +195,13 @@ public class ShovelManager : MonoBehaviour
 
                     childObject.transform.DOScale(Vector3.zero, 0.3f)
                         .SetEase(Ease.InBack)
-                        .OnComplete(() => Destroy(childObject));
+                        .OnComplete(() =>
+                        {
+                            if (childObject.name != "Vegetation") // Vérifie si son nom n'est pas "Vegetation"
+                            {
+                                Destroy(childObject); // Détruit l'enfant seulement si son nom n'est pas "Vegetation"
+                            }
+                        });
                     
                     if (selectedTile.tileType == TileType.Tunnel)
                     {

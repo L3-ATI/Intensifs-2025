@@ -120,6 +120,7 @@ public class GridManager : MonoBehaviour
                         tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
                         tileComponent.isOccupied = true;
                     }
+                    tileComponent.UpdateVegetation();
                 }
             }
         }
