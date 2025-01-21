@@ -1,13 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GrassType
-{
-    Woods,
-    Forest,
-    Land
-}
-
 public class GrassTile : MonoBehaviour
 {
     [Header("Vegetation Settings")]
@@ -21,7 +14,6 @@ public class GrassTile : MonoBehaviour
 
     [Header("Tile Type Settings")]
     public bool isGrassTile = true;
-    public GrassType grassType;  // Nouveau champ pour le type de herbe
 
     // Probabilités définissant la quantité de chaque type de végétation
     [Range(0f, 1f)] public float grassProbability = 0.7f;
@@ -33,7 +25,7 @@ public class GrassTile : MonoBehaviour
     {
         if (isGrassTile)
         {
-            AdjustProbabilities();  // Ajuster les probabilités en fonction du type de herbe
+            // Générer la végétation en fonction des probabilités
             GenerateVegetation(grassPrefabs, grassProbability, 0, 8);
             GenerateVegetation(bushPrefabs, bushProbability, 0, 4);
             GenerateVegetation(flowerPrefabs, flowerProbability, 0, 6);
@@ -42,33 +34,6 @@ public class GrassTile : MonoBehaviour
         else
         {
             Debug.Log($"La tuile {gameObject.name} n'est pas de type herbe, aucune végétation générée.");
-        }
-    }
-
-    private void AdjustProbabilities()
-    {
-        switch (grassType)
-        {
-            case GrassType.Woods:
-                grassProbability = 0.6f;
-                bushProbability = 0.4f;
-                treeProbability = 0.3f;
-                flowerProbability = 0.2f;
-                break;
-
-            case GrassType.Forest:
-                grassProbability = 0.4f;
-                bushProbability = 0.5f;
-                treeProbability = 0.5f;
-                flowerProbability = 0.1f;
-                break;
-
-            case GrassType.Land:
-                grassProbability = 0.8f;
-                bushProbability = 0.2f;
-                treeProbability = 0.05f;
-                flowerProbability = 0.3f;
-                break;
         }
     }
 

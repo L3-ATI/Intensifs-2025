@@ -528,7 +528,8 @@ public class Tile : MonoBehaviour
     
     public void SetTileType(TileType newType)
     {
-        tileType = newType;
+        tileType = newType; // Mettre à jour le type
+        UpdateVegetation(); // Mettre à jour l'état de la végétation
     }
     
     
@@ -577,4 +578,21 @@ public class Tile : MonoBehaviour
         }
     }
 
+    public void UpdateVegetation()
+    {
+        if (vegetation != null)
+        {
+            if (tileType == TileType.Grass)
+            {
+                // Si la végétation est inactive, on la fait apparaître doucement
+                vegetation.SetActive(true);
+                vegetation.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack);
+            }
+            else
+            {
+                // Si la végétation doit disparaître, on l'efface doucement
+                vegetation.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack);
+            }
+        }
+    }
 }
