@@ -16,7 +16,7 @@ public class ShovelManager : MonoBehaviour
     public Button cancelButton;
     public GameObject mountainPrefab;
 
-    private bool isShovelActive = false;
+    public static bool isShovelActive = false;
     private GridInteraction gridInteractionScript;
     private Tile selectedTile = null;
     private Material originalMaterial = null;
@@ -34,15 +34,26 @@ public class ShovelManager : MonoBehaviour
     {
         if (isShovelActive)
         {
+            // Met à jour la position de l'icône de la pelle
             Vector2 mousePosition = Input.mousePosition;
             shovelIcon.position = mousePosition;
-            
-            if (Input.GetMouseButtonDown(0))
+
+            // Raycast pour détecter les tuiles sous la souris
+            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
             {
-                TrySelectTile();
+                Tile tile = hit.collider.GetComponent<Tile>();
+                if (tile != null && tile != selectedTile) // Assure que la tuile survolée est différente de la sélectionnée
+                {
+                    // Appel de TrySelectTile pour sélectionner la tuile lorsqu'elle est survolée
+                    TrySelectTile(tile);
+                }
             }
         }
     }
+
 
     private void ToggleShovel()
     {
@@ -95,49 +106,49 @@ public class ShovelManager : MonoBehaviour
         }
     }
     
-    private void TrySelectTile()
+    private void TrySelectTile(Tile tile)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        if (tile == null) return;
 
-        if (Physics.Raycast(ray, out hit))
+        // Vérifications pour s'assurer que la tuile peut être modifiée
+        if (tile.tileType == TileType.Mountain)
         {
-            Tile tile = hit.collider.GetComponent<Tile>();
-            if (tile != null)
-            {
-                if (tile.tileType == TileType.Mountain)
-                {
-                    TooltipManager.Instance.ShowTooltip("You can't destroy a mountain.");
-                }
-                if (tile.tileType == TileType.Mine)
-                {
-                    TooltipManager.Instance.ShowTooltip("You can't destroy a mine.");
-                }
-                if (tile.tileType == TileType.Sawmill)
-                {
-                    TooltipManager.Instance.ShowTooltip("You can't destroy a sawmill.");
-                }
-                if (tile.tileType == TileType.StoneQuarry)
-                {
-                    TooltipManager.Instance.ShowTooltip("You can't destroy a stone quarry.");
-                }
-                if (tile.tileType == TileType.Water)
-                {
-                    TooltipManager.Instance.ShowTooltip("You can't destroy water.");
-                }
-                if (tile.tileType == TileType.Grass)
-                {
-                    TooltipManager.Instance.ShowTooltip("You can't destroy an empty tile.");
-                }
-                else
-                {
-                    confirmationPanel.SetActive(true);
-                }
-
-                SelectTile(tile);
-            }
+            TooltipManager.Instance.ShowTooltip("You can't destroy a mountain.");
+            return;
+        }
+        if (tile.tileType == TileType.Mine)
+        {
+            TooltipManager.Instance.ShowTooltip("You can't destroy a mine.");
+            return;
+        }
+        if (tile.tileType == TileType.Sawmill)
+        {
+            TooltipManager.Instance.ShowTooltip("You can't destroy a sawmill.");
+            return;
+        }
+        if (tile.tileType == TileType.StoneQuarry)
+        {
+            TooltipManager.Instance.ShowTooltip("You can't destroy a stone quarry.");
+            return;
+        }
+        if (tile.tileType == TileType.Water)
+        {
+            TooltipManager.Instance.ShowTooltip("You can't destroy water.");
+            return;
+        }
+        if (tile.tileType == TileType.Grass)
+        {
+            TooltipManager.Instance.ShowTooltip("You can't destroy an empty tile.");
+            return;
+        }
+        else
+        {
+            // Si la tuile est modifiable, montre le panneau de confirmation
+            confirmationPanel.SetActive(true);
+            SelectTile(tile);
         }
     }
+
 
     private void SelectTile(Tile tile)
     {
@@ -178,63 +189,67 @@ public class ShovelManager : MonoBehaviour
 
     private void OnConfirm()
     {
-        if (selectedTile != null)
+        if (selectedTile == null)
+            return;
+
+        Debug.Log("Selected tile type: " + selectedTile.tileType);
+
+        // Vérifie que la tuile est de type modifiable
+        if (selectedTile.tileType != TileType.Mountain &&
+            selectedTile.tileType != TileType.Mine &&
+            selectedTile.tileType != TileType.Sawmill &&
+            selectedTile.tileType != TileType.StoneQuarry &&
+            selectedTile.tileType != TileType.Water &&
+            selectedTile.tileType != TileType.Grass)
         {
-            Debug.Log("Selected tile type: " + selectedTile.tileType);
-
-            if (selectedTile.tileType != TileType.Mountain &&
-                selectedTile.tileType != TileType.Mine &&
-                selectedTile.tileType != TileType.Sawmill &&
-                selectedTile.tileType != TileType.StoneQuarry &&
-                selectedTile.tileType != TileType.Water &&
-                selectedTile.tileType != TileType.Grass)
+            // Parcourt les enfants de la tuile
+            for (int i = 7; i < selectedTile.transform.childCount; i++)
             {
-                for (int i = 7; i < selectedTile.transform.childCount; i++)
+                Transform childTransform = selectedTile.transform.GetChild(i);
+
+                // Vérifie que l'objet n'est pas de la végétation avant de le détruire
+                if (childTransform.name != "Vegetation")
                 {
-                    GameObject childObject = selectedTile.transform.GetChild(i).gameObject;
-
-                    childObject.transform.DOScale(Vector3.zero, 0.3f)
+                    childTransform.DOScale(Vector3.zero, 0.3f)
                         .SetEase(Ease.InBack)
-                        .OnComplete(() =>
-                        {
-                            if (childObject.name != "Vegetation") // Vérifie si son nom n'est pas "Vegetation"
-                            {
-                                Destroy(childObject); // Détruit l'enfant seulement si son nom n'est pas "Vegetation"
-                            }
-                        });
-                    
-                    if (selectedTile.tileType == TileType.Tunnel)
-                    {
-                        selectedTile.isOccupied = false;
-                        GameObject newMountain = Instantiate(mountainPrefab, selectedTile.transform.position, Quaternion.identity);
-                        newMountain.transform.SetParent(selectedTile.transform);
-                        selectedTile.tileType = TileType.Mountain;
-                        Debug.Log("Destroyed tunnel, replaced with mountain.");
-
-                        ToggleShovel();
-                        confirmationPanel.SetActive(false);
-                        return;
-                    }
-                    else if (selectedTile.tileType == TileType.Bridge)
-                    {
-                        selectedTile.isOccupied = false;
-                        selectedTile.tileType = TileType.Water;
-
-                        ToggleShovel();
-                        confirmationPanel.SetActive(false);
-                        return;
-                    }
-                    else
-                    {
-                        selectedTile.isOccupied = false;
-                        selectedTile.tileType = TileType.Grass;
-
-                        ToggleShovel();
-                        confirmationPanel.SetActive(false);
-                        return;
-                    }
+                        .OnComplete(() => Destroy(childTransform.gameObject));
                 }
             }
+
+            // Gestion spécifique des types de tuiles
+            switch (selectedTile.tileType)
+            {
+                case TileType.Tunnel:
+                    ReplaceTile(TileType.Mountain, mountainPrefab);
+                    Debug.Log("Destroyed tunnel, replaced with mountain.");
+                    break;
+
+                case TileType.Bridge:
+                    ReplaceTile(TileType.Water);
+                    Debug.Log("Destroyed bridge, replaced with water.");
+                    break;
+
+                default:
+                    ReplaceTile(TileType.Grass);
+                    Debug.Log("Tile reset to grass.");
+                    break;
+            }
+
+            // Désactive la pelle et le panneau de confirmation
+            ToggleShovel();
+            confirmationPanel.SetActive(false);
+        }
+    }
+    
+    private void ReplaceTile(TileType newType, GameObject prefab = null)
+    {
+        selectedTile.isOccupied = false;
+        selectedTile.tileType = newType;
+
+        if (prefab != null)
+        {
+            GameObject newObject = Instantiate(prefab, selectedTile.transform.position, Quaternion.identity);
+            newObject.transform.SetParent(selectedTile.transform);
         }
     }
 

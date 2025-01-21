@@ -15,6 +15,7 @@ public class GridInteraction : MonoBehaviour
 
     private GameObject objectToPlace;
     private Tile currentTile; 
+    private string currentObjectType;
 
     void Awake()
     {
@@ -26,22 +27,10 @@ public class GridInteraction : MonoBehaviour
 
     void Update()
     {
-
-        if (objectTypeToPlace == "Station")
+        if (objectTypeToPlace != currentObjectType && objectTypeToPlace != null)
         {
-            objectToPlace = stationPrefab;
-        }
-        else if (objectTypeToPlace.StartsWith("Rail"))
-        {
-            objectToPlace = GetRailPrefab(objectTypeToPlace);
-        }
-        else if (objectTypeToPlace == "Bridge")
-        {
-            objectToPlace = bridgePrefab;
-        }
-        else if (objectTypeToPlace == "Tunnel")
-        {
-            objectToPlace = tunnelPrefab;
+            UpdateObjectToPlace();
+            currentObjectType = objectTypeToPlace;
         }
         
         if (IsPointerOverUIElement())
@@ -51,21 +40,46 @@ public class GridInteraction : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            HandleMouseClick();
+        }
+    }
+    private void UpdateObjectToPlace()
+    {
+        switch (objectTypeToPlace)
+        {
+            case "Station":
+                objectToPlace = stationPrefab;
+                break;
+            case "Bridge":
+                objectToPlace = bridgePrefab;
+                break;
+            case "Tunnel":
+                objectToPlace = tunnelPrefab;
+                break;
+            default:
+                if (objectTypeToPlace.StartsWith("Rail"))
+                    objectToPlace = GetRailPrefab(objectTypeToPlace);
+                break;
+        }
+
+    }
+    
+    private void HandleMouseClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            currentTile = hit.collider.GetComponent<Tile>();
+            if (currentTile != null)
             {
-                currentTile = hit.collider.GetComponent<Tile>();
-                if (currentTile != null)
-                {
-                    HandleTileClick(currentTile);
-                }
+                HandleTileClick(currentTile);
             }
-            else
+        }
+        else
+        {
+            if (currentTile != null)
             {
-                if (currentTile != null)
-                {
-                    currentTile.CancelPlacement(7);
-                }
+                currentTile.CancelPlacement(7);
             }
         }
     }
@@ -86,6 +100,9 @@ public class GridInteraction : MonoBehaviour
 
     private void HandleTileClick(Tile tile)
     {
+        if (ShovelManager.isShovelActive || IsPointerOverUIElement() || !UIManager.isAButtonClicked)
+            return;
+        
         if (!tile.CanPlaceObject(objectTypeToPlace))
         {
             string reason = GetPlacementErrorMessage(tile);
@@ -185,9 +202,6 @@ public class GridInteraction : MonoBehaviour
         return "Can't build here.";
     }
 
-
-
-
     public GameObject GetRailPrefab(string railType)
     {
         switch (railType)
@@ -210,9 +224,11 @@ public class GridInteraction : MonoBehaviour
 
         structure.transform.localScale = Vector3.zero;
         structure.transform.DOScale(Vector3.one, 0.3f)
-            .SetEase(Ease.OutBack);
+            .SetEase(Ease.OutBack)
+            .OnComplete(() => { /* Code après l'animation */ });
         structure.transform.DORotate(new Vector3(0, 360, 0), 0.25f, RotateMode.FastBeyond360)
-            .SetEase(Ease.InOutSine);
+            .SetEase(Ease.InOutSine)
+            .OnComplete(() => { /* Code après l'animation */ });
 
         if (prefabToPlace == stationPrefab)
         {
