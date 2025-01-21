@@ -196,14 +196,13 @@ public class Tile : MonoBehaviour
                 return objectType == "Stone Quarry";
 
             default:
-                Debug.LogWarning($"Invalid tile type {tileType} for {objectType}");
+                //Debug.LogWarning($"Invalid tile type {tileType} for {objectType}");
                 return false;
         }
     }
 
     private bool CanPlaceTunnelOrBridge(string objectType)
     {
-        // Vérifie que le tunnel ou le pont est adjacent à un rail ou une station
         foreach (Tile neighbor in neighboringTiles)
         {
             if (neighbor != null && (neighbor.tileType.ToString().StartsWith("Rail") || neighbor.tileType == TileType.Station))
@@ -252,7 +251,7 @@ public class Tile : MonoBehaviour
     
     private void OnMouseDown()
     {
-        if (isShovelActive || IsPointerOverUIElement())
+        if (isShovelActive || IsPointerOverUIElement() || !UIManager.isAButtonClicked)
         {
             return;
         }
@@ -288,10 +287,16 @@ public class Tile : MonoBehaviour
             }
             else if (GridInteraction.Instance.objectTypeToPlace == "Tunnel")
             {
-                if (transform.childCount > 7 && 7 >= 0)
+                if (transform.childCount > 7)
                 {
-                    Destroy(transform.GetChild(7).gameObject);
+                    // Utiliser une méthode générique pour supprimer un objet enfant
+                    GameObject childToDestroy = GetChildToDestroy(7);
+                    if (childToDestroy != null)
+                    {
+                        DestroyChild(childToDestroy);
+                    }
                 }
+
                 ShowPlacementUI(GridInteraction.Instance.tunnelPrefab);
             }
             else if (GridInteraction.Instance.objectTypeToPlace.StartsWith("Rail"))
@@ -302,9 +307,39 @@ public class Tile : MonoBehaviour
         }
     }
     
+    private GameObject GetChildToDestroy(int index)
+    {
+        if (transform.childCount <= index)
+        {
+            return null;
+        }
+
+        GameObject childObject = transform.GetChild(index).gameObject;
+        
+        if (childObject.name == "Vegetation" && transform.childCount > index + 1)
+        {
+            childObject = transform.GetChild(index + 1).gameObject;
+        }
+
+        return childObject;
+    }
+
+    private void DestroyChild(GameObject childObject)
+    {
+        if (childObject != null)
+        {
+            childObject.transform.DOScale(Vector3.zero, 0.3f)
+                .SetEase(Ease.InBack)
+                .OnComplete(() =>
+                {
+                    Destroy(childObject);
+                });
+        }
+    }
+    
     private void OnMouseEnter()
     {
-        if (isShovelActive || IsPointerOverUIElement())
+        if (isShovelActive || IsPointerOverUIElement() || !UIManager.isAButtonClicked)
             return;
 
         if (GridInteraction.Instance != null)
@@ -335,7 +370,7 @@ public class Tile : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (isShovelActive || IsPointerOverUIElement())
+        if (isShovelActive || IsPointerOverUIElement() || !UIManager.isAButtonClicked)
         {
             return;
         }
@@ -422,22 +457,26 @@ public class Tile : MonoBehaviour
     {
         bool isConnected = false;
 
-        if (connectedRails.Count == 0 && tileType.ToString().StartsWith("Rail"))
+        if (connectedRails.Count == 0)
         {
-            foreach (Tile neighbor in neighboringTiles)
+            if (tileType.ToString().StartsWith("Rail") || tileType == TileType.Tunnel || tileType == TileType.Bridge)
             {
-                if (neighbor.tileType == TileType.Station)
+                foreach (Tile neighbor in neighboringTiles)
                 {
-                    isConnected = true;
-                    break;
+                    if (neighbor.tileType == TileType.Station)
+                    {
+                        isConnected = true;
+                        break;
+                    }
+                }
+
+                if (!isConnected)
+                {
+                    TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
+                    return;
                 }
             }
-
-            if (!isConnected)
-            {
-                TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
-                return;
-            }
+            
         }
         
         else if (tileType == TileType.Tunnel || tileType == TileType.Bridge)
