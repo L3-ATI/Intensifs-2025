@@ -44,6 +44,7 @@ public class GridManager : MonoBehaviour
     {
         bool[,] isTileValid = new bool[width, height];
         float[,] waterProbabilityMap = new float[width, height];  // Initialise la carte des probabilités d'eau
+        float[,] grassProbabilityMap = new float[width, height]; // Carte des probabilités pour la végétation
 
         // Remplir ce tableau avec une forme aléatoire ou basée sur une règle.
         for (int x = 0; x < width; x++)
@@ -58,10 +59,12 @@ public class GridManager : MonoBehaviour
                 if (isTileValid[x, z])
                 {
                     waterProbabilityMap[x, z] = Random.Range(0f, 1f);  // Exemple simple de probabilité d'eau
+                    grassProbabilityMap[x, z] = Random.Range(0f, 1f); // Probabilités pour les types de herbe
                 }
                 else
                 {
-                    waterProbabilityMap[x, z] = 0f;  // Pas d'eau dans les cases invalides
+                    waterProbabilityMap[x, z] = 0f;
+                    grassProbabilityMap[x, z] = 0f;
                 }
             }
         }
@@ -78,14 +81,9 @@ public class GridManager : MonoBehaviour
                     float xOffset = (z % 2 != 0) ? tileSizeX * 0.5f : 0;
                     Vector3 position = new Vector3(x * tileSizeX + xOffset, 0, z * tileSizeZ);
 
-                    TileType tileType = tileGenerationManager.GetRandomTileType(x, z, waterProbabilityMap);  // Passe waterProbabilityMap
-                    if (tileType == TileType.Grass)
-                    {
-                        // Appliquez le type de herbe à la tuile ou effectuez d'autres actions ici
-                    }
+                    TileType tileType = tileGenerationManager.GetRandomTileType(x, z, grassProbabilityMap);  // Passe waterProbabilityMap
 
                     GameObject prefabToInstantiate = tilePrefab;
-
                     if (tileType == TileType.Water && riverTilePrefab != null)
                     {
                         prefabToInstantiate = riverTilePrefab;
@@ -102,7 +100,25 @@ public class GridManager : MonoBehaviour
                     tileComponent.SetPosition(x, z);
                     tiles[x, z] = tileComponent;
                     tileComponent.tileType = tileType;
-
+                    
+                    if (tileType == TileType.Grass)
+                    {
+                        GrassType randomGrassType = tileGenerationManager.GetRandomGrassType(x, z, grassProbabilityMap);
+                        GrassTile grassTile = newTile.GetComponent<GrassTile>();
+                        if (grassTile != null)
+                        {
+                            grassTile.grassType = randomGrassType;
+                            grassTile.GenerateVegetation();  // Appel explicite pour la génération de la végétation
+                        }
+                        if (tileComponent != null)
+                        {
+                            if (tileComponent.vegetation == null)
+                            {
+                                tileComponent.vegetation = newTile.transform.Find("Vegetation")?.gameObject;
+                            }
+                        }
+                    }
+                    
                     if (tileType == TileType.Mountain && mountainPrefab != null)
                     {
                         CreatePrefabOnTile(mountainPrefab, newTile, x, z);
@@ -125,7 +141,6 @@ public class GridManager : MonoBehaviour
                         tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
                         tileComponent.isOccupied = true;
                     }
-                    tileComponent.UpdateVegetation();
                 }
             }
         }

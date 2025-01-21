@@ -71,6 +71,7 @@ public class TileGenerationManager : MonoBehaviour
         // Si aucune des conditions précédentes n'est remplie, renvoyer de l'herbe
         return TileType.Grass;
         
+        
     }
     
     public float GetGrassProbability(int x, int z, float[,] grassProbabilityMap)
@@ -98,7 +99,7 @@ public class TileGenerationManager : MonoBehaviour
         }
 
         // Appliquer le facteur de proximité pour augmenter la probabilité
-        grassProbability += proximityFactor * 0.1f; // Ajustez le facteur de proximité selon vos besoins
+        grassProbability += proximityFactor * 0.3f; // Ajustez le facteur de proximité selon vos besoins
 
         return Mathf.Clamp01(grassProbability);
     }
