@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ae11a8118522c4c88b451593adb99d, type: 3}
   m_Name: TileGenerationSettings_Base
   m_EditorClassIdentifier: 
-  waterPercentage: 0.5
+  waterPercentage: 1
   mountainPercentage: 3
   minePercentage: 2
   sawmillPercentage: 2
   stoneQuarryPercentage: 2
-  waterProximityFactor: 0.05
+  waterProximityFactor: 0.1
