@@ -116,6 +116,11 @@ public class ShovelManager : MonoBehaviour
             TooltipManager.Instance.ShowTooltip("You can't destroy a mountain.");
             return;
         }
+        if (tile.tileType == TileType.City)
+        {
+            TooltipManager.Instance.ShowTooltip("You can't destroy a city.");
+            return;
+        }
         if (tile.tileType == TileType.Mine)
         {
             TooltipManager.Instance.ShowTooltip("You can't destroy a mine.");
@@ -136,7 +141,7 @@ public class ShovelManager : MonoBehaviour
             TooltipManager.Instance.ShowTooltip("You can't destroy water.");
             return;
         }
-        if (tile.tileType == TileType.Grass)
+        if (tile.tileType == TileType.Grass || tile.tileType == TileType.Desert)
         {
             TooltipManager.Instance.ShowTooltip("You can't destroy an empty tile.");
             return;

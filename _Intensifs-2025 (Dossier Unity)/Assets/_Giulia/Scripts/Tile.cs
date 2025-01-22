@@ -10,7 +10,8 @@ using Object = UnityEngine.Object;
 public enum TileType {
     Grass, Mountain, Water, Station,
     Rail00, Rail01, Rail02, Rail03, Rail04, Rail05,
-    Bridge, Tunnel, Mine, Sawmill, StoneQuarry
+    Bridge, Tunnel, Mine, Sawmill, StoneQuarry,
+    Desert, City
 }
 
 public class Tile : MonoBehaviour

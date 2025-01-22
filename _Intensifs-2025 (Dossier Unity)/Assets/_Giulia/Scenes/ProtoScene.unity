@@ -335,8 +335,8 @@ Transform:
   m_GameObject: {fileID: 88240071}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 80, y: -0.3, z: 70}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 127, y: -0.3, z: 115}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -603,8 +603,8 @@ Transform:
   m_GameObject: {fileID: 159458820}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 80, y: 1.1, z: 70}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 127, y: 1.1, z: 115}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -688,7 +688,7 @@ Transform:
   m_GameObject: {fileID: 217884071}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.9396927, z: -0.3420201, w: 0}
-  m_LocalPosition: {x: 90, y: 70, z: 170}
+  m_LocalPosition: {x: 127, y: 70, z: 235}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2142,7 +2142,7 @@ Transform:
   m_GameObject: {fileID: 567671620}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.9396927, z: -0.3420201, w: 0}
-  m_LocalPosition: {x: 90, y: 70, z: 170}
+  m_LocalPosition: {x: 127, y: 70, z: 235}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2225,7 +2225,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 179
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -3955,7 +3955,7 @@ Transform:
   m_GameObject: {fileID: 1217613084}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 90, y: 180, z: 75}
+  m_LocalPosition: {x: 127, y: 230, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4038,7 +4038,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 179
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -5530,17 +5530,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596b6635eaf1a4b42a7b7be2c8de13c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 20
-  height: 20
+  width: 30
+  height: 30
   tileSizeX: 8.66
   tileSizeZ: 7.5
   tilePrefab: {fileID: 7878982099941731297, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
   riverTilePrefab: {fileID: 6185400647594969858, guid: b316d3409c0ad5a459286a4eabc0d731, type: 3}
   stoneQuarryTilePrefab: {fileID: 8939263264206872950, guid: f51ccb38273435d4ca2dac417b6dbc1b, type: 3}
+  desertTilePrefab: {fileID: 512128964830342975, guid: 0f8b41f76f0a44c4890be5cb774a3618, type: 3}
   mountainPrefab: {fileID: 6680752679857288398, guid: 1b7905aa305f6454c958f7a9f156e6bf, type: 3}
   minePrefab: {fileID: 5735940069638694092, guid: d07a2093bc10b204b97c5b829021127f, type: 3}
   sawmillPrefab: {fileID: 5735940069638694092, guid: eb3f456a7b778634a85e7709eeb52c67, type: 3}
   stoneQuarryPrefab: {fileID: 5735940069638694092, guid: cec454aef3b96694b8708a8ca6ec11c6, type: 3}
+  cityPrefab: {fileID: 6145894885599798444, guid: a0cff7e7dfe862242a46a14d76278c99, type: 3}
 --- !u!4 &2017914824
 Transform:
   m_ObjectHideFlags: 0

@@ -13,13 +13,14 @@ public class GridManager : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject riverTilePrefab;
     public GameObject stoneQuarryTilePrefab;
+    public GameObject desertTilePrefab;
     public GameObject mountainPrefab;
     public GameObject minePrefab;
     public GameObject sawmillPrefab;
-    public GameObject stoneQuarryPrefab; // Préfab de Stone Quarry
+    public GameObject stoneQuarryPrefab;
+    public GameObject cityPrefab;
 
     private Tile[,] tiles;
-
     private TileGenerationManager tileGenerationManager;
 
     void Awake()
@@ -40,35 +41,41 @@ public class GridManager : MonoBehaviour
     {
         GenerateIrregularGrid();
     }
+    
     void GenerateIrregularGrid()
     {
         bool[,] isTileValid = new bool[width, height];
-        float[,] waterProbabilityMap = new float[width, height];  // Initialise la carte des probabilités d'eau
+        float[,] waterProbabilityMap = new float[width, height];
+        float[,] desertProbabilityMap = new float[width, height]; 
+        float[,] cityProbabilityMap = new float[width, height];
+        
 
-        // Remplir ce tableau avec une forme aléatoire ou basée sur une règle.
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
             {
-                // Exemple : créer une forme aléatoire en fonction de la distance au centre
                 float distance = Vector2.Distance(new Vector2(x, z), new Vector2(width / 2, height / 2));
-                isTileValid[x, z] = distance < (width / 2) - Random.Range(0, width / 4); // Permet une variation dans la forme
+                isTileValid[x, z] = distance < (width / 2) - Random.Range(0, width / 4);
 
-                // Ajoute ici un calcul de probabilité pour l'eau (si nécessaire)
                 if (isTileValid[x, z])
                 {
-                    waterProbabilityMap[x, z] = Random.Range(0f, 1f);  // Exemple simple de probabilité d'eau
+                    waterProbabilityMap[x, z] = Random.Range(0f, 1f);
+                    desertProbabilityMap[x, z] = Random.Range(0f, 1f);
+                    cityProbabilityMap[x, z] = Random.value < TileGenerationSettings.cityClusterProbability ? 1f : 0f;
                 }
                 else
                 {
-                    waterProbabilityMap[x, z] = 0f;  // Pas d'eau dans les cases invalides
+                    waterProbabilityMap[x, z] = 0f;
+                    desertProbabilityMap[x, z] = 0f;
+                    cityProbabilityMap[x, z] = 0f;
                 }
             }
         }
+        
+        tileGenerationManager.EnsureCityClusters(cityProbabilityMap);
 
         tiles = new Tile[width, height];
 
-        // Génère les tuiles en fonction des cases valides
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
@@ -78,7 +85,7 @@ public class GridManager : MonoBehaviour
                     float xOffset = (z % 2 != 0) ? tileSizeX * 0.5f : 0;
                     Vector3 position = new Vector3(x * tileSizeX + xOffset, 0, z * tileSizeZ);
 
-                    TileType tileType = tileGenerationManager.GetRandomTileType(x, z, waterProbabilityMap);  // Passe waterProbabilityMap
+                    TileType tileType = tileGenerationManager.GetRandomTileType(x, z, waterProbabilityMap, desertProbabilityMap, cityProbabilityMap);
                     GameObject prefabToInstantiate = tilePrefab;
 
                     if (tileType == TileType.Water && riverTilePrefab != null)
@@ -88,6 +95,10 @@ public class GridManager : MonoBehaviour
                     else if (tileType == TileType.StoneQuarry && stoneQuarryTilePrefab != null)
                     {
                         prefabToInstantiate = stoneQuarryTilePrefab;
+                    }
+                    else if (tileType == TileType.Desert && desertTilePrefab != null)
+                    {
+                        prefabToInstantiate = desertTilePrefab;
                     }
 
                     GameObject newTile = Instantiate(prefabToInstantiate, position, Quaternion.identity, transform);
@@ -105,29 +116,36 @@ public class GridManager : MonoBehaviour
                     else if (tileType == TileType.Mine && minePrefab != null)
                     {
                         CreatePrefabOnTile(minePrefab, newTile, x, z);
-                        tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
+                        tileComponent.tag = "Structure";
                         tileComponent.isOccupied = true;
                     }
                     else if (tileType == TileType.Sawmill && sawmillPrefab != null)
                     {
                         CreatePrefabOnTile(sawmillPrefab, newTile, x, z);
-                        tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
+                        tileComponent.tag = "Structure";
                         tileComponent.isOccupied = true;
                     }
                     else if (tileType == TileType.StoneQuarry && stoneQuarryPrefab != null)
                     {
                         CreatePrefabOnTile(stoneQuarryPrefab, newTile, x, z);
-                        tileComponent.tag = "Structure"; // Tag "Structure" pour les Mines
+                        tileComponent.tag = "Structure";
+                        tileComponent.isOccupied = true;
+                    }
+                    else if (tileType == TileType.City && cityPrefab != null)
+                    {
+                        tileComponent.tileType = TileType.City;
+                        CreatePrefabOnTile(cityPrefab, newTile, x, z);
+                        tileComponent.tag = "Structure";
                         tileComponent.isOccupied = true;
                     }
                     tileComponent.UpdateVegetation();
+                    
                 }
             }
         }
     }
     private bool IsWaterNear(int x, int z, float[,] waterProbabilityMap)
     {
-        // Vérifier les voisins directs pour une probabilité d'eau plus élevée
         float probabilityThreshold = 0.3f;
         for (int dx = -1; dx <= 1; dx++)
         {
@@ -136,10 +154,9 @@ public class GridManager : MonoBehaviour
                 int nx = x + dx;
                 int nz = z + dz;
 
-                // Vérifier si le voisin est dans les limites de la grille et si de l'eau existe autour
                 if (nx >= 0 && nx < width && nz >= 0 && nz < height && waterProbabilityMap[nx, nz] > probabilityThreshold)
                 {
-                    return true; // S'il y a de l'eau à proximité
+                    return true;
                 }
             }
         }
