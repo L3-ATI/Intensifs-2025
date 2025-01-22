@@ -1,5 +1,160 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &468953888592760061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7834505133395927382}
+  m_Layer: 0
+  m_Name: CurvePointA
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7834505133395927382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468953888592760061}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.05, y: 2.5, z: -3.19}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3280966941525902711}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2748324932802584664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9182437865130772573}
+  m_Layer: 0
+  m_Name: CurvePointE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9182437865130772573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748324932802584664}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2, y: 2.5, z: -3.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3280966941525902711}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4797778437675735363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7186653196872902596}
+  m_Layer: 0
+  m_Name: CurvePointC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7186653196872902596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4797778437675735363}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3280966941525902711}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4856689588839686356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 189715073798755464}
+  m_Layer: 0
+  m_Name: CurvePointD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &189715073798755464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4856689588839686356}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.35, y: 2.5, z: -1.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3280966941525902711}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8180189875012967212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4568584924895493070}
+  m_Layer: 0
+  m_Name: CurvePointB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4568584924895493070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8180189875012967212}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2, y: 2.5, z: 3.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3280966941525902711}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5275537084330225138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 5636000649719025100, guid: e26a7a879b7946c4392f48bffd25953c, type: 3}
     - target: {fileID: 5735940069638694092, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
       propertyPath: m_Name
-      value: Rails_04
+      value: SM_rails_04
       objectReference: {fileID: 0}
     - target: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60,6 +215,26 @@ PrefabInstance:
     - {fileID: 7107841614442667706, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
     - {fileID: 2490335056885656933, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 7834505133395927382}
+    - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 4568584924895493070}
+    - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 7186653196872902596}
+    - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 189715073798755464}
+    - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 9182437865130772573}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+--- !u!4 &3280966941525902711 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+  m_PrefabInstance: {fileID: 5275537084330225138}
+  m_PrefabAsset: {fileID: 0}

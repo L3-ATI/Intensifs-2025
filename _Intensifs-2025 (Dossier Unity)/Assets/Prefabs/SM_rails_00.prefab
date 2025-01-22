@@ -70,9 +70,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2490335056885656933, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      propertyPath: m_Center.y
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5735940069638694092, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
       propertyPath: m_Name
       value: SM_rails_00
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758489908242511227, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      propertyPath: m_Center.y
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
       propertyPath: m_LocalPosition.x

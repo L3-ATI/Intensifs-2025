@@ -1,5 +1,129 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4884180106002620626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8186377474189596272}
+  m_Layer: 0
+  m_Name: CurvePointB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8186377474189596272
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4884180106002620626}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4010352114112275606}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4982358485131458551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5133869321544030027}
+  m_Layer: 0
+  m_Name: CurvePointC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5133869321544030027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982358485131458551}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2, y: 2.5, z: -3.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4010352114112275606}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6584436803815225471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6149731290383266169}
+  m_Layer: 0
+  m_Name: CurvePointD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6149731290383266169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584436803815225471}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2, y: 2.5, z: 3.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4010352114112275606}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7518273148946220186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6318073778788639223}
+  m_Layer: 0
+  m_Name: CurvePointA
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6318073778788639223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7518273148946220186}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4010352114112275606}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5987972254635559955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14,7 +138,7 @@ PrefabInstance:
       objectReference: {fileID: -1217964114609604255, guid: 498296a78f0880243a15ee4f673f2850, type: 3}
     - target: {fileID: 5735940069638694092, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
       propertyPath: m_Name
-      value: Rails_03
+      value: SM_rails_03
       objectReference: {fileID: 0}
     - target: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60,6 +184,23 @@ PrefabInstance:
     - {fileID: 7107841614442667706, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
     - {fileID: 5578706640597171402, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 6318073778788639223}
+    - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 8186377474189596272}
+    - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 5133869321544030027}
+    - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 6149731290383266169}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+--- !u!4 &4010352114112275606 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+  m_PrefabInstance: {fileID: 5987972254635559955}
+  m_PrefabAsset: {fileID: 0}
