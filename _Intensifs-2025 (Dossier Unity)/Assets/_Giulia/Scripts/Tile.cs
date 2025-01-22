@@ -15,6 +15,7 @@ public enum TileType {
 
 public class Tile : MonoBehaviour
 {
+    public bool isConnected = false;
     
     [Space(20)]
 
@@ -455,37 +456,51 @@ public class Tile : MonoBehaviour
     
     private void ValidatePlacement()
     {
-        bool isConnected = false;
+        isConnected = false;
+        Debug.Log($"Début de la validation pour la tuile {name} de type {tileType}");
 
-        if (connectedRails.Count == 0)
+        // Vérifie les types nécessitant une connexion
+        if (tileType.ToString().StartsWith("Rail") || tileType == TileType.Tunnel || tileType == TileType.Bridge)
         {
-            if (tileType.ToString().StartsWith("Rail") || tileType == TileType.Tunnel || tileType == TileType.Bridge)
+            Debug.Log("Vérification des connexions pour Rail, Tunnel ou Bridge");
+
+            // Vérifie si la tuile a des connexions directes
+            if (connectedRails.Count > 0)
             {
+                Debug.Log($"La tuile {name} possède {connectedRails.Count} rails connectés.");
+                isConnected = true;
+            }
+            else
+            {
+                // Vérifie les tuiles voisines pour les connexions
                 foreach (Tile neighbor in neighboringTiles)
                 {
                     if (neighbor.tileType == TileType.Station)
                     {
+                        Debug.Log($"Tuile voisine trouvée : {neighbor.name} de type {neighbor.tileType}");
                         isConnected = true;
                         break;
                     }
                 }
-
-                if (!isConnected)
-                {
-                    TooltipManager.Instance.ShowTooltip("Rails need to be connected to another rail or a station!");
-                    return;
-                }
             }
-            
+
+            if (!isConnected)
+            {
+                Debug.LogWarning($"Échec de la validation : la tuile {name} n'est pas connectée à une station ou un rail.");
+                TooltipManager.Instance.ShowTooltip("Rails, tunnels et ponts doivent être connectés à un autre rail ou une station !");
+                return;
+            }
         }
-        
+
+        // Vérifie les conditions spécifiques pour les Tunnels et Bridges
         else if (tileType == TileType.Tunnel || tileType == TileType.Bridge)
         {
-            // Vérifie la connexion pour Tunnel et Bridge
+            Debug.Log("Vérification des connexions pour Tunnel ou Bridge");
             foreach (Tile neighbor in neighboringTiles)
             {
                 if (neighbor.tileType.ToString().StartsWith("Rail") || neighbor.tileType == TileType.Station)
                 {
+                    Debug.Log($"Tuile voisine valide pour Tunnel/Bridge : {neighbor.name} de type {neighbor.tileType}");
                     isConnected = true;
                     break;
                 }
@@ -493,31 +508,36 @@ public class Tile : MonoBehaviour
 
             if (!isConnected)
             {
-                TooltipManager.Instance.ShowTooltip("Tunnels and bridges need to be connected to another rail or a station!");
+                Debug.LogWarning($"Échec de la validation : Tunnel ou Bridge non connecté correctement.");
+                TooltipManager.Instance.ShowTooltip("Tunnels et ponts doivent être connectés à un rail ou une station !");
                 return;
             }
         }
 
+        // Vérifie si la tuile est occupée
         if (isOccupied)
         {
+            Debug.LogWarning($"La tuile {name} est déjà occupée.");
             tileCanvas.enabled = false;
             return;
         }
 
-        if (transform.childCount > 7) // Vérifie qu'il y a au moins 8 enfants
+        // Vérifie les enfants inutiles
+        if (transform.childCount > 7)
         {
-            Transform child = transform.GetChild(7); // Récupère le huitième enfant
-            if (child.name != "Vegetation") // Vérifie si son nom n'est pas "Vegetation"
+            Transform child = transform.GetChild(7);
+            if (child.name != "Vegetation")
             {
-                Destroy(child.gameObject); // Détruit l'enfant seulement si son nom n'est pas "Vegetation"
+                Debug.Log($"Destruction de l'enfant {child.name} sur la tuile {name}.");
+                Destroy(child.gameObject);
             }
         }
 
-
-        Debug.Log("Placement validé !");
+        Debug.Log($"Placement validé pour la tuile {name} !");
         PlaceObjectOnTile();
         tileCanvas.enabled = false;
     }
+
 
     public void CancelPlacement(int childIndex)
     {
