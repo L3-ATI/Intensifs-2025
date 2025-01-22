@@ -22,6 +22,8 @@ public class GridManager : MonoBehaviour
 
     private Tile[,] tiles;
     private TileGenerationManager tileGenerationManager;
+    private TileGenerationSettings tileGenerationSettings;
+
 
     void Awake()
     {
@@ -35,6 +37,7 @@ public class GridManager : MonoBehaviour
         }
 
         tileGenerationManager = FindObjectOfType<TileGenerationManager>();
+        tileGenerationSettings = tileGenerationManager.tileSettings;
     }
 
     void Start()
@@ -60,7 +63,7 @@ public class GridManager : MonoBehaviour
                 if (isTileValid[x, z])
                 {
                     waterProbabilityMap[x, z] = Random.Range(0f, 1f);
-                    desertProbabilityMap[x, z] = Random.Range(0f, 1f);
+                    desertProbabilityMap[x, z] = Random.value < TileGenerationSettings.cityClusterProbability ? 1f : 0f;
                     cityProbabilityMap[x, z] = Random.value < TileGenerationSettings.cityClusterProbability ? 1f : 0f;
                 }
                 else
@@ -71,9 +74,9 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-        
-        tileGenerationManager.EnsureCityClusters(cityProbabilityMap);
-
+        tileGenerationManager.EnsureClusterPlacement(waterProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
+        tileGenerationManager.EnsureClusterPlacement(desertProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
+        tileGenerationManager.EnsureClusterPlacement(cityProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
         tiles = new Tile[width, height];
 
         for (int x = 0; x < width; x++)
@@ -144,42 +147,9 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-    private bool IsWaterNear(int x, int z, float[,] waterProbabilityMap)
-    {
-        float probabilityThreshold = 0.3f;
-        for (int dx = -1; dx <= 1; dx++)
-        {
-            for (int dz = -1; dz <= 1; dz++)
-            {
-                int nx = x + dx;
-                int nz = z + dz;
-
-                if (nx >= 0 && nx < width && nz >= 0 && nz < height && waterProbabilityMap[nx, nz] > probabilityThreshold)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
     private void CreatePrefabOnTile(GameObject prefab, GameObject tile, int x, int z)
     {
         GameObject instance = Instantiate(prefab, tile.transform.position, Quaternion.identity, tile.transform);
         instance.name = $"{prefab.name}_{x}_{z}";
-    }
-
-    public Tile GetTileAtPosition(int x, int z)
-    {
-        if (IsValidPosition(x, z))
-        {
-            return tiles[x, z];
-        }
-
-        return null;
-    }
-
-    public bool IsValidPosition(int x, int z)
-    {
-        return x >= 0 && x < width && z >= 0 && z < height;
     }
 }

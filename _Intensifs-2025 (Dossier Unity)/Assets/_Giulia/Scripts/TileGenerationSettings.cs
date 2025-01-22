@@ -29,34 +29,16 @@ public class TileGenerationSettings : ScriptableObject
     [Range(0f, 1f)]
     public float waterProximityFactor = 0.01f;
 
-    [Header("Desert Parameters")]
-
-    [Tooltip("Percentage of desert tiles in the generated grid.")]
-    [Range(0, 100)]
-    public float desertPercentage = 0.1f;
-    [Tooltip("Proximity factor for desert. This multiplier affects the probability of desert based on nearby tiles.")]
-    [Range(0f, 1f)]
-    public float desertProximityFactor = 0.01f;
-    [Tooltip("Factor to reduce the probability of desert for neighboring tiles when a desert tile is placed.")]
-    [Range(0f, 1f)]
-    public float desertNeighborReductionFactor = 0.05f;
-
     [Tooltip("Probability of creating a city cluster when conditions are met.")]
     [Range(0f, 1f)]
     public static float cityClusterProbability = 0.01f;
-    
-    
 
-    /*[Tooltip("Percentage of city tiles in the generated grid.")]
-    [Range(0, 100)]
-    public float cityPercentage = 5f;*/
+    [Header("Cluster Settings")]
+    [Tooltip("Size of clusters for the generation process.")]
+    [Range(1, 10)]
+    public int[] clusterSizes = new int[3] { 3, 5, 7 }; // Exemple avec 3 tailles de cluster (tu peux ajuster le nombre ou les valeurs)
 
-    /*[Header("City Cluster Settings")]
-    [Tooltip("Minimum size of city clusters.")]
-    [Range(3, 10)]
-    public int minCityClusterSize = 3;
-
-    [Tooltip("Maximum size of city clusters.")]
-    [Range(3, 10)]
-    public int maxCityClusterSize = 7;*/
+    [Tooltip("Maximum number of clusters to create.")]
+    [Range(1, 10)]
+    public int maxClusters = 5; // Ajuste cette valeur selon tes besoins
 }
