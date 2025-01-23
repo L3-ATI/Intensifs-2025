@@ -44,9 +44,9 @@ public class TileGenerationSettings : ScriptableObject
     [Header("Cluster Settings")]
     [Tooltip("Size of clusters for the generation process.")]
     [Range(1, 10)]
-    public int[] clusterSizes = new int[3] { 3, 5, 7 }; // Exemple avec 3 tailles de cluster (tu peux ajuster le nombre ou les valeurs)
+    public int[] clusterSizes = new int[3] { 3, 5, 7 };
 
     [Tooltip("Maximum number of clusters to create.")]
     [Range(1, 10)]
-    public int maxClusters = 5; // Ajuste cette valeur selon tes besoins
+    public int maxClusters = 5;
 }

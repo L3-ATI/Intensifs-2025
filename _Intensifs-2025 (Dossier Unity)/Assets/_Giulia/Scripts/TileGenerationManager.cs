@@ -48,8 +48,7 @@ public class TileGenerationManager : MonoBehaviour
     {
         float randomValue = Random.value;
 
-        // Vérifiez si la ville doit être placée en fonction de la carte des clusters de villes
-        if (cityProbabilityMap[x, z] > 0f) // Les tuiles marquées comme ayant un cluster de ville
+        if (cityProbabilityMap[x, z] > 0f)
         {
             return TileType.City;
         }
@@ -73,8 +72,12 @@ public class TileGenerationManager : MonoBehaviour
         float mineProbability = tileSettings.minePercentage / 100f;
         float sawmillProbability = tileSettings.sawmillPercentage / 100f;
 
+        if (randomValue < remainingProbability + mountainProbability)
+        {
+            return TileType.Mountain;
+        }
         remainingProbability += mountainProbability;
-
+        
         if (randomValue < remainingProbability + stoneQuarryProbability)
         {
             return TileType.StoneQuarry;
@@ -92,7 +95,7 @@ public class TileGenerationManager : MonoBehaviour
             return TileType.Sawmill;
         }
 
-        return TileType.Grass;  // Valeur par défaut
+        return TileType.Grass;
     }
 
     public void EnsureClusterPlacement(float[,] probabilityMap, int[] clusterSizes, int maxClusters, bool isDesert = false)
@@ -113,7 +116,6 @@ public class TileGenerationManager : MonoBehaviour
                 int startX = Random.Range(0, probabilityMap.GetLength(0));
                 int startZ = Random.Range(0, probabilityMap.GetLength(1));
 
-                // Si un cluster peut être placé
                 if (CanPlaceCluster(startX, startZ, clusterSize, probabilityMap))
                 {
                     PlaceCluster(startX, startZ, clusterSize, probabilityMap);
@@ -135,14 +137,13 @@ public class TileGenerationManager : MonoBehaviour
         int mapHeight = targetMap.GetLength(1);
         int radius = Mathf.CeilToInt(Mathf.Sqrt(clusterSize));
 
-        // Vérifiez si la zone autour du point de départ est libre
         for (int x = startX - radius; x <= startX + radius; x++)
         {
             for (int z = startZ - radius; z <= startZ + radius; z++)
             {
                 if (x < 0 || x >= mapWidth || z < 0 || z >= mapHeight || targetMap[x, z] == 1f)
                 {
-                    return false;  // Une tuile occupée empêche le placement
+                    return false;
                 }
             }
         }
@@ -162,11 +163,10 @@ public class TileGenerationManager : MonoBehaviour
             {
                 if (x >= 0 && x < mapWidth && z >= 0 && z < mapHeight && targetMap[x, z] != 1f)
                 {
-                    targetMap[x, z] = 1f;  // Marque une zone comme occupée pour un cluster
+                    targetMap[x, z] = 1f;
                     tilesPlaced++;
                 }
             }
         }
     }
-
 }

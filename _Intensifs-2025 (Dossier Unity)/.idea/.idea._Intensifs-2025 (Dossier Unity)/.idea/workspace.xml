@@ -6,42 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/House.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/House.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Sawmill.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Sawmill.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/StationLV1.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/StationLV1.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/StationLV2.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/StationLV2.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_StoneQuarry.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_StoneQuarry.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MA_mountain.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MA_mountain.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tunnel.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tunnel.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_bridge.blend.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_bridge.blend1.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_bridge.mtl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_bridge.obj.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_bridge_pas_fini.mtl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_bridge_pas_fini.obj.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_cottageA.blend.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_cottageA.blend1.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_cottageA.mtl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_cottageA.obj.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_cottageB.blend.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_cottageB.blend1.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_cottageB.mtl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_cottageB.obj.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_gare_ville.obj.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_villaA.blend1.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_villaA.mtl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_villaA.obj.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_villaA_pales.mtl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_villaA_pales.obj.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_villaB.blend.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_villaB.blend1.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_villaB.mtl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/SM_villaB.obj.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Leslie/pont_corde.obj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings_Base.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings_Base.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

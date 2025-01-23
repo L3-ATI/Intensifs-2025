@@ -57,6 +57,12 @@ public class Tile : MonoBehaviour
     
     private void Awake()
     {
+
+        if (tileType == TileType.Mountain)
+        {
+            Debug.Log(tileType + " Tile Type is " + TileType.Mountain);
+        }
+        
         DOTween.SetTweensCapacity(1000, 50);
         
         if (vegetation != null)
@@ -145,10 +151,6 @@ public class Tile : MonoBehaviour
 
     public bool CanPlaceObject(string objectType)
     {
-        /*if (isOccupied)
-        {
-            return false;
-        }*/
 
         RemoveHighlight(highlightValidMaterial);
         RemoveHighlight(highlightInvalidMaterial);
@@ -159,7 +161,6 @@ public class Tile : MonoBehaviour
             case TileType.Desert:
                 if (objectType == "Station")
                 {
-                    // Vérifie si au moins un voisin a le tag "Structure" (ex: Sawmill, Mine, etc.)
                     bool hasStructureNeighbor = false;
                     foreach (Tile neighbor in neighboringTiles)
                     {
@@ -174,7 +175,7 @@ public class Tile : MonoBehaviour
                     }
                     if (!hasStructureNeighbor)
                     {
-                        return false; // Aucun voisin structure
+                        return false;
                     }
                 }
 
@@ -204,7 +205,6 @@ public class Tile : MonoBehaviour
                 return objectType == "Stone Quarry";
 
             default:
-                //Debug.LogWarning($"Invalid tile type {tileType} for {objectType}");
                 return false;
         }
     }
@@ -295,15 +295,6 @@ public class Tile : MonoBehaviour
             }
             else if (GridInteraction.Instance.objectTypeToPlace == "Tunnel")
             {
-                if (transform.childCount > 7)
-                {
-                    // Utiliser une méthode générique pour supprimer un objet enfant
-                    GameObject childToDestroy = GetChildToDestroy(7);
-                    if (childToDestroy != null)
-                    {
-                        DestroyChild(childToDestroy);
-                    }
-                }
 
                 ShowPlacementUI(GridInteraction.Instance.tunnelPrefab);
             }
@@ -312,36 +303,6 @@ public class Tile : MonoBehaviour
                 GameObject prefab = GridInteraction.Instance.GetRailPrefab(GridInteraction.Instance.objectTypeToPlace);
                 ShowPlacementUI(prefab);
             }
-        }
-    }
-    
-    private GameObject GetChildToDestroy(int index)
-    {
-        if (transform.childCount <= index)
-        {
-            return null;
-        }
-
-        GameObject childObject = transform.GetChild(index).gameObject;
-        
-        if (childObject.name == "Vegetation" && transform.childCount > index + 1)
-        {
-            childObject = transform.GetChild(index + 1).gameObject;
-        }
-
-        return childObject;
-    }
-
-    private void DestroyChild(GameObject childObject)
-    {
-        if (childObject != null)
-        {
-            childObject.transform.DOScale(Vector3.zero, 0.3f)
-                .SetEase(Ease.InBack)
-                .OnComplete(() =>
-                {
-                    Destroy(childObject);
-                });
         }
     }
     
@@ -414,7 +375,7 @@ public class Tile : MonoBehaviour
     
     public bool CanPlaceRail(string railType)
     {
-        if (tileType != TileType.Grass || isOccupied)
+        if (tileType != TileType.Grass && tileType != TileType.Desert || isOccupied)
             return false;
 
         foreach (Tile neighbor in neighboringTiles)
@@ -456,9 +417,18 @@ public class Tile : MonoBehaviour
         if (rotationAngle < 0f) 
             rotationAngle += 360f;
         
-        transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+        if (tileType == TileType.Mountain || tileType == TileType.Tunnel)
+        {
+            transform.GetChild(9).rotation = Quaternion.Euler(0, rotationAngle, 0);
+            tileCanvas.transform.rotation = Quaternion.Euler(90, 0, 180);
+        }
+
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+            tileCanvas.transform.rotation = Quaternion.Euler(90, 0, 180);
+        }
         
-        tileCanvas.transform.rotation = Quaternion.Euler(90, 0, 180);
     }
     
     private void ValidatePlacement()
@@ -619,29 +589,6 @@ public class Tile : MonoBehaviour
         EventSystem.current.RaycastAll(pointerData, results);
 
         return results.Count > 0;
-    }
-    
-    public void DestroyChildrenFromIndex(int startIndex)
-    {
-        if (startIndex < 0 || startIndex >= transform.childCount)
-        {
-            return;
-        }
-
-        for (int i = transform.childCount - 1; i >= startIndex; i--)
-        {
-            GameObject child = transform.GetChild(i).gameObject;
-
-            child.transform.DOScale(Vector3.zero, 0.3f)
-                .SetEase(Ease.InBack)
-                .OnComplete(() =>
-                {
-                    if (child.name != "Vegetation") // Vérifie si son nom n'est pas "Vegetation"
-                    {
-                        Destroy(child); // Détruit l'enfant seulement si son nom n'est pas "Vegetation"
-                    }
-                });
-        }
     }
 
     public void UpdateVegetation()

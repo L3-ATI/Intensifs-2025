@@ -4501,7 +4501,7 @@ MonoBehaviour:
   railPrefab04: {fileID: 480862737415096638, guid: 4a3d9d669609b2547a2c0478ba476a9a, type: 3}
   railPrefab05: {fileID: 4935448681006949255, guid: 7431ff39f3e369140941ede46f6a9fb6, type: 3}
   bridgePrefab: {fileID: 1214372180965721025, guid: ded2375b5bcdb2c44a596cb463efa4de, type: 3}
-  tunnelPrefab: {fileID: 3622665134095800341, guid: bd09ba9c2aca36a41bbab4c40da44579, type: 3}
+  tunnelPrefab: {fileID: 6680752679857288398, guid: d98d764591ed2c3428dac2b45d58987d, type: 3}
 --- !u!4 &1361597291
 Transform:
   m_ObjectHideFlags: 0

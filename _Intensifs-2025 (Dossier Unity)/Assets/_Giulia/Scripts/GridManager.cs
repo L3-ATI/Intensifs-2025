@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    // Singleton
     public static GridManager Instance { get; private set; }
 
     public int width;
@@ -52,7 +51,6 @@ public class GridManager : MonoBehaviour
         float[,] desertProbabilityMap = new float[width, height];
         float[,] cityProbabilityMap = new float[width, height];
 
-        // Remplir les cartes de probabilité pour l'eau, le désert, et la ville
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
@@ -75,14 +73,12 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        // Appeler EnsureClusterPlacement pour chaque type de cluster (eau, désert, ville)
         tileGenerationManager.EnsureClusterPlacement(cityProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
         tileGenerationManager.EnsureClusterPlacement(waterProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
-        tileGenerationManager.EnsureClusterPlacement(desertProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters, true);  // true pour le désert
+        tileGenerationManager.EnsureClusterPlacement(desertProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters, true);
 
         tiles = new Tile[width, height];
 
-        // Création des tuiles dans la grille
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
@@ -95,7 +91,6 @@ public class GridManager : MonoBehaviour
                     TileType tileType = tileGenerationManager.GetRandomTileType(x, z, waterProbabilityMap, desertProbabilityMap, cityProbabilityMap);
                     GameObject prefabToInstantiate = tilePrefab;
 
-                    // Choisir le préfabriqué en fonction du type de tuile
                     if (tileType == TileType.Water && riverTilePrefab != null)
                     {
                         prefabToInstantiate = riverTilePrefab;
@@ -119,7 +114,6 @@ public class GridManager : MonoBehaviour
                     tiles[x, z] = tileComponent;
                     tileComponent.tileType = tileType;
 
-                    // Ajouter des structures si nécessaire
                     if (tileType == TileType.Mountain && mountainPrefab != null)
                     {
                         CreatePrefabOnTile(mountainPrefab, newTile, x, z);
@@ -151,7 +145,6 @@ public class GridManager : MonoBehaviour
                         tileComponent.isOccupied = true;
                     }
 
-                    // Mettre à jour la végétation si nécessaire
                     tileComponent.UpdateVegetation();
                 }
             }

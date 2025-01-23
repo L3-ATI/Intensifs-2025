@@ -105,16 +105,6 @@ public class GridInteraction : MonoBehaviour
             string reason = GetPlacementErrorMessage(tile);
             TooltipManager.Instance.ShowTooltip(reason);
         }
-        /*else
-        {
-            tile.ShowPlacementUI(objectToPlace);
-
-            if (objectToPlace != null)
-            {
-                currentTile.DestroyChildrenFromIndex(7);
-                PlaceObject(tile, objectToPlace);
-            }
-        }*/
         else
         {
             TooltipManager.Instance.HideTooltip();
@@ -246,11 +236,6 @@ public class GridInteraction : MonoBehaviour
             TrainStation[] trainStations = GameObject.FindObjectsByType<TrainStation>(FindObjectsSortMode.None);
             Debug.Log("Nombre de stations = " + trainStations.Length);
         }
-    }
-
-    public Tile GetSelectedTile()
-    {
-        return currentTile;
     }
 
 }
