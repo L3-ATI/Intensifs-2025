@@ -5,7 +5,7 @@ public class StationCollision : MonoBehaviour
 {
     public bool isTrigger = false;
     public GameObject isTriggeringWith;
-    public string objectTag = "Rail"; // Tag auquel cet objet doit réagir (par défaut "Tile")
+    public string objectTag = "Rail"; // Tag auquel cet objet doit rï¿½agir (par dï¿½faut "Tile")
     public enum Direction
     {
         Left,
@@ -15,7 +15,7 @@ public class StationCollision : MonoBehaviour
         BottomRight,
         BottomLeft
     }
-    private List<GameObject> Path;
+    //private List<GameObject> Path;
 
     public Direction CurrentSide;
 
@@ -23,9 +23,9 @@ public class StationCollision : MonoBehaviour
 
     IEnumerator Start()
     {
-        yield return new WaitForSeconds(0.1f); // Attendez un court instant avant d'exécuter le code de détection des collisions
+        yield return new WaitForSeconds(0.1f); // Attendez un court instant avant d'exï¿½cuter le code de dï¿½tection des collisions
 
-        // Assurez-vous que le collider est activé et que les objets sont prêts
+        // Assurez-vous que le collider est activï¿½ et que les objets sont prï¿½ts
         Collider collider = GetComponent<Collider>();
         if (collider != null)
         {
@@ -35,11 +35,11 @@ public class StationCollision : MonoBehaviour
 
     private void Awake()
     {
-        // Récupère la référence à la tuile (le parent du collider)
+        // Rï¿½cupï¿½re la rï¿½fï¿½rence ï¿½ la tuile (le parent du collider)
         Station = GetComponentInParent<TrainStation>();
         if (Station == null)
         {
-            Debug.LogError("Aucune référence à la tuile trouvée ! Le collider n'est peut-être pas attaché au bon objet.");
+            Debug.LogError("Aucune rï¿½fï¿½rence ï¿½ la tuile trouvï¿½e ! Le collider n'est peut-ï¿½tre pas attachï¿½ au bon objet.");
         }
 
         // Assurez-vous que le collider est un trigger
@@ -54,7 +54,7 @@ public class StationCollision : MonoBehaviour
     {
         if (other.CompareTag(objectTag))
         {
-            Path.Add(other.gameObject);
+            //Path.Add(other.gameObject);
         }
     }
 
