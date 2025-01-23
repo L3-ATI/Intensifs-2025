@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using DG.Tweening;
-
 public class GridInteraction : MonoBehaviour
 {
     public static GridInteraction Instance;

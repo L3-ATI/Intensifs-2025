@@ -28,6 +28,14 @@ public class TileGenerationSettings : ScriptableObject
     [Tooltip("Proximity factor for water. This multiplier affects the probability of water based on nearby tiles.")]
     [Range(0f, 1f)]
     public float waterProximityFactor = 0.01f;
+    
+    [Header("Desert Parameters")]
+    [Tooltip("Percentage of desert tiles in the generated grid.")]
+    [Range(0, 100)]
+    public float desertPercentage = 0.1f;
+    [Tooltip("Proximity factor for desert. This multiplier affects the probability of desert based on nearby tiles.")]
+    [Range(0f, 1f)]
+    public float desertProximityFactor = 0.01f;
 
     [Tooltip("Probability of creating a city cluster when conditions are met.")]
     [Range(0f, 1f)]

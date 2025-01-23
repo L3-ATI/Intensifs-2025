@@ -335,7 +335,7 @@ Transform:
   m_GameObject: {fileID: 88240071}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 127, y: -0.3, z: 115}
+  m_LocalPosition: {x: 127, y: 0, z: 115}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -5536,7 +5536,7 @@ MonoBehaviour:
   tileSizeZ: 7.5
   tilePrefab: {fileID: 7878982099941731297, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
   riverTilePrefab: {fileID: 6185400647594969858, guid: b316d3409c0ad5a459286a4eabc0d731, type: 3}
-  stoneQuarryTilePrefab: {fileID: 8939263264206872950, guid: f51ccb38273435d4ca2dac417b6dbc1b, type: 3}
+  stoneQuarryTilePrefab: {fileID: 0}
   desertTilePrefab: {fileID: 512128964830342975, guid: 0f8b41f76f0a44c4890be5cb774a3618, type: 3}
   mountainPrefab: {fileID: 6680752679857288398, guid: 1b7905aa305f6454c958f7a9f156e6bf, type: 3}
   minePrefab: {fileID: 5735940069638694092, guid: d07a2093bc10b204b97c5b829021127f, type: 3}
