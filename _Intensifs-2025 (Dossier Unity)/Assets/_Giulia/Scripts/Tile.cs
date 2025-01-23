@@ -57,6 +57,8 @@ public class Tile : MonoBehaviour
     
     private void Awake()
     {
+        DOTween.SetTweensCapacity(1000, 50);
+        
         if (vegetation != null)
         {
             vegetation.SetActive(false);

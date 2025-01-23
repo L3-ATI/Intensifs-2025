@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6082777237880216548, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
+      propertyPath: tileType
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082777237880216548, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: highlightValidMaterial
       value: 
       objectReference: {fileID: 2100000, guid: c959a347dd025dc419a68a04fe4ea0af, type: 2}

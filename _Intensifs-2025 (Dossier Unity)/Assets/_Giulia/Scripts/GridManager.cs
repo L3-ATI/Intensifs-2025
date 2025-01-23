@@ -64,7 +64,7 @@ public class GridManager : MonoBehaviour
                 {
                     waterProbabilityMap[x, z] = Random.Range(0f, 1f);
                     desertProbabilityMap[x, z] = Random.value < TileGenerationSettings.cityClusterProbability ? 1f : 0f;
-                    cityProbabilityMap[x, z] = Random.value < TileGenerationSettings.cityClusterProbability ? 1f : 0f;
+                    cityProbabilityMap[x, z] = Random.value < (TileGenerationSettings.cityClusterProbability * 2f) ? 1f : 0f;
                 }
                 else
                 {
@@ -76,9 +76,9 @@ public class GridManager : MonoBehaviour
         }
 
         // Appeler EnsureClusterPlacement pour chaque type de cluster (eau, désert, ville)
+        tileGenerationManager.EnsureClusterPlacement(cityProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
         tileGenerationManager.EnsureClusterPlacement(waterProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
         tileGenerationManager.EnsureClusterPlacement(desertProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters, true);  // true pour le désert
-        tileGenerationManager.EnsureClusterPlacement(cityProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
 
         tiles = new Tile[width, height];
 
@@ -100,13 +100,15 @@ public class GridManager : MonoBehaviour
                     {
                         prefabToInstantiate = riverTilePrefab;
                     }
-                    else if (tileType == TileType.StoneQuarry && stoneQuarryTilePrefab != null)
-                    {
-                        prefabToInstantiate = stoneQuarryTilePrefab;
-                    }
+
                     else if (tileType == TileType.Desert && desertTilePrefab != null)
                     {
                         prefabToInstantiate = desertTilePrefab;
+                    }
+                    
+                    else if (tileType == TileType.StoneQuarry && stoneQuarryTilePrefab != null)
+                    {
+                        prefabToInstantiate = stoneQuarryTilePrefab;
                     }
 
                     GameObject newTile = Instantiate(prefabToInstantiate, position, Quaternion.identity, transform);
@@ -122,6 +124,12 @@ public class GridManager : MonoBehaviour
                     {
                         CreatePrefabOnTile(mountainPrefab, newTile, x, z);
                     }
+                    else if (tileType == TileType.StoneQuarry && stoneQuarryPrefab != null)
+                    {
+                        CreatePrefabOnTile(stoneQuarryPrefab, newTile, x, z);
+                        tileComponent.tag = "Structure";
+                        tileComponent.isOccupied = true;
+                    }
                     else if (tileType == TileType.Mine && minePrefab != null)
                     {
                         CreatePrefabOnTile(minePrefab, newTile, x, z);
@@ -134,12 +142,7 @@ public class GridManager : MonoBehaviour
                         tileComponent.tag = "Structure";
                         tileComponent.isOccupied = true;
                     }
-                    else if (tileType == TileType.StoneQuarry && stoneQuarryPrefab != null)
-                    {
-                        CreatePrefabOnTile(stoneQuarryPrefab, newTile, x, z);
-                        tileComponent.tag = "Structure";
-                        tileComponent.isOccupied = true;
-                    }
+
                     else if (tileType == TileType.City && cityPrefab != null)
                     {
                         tileComponent.tileType = TileType.City;

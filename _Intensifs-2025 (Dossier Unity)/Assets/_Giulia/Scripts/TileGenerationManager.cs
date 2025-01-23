@@ -31,14 +31,16 @@ public class TileGenerationManager : MonoBehaviour
         float desertProbability = tileSettings.desertPercentage / 100f;
         float proximityBoost = GetProximityBoost(x, z, desertProbabilityMap);
         desertProbability += proximityBoost * tileSettings.desertProximityFactor;
-        return Mathf.Clamp01(desertProbability);
+
+        desertProbability = Mathf.Clamp01(desertProbability);
+        return desertProbability;
     }
 
     public float GetWaterProbability(int x, int z, float[,] waterProbabilityMap)
     {
         float waterProbability = tileSettings.waterPercentage / 100f;
-        float proximityFactor = GetProximityBoost(x, z, waterProbabilityMap);
-        waterProbability += proximityFactor * tileSettings.waterProximityFactor;
+        float proximityBoost = GetProximityBoost(x, z, waterProbabilityMap);
+        waterProbability += proximityBoost * tileSettings.waterProximityFactor;
         return Mathf.Clamp01(waterProbability);
     }
 
@@ -46,51 +48,55 @@ public class TileGenerationManager : MonoBehaviour
     {
         float randomValue = Random.value;
 
-        // Calcul de la probabilité d'eau
+        // Vérifiez si la ville doit être placée en fonction de la carte des clusters de villes
+        if (cityProbabilityMap[x, z] > 0f) // Les tuiles marquées comme ayant un cluster de ville
+        {
+            return TileType.City;
+        }
+
         float waterProbability = GetWaterProbability(x, z, waterProbabilityMap);
         if (randomValue < waterProbability)
         {
             return TileType.Water;
         }
 
-        // Probabilité de désert
         float desertProbability = GetDesertProbability(x, z, desertProbabilityMap);
         if (randomValue < waterProbability + desertProbability)
         {
             return TileType.Desert;
         }
 
-        // Autres types de tuiles (montagnes, mines, etc.)
         float remainingProbability = waterProbability + desertProbability;
 
-        if (randomValue < remainingProbability + tileSettings.mountainPercentage / 100f)
-            return TileType.Mountain;
+        float mountainProbability = tileSettings.mountainPercentage / 100f;
+        float stoneQuarryProbability = tileSettings.stoneQuarryPercentage / 100f;
+        float mineProbability = tileSettings.minePercentage / 100f;
+        float sawmillProbability = tileSettings.sawmillPercentage / 100f;
 
-        remainingProbability += tileSettings.mountainPercentage / 100f;
-        if (randomValue < remainingProbability + tileSettings.minePercentage / 100f)
-            return TileType.Mine;
+        remainingProbability += mountainProbability;
 
-        remainingProbability += tileSettings.minePercentage / 100f;
-        if (randomValue < remainingProbability + tileSettings.sawmillPercentage / 100f)
-            return TileType.Sawmill;
-
-        remainingProbability += tileSettings.sawmillPercentage / 100f;
-        if (randomValue < remainingProbability + tileSettings.stoneQuarryPercentage / 100f)
+        if (randomValue < remainingProbability + stoneQuarryProbability)
+        {
             return TileType.StoneQuarry;
+        }
+        remainingProbability += stoneQuarryProbability;
 
-        return TileType.Grass;
+        if (randomValue < remainingProbability + mineProbability)
+        {
+            return TileType.Mine;
+        }
+        remainingProbability += mineProbability;
+
+        if (randomValue < remainingProbability + sawmillProbability)
+        {
+            return TileType.Sawmill;
+        }
+
+        return TileType.Grass;  // Valeur par défaut
     }
 
     public void EnsureClusterPlacement(float[,] probabilityMap, int[] clusterSizes, int maxClusters, bool isDesert = false)
     {
-        if (isDesert)
-        {
-            for (int i = 0; i < clusterSizes.Length; i++)
-            {
-                clusterSizes[i] += 5; // Augmente légèrement les clusters pour les déserts
-            }
-        }
-
         int clustersPlaced = 0;
 
         foreach (int clusterSize in clusterSizes)
@@ -107,6 +113,7 @@ public class TileGenerationManager : MonoBehaviour
                 int startX = Random.Range(0, probabilityMap.GetLength(0));
                 int startZ = Random.Range(0, probabilityMap.GetLength(1));
 
+                // Si un cluster peut être placé
                 if (CanPlaceCluster(startX, startZ, clusterSize, probabilityMap))
                 {
                     PlaceCluster(startX, startZ, clusterSize, probabilityMap);
@@ -128,13 +135,14 @@ public class TileGenerationManager : MonoBehaviour
         int mapHeight = targetMap.GetLength(1);
         int radius = Mathf.CeilToInt(Mathf.Sqrt(clusterSize));
 
+        // Vérifiez si la zone autour du point de départ est libre
         for (int x = startX - radius; x <= startX + radius; x++)
         {
             for (int z = startZ - radius; z <= startZ + radius; z++)
             {
                 if (x < 0 || x >= mapWidth || z < 0 || z >= mapHeight || targetMap[x, z] == 1f)
                 {
-                    return false;
+                    return false;  // Une tuile occupée empêche le placement
                 }
             }
         }
@@ -154,10 +162,11 @@ public class TileGenerationManager : MonoBehaviour
             {
                 if (x >= 0 && x < mapWidth && z >= 0 && z < mapHeight && targetMap[x, z] != 1f)
                 {
-                    targetMap[x, z] = 1f;
+                    targetMap[x, z] = 1f;  // Marque une zone comme occupée pour un cluster
                     tilesPlaced++;
                 }
             }
         }
     }
+
 }

@@ -6,12 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/House.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/House.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Desert.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Desert.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_StoneQuarry.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_StoneQuarry.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings_Base.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings_Base.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -18,7 +18,7 @@ MonoBehaviour:
   stoneQuarryPercentage: 2
   waterPercentage: 0.001
   waterProximityFactor: 0.05
-  desertPercentage: 0.1
-  desertProximityFactor: 0.3
-  clusterSizes: 120000001400000016000000
-  maxClusters: 3
+  desertPercentage: 10
+  desertProximityFactor: 1
+  clusterSizes: 0400000004000000040000000400000004000000
+  maxClusters: 5

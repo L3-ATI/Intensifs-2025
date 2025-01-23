@@ -1411,6 +1411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34254af61992384f829a4ef58f135d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isConnected: 0
   highlightValidMaterial: {fileID: 2100000, guid: 48001414c0281b34da096caf518b0343, type: 2}
   highlightInvalidMaterial: {fileID: 2100000, guid: d6c826335c5688e46ba8f590c65dc0ca, type: 2}
   gridX: 0
