@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public Button bridgeButton, tunnelButton;
 
     [Space(20)]
-    
+
     public Button currentlySelectedButton = null;
     public static bool isAButtonClicked { get; private set; } = false;
 
@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
 
     public Vector3 normalScale = Vector3.one;
     public Vector3 selectedScale = new Vector3(1.2f, 1.2f, 1);
+    public Color normalColor = Color.white;
+    public Color selectedColor = Color.yellow;
     public float normalOpacity = 1f;
     public float selectedOpacity = 0.6f;
     public float animationDuration = 0.3f;
@@ -59,14 +61,14 @@ public class UIManager : MonoBehaviour
 
         GridInteraction.Instance.objectTypeToPlace = objectType;
 
-        AnimateButton(button, selectedScale, selectedOpacity);
+        AnimateButton(button, selectedScale, selectedOpacity, selectedColor);
     }
 
     private void DeselectButton()
     {
         if (currentlySelectedButton != null)
         {
-            AnimateButton(currentlySelectedButton, normalScale, normalOpacity);
+            AnimateButton(currentlySelectedButton, normalScale, normalOpacity, normalColor);
             currentlySelectedButton = null;
         }
 
@@ -75,14 +77,14 @@ public class UIManager : MonoBehaviour
         GridInteraction.Instance.objectTypeToPlace = null;
     }
 
-    private void AnimateButton(Button button, Vector3 targetScale, float targetOpacity)
+    private void AnimateButton(Button button, Vector3 targetScale, float targetOpacity, Color targetColor)
     {
         button.transform.DOScale(targetScale, animationDuration);
 
         Image buttonImage = button.GetComponent<Image>();
         if (buttonImage != null)
         {
-            Color color = buttonImage.color;
+            buttonImage.DOColor(targetColor, animationDuration);
             buttonImage.DOFade(targetOpacity, animationDuration);
         }
     }
