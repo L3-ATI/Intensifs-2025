@@ -8,7 +8,7 @@ public class ShovelManager : MonoBehaviour
 {
     public Button shovelButton;
     public RectTransform shovelIcon;
-    public Material highlightBaseMaterial; 
+    public Material highlightStoneMaterial; 
     public Material highlightGrassMaterial;
     public Material highlightWaterMaterial;
     public GameObject confirmationPanel;
@@ -180,6 +180,10 @@ public class ShovelManager : MonoBehaviour
             if (selectedTile.tileType == TileType.Water || selectedTile.tileType == TileType.StoneQuarry || selectedTile.tileType == TileType.Desert)
             {
                 tileRenderer.material = highlightWaterMaterial;
+            }
+            else if (selectedTile.tileType == TileType.City)
+            {
+                tileRenderer.material = highlightStoneMaterial;
             }
             else
             {

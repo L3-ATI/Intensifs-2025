@@ -25,12 +25,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399232496972415611}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4172600630588552487}
+  m_Father: {fileID: 9167966144138295281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1396216806305163873
 MonoBehaviour:
@@ -62,7 +62,7 @@ MonoBehaviour:
   - {fileID: 6748234104700929385, guid: 123863ea6103ef347bd05307b22b787b, type: 3}
   - {fileID: 323495883081305133, guid: 407015328fa533d4c83219bf1538cb18, type: 3}
   - {fileID: 336022082155299784, guid: 169f8858ee5f56348a7cf61242e7b8d5, type: 3}
-  vegetationScaleRange: {x: 1, y: 1}
+  vegetationScaleRange: {x: 0.9, y: 1.1}
   vegetationParent: {fileID: 5795411053572511945}
   isGrassTile: 1
   grassProbability: 0.6
@@ -602,6 +602,39 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &4261805666822094979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9167966144138295281}
+  m_Layer: 0
+  m_Name: AddedObjectsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9167966144138295281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261805666822094979}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5795411053572511945}
+  - {fileID: 487181748085608956}
+  m_Father: {fileID: 4172600630588552487}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4351704249993700602
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +987,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1413849599
@@ -1259,6 +1292,65 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!1 &6428649192974002297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 487181748085608956}
+  - component: {fileID: 2097230128914841538}
+  m_Layer: 0
+  m_Name: Houses
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &487181748085608956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428649192974002297}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9167966144138295281}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2097230128914841538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428649192974002297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2943273ecae53e84892050d7956a2be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabEntries:
+  - prefab: {fileID: 6145894885599798444, guid: a0cff7e7dfe862242a46a14d76278c99, type: 3}
+    probability: 0.3
+  - prefab: {fileID: 3127934234755795542, guid: 8ba597ccc8848b04caf506205d6c307a, type: 3}
+    probability: 0.3
+  - prefab: {fileID: 2827235726527666970, guid: 80bf9fe732b83194b9ddeb0846c788d6, type: 3}
+    probability: 0.1
+  - prefab: {fileID: 2827235726527666970, guid: 7c0a49943585a024b8019c130b36ccdb, type: 3}
+    probability: 0.1
+  - prefab: {fileID: 185456246614474862, guid: be7f64db9eac12446a1afdaefa51a657, type: 3}
+    probability: 0.15
+  - prefab: {fileID: 4120783111887297450, guid: 5cae316c9eb2237449f27cf819b687d0, type: 3}
+    probability: 0.05
+  parentTransform: {fileID: 487181748085608956}
+  isCityTile: 1
 --- !u!1 &7444485559365579360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,7 +1488,7 @@ Transform:
   - {fileID: 995617982421376760}
   - {fileID: 1392015593384433966}
   - {fileID: 850287701173788854}
-  - {fileID: 5795411053572511945}
+  - {fileID: 9167966144138295281}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6082777237880216548
@@ -1427,6 +1519,7 @@ MonoBehaviour:
   connectedRails: []
   mountainPrefab: {fileID: 6680752679857288398, guid: 1b7905aa305f6454c958f7a9f156e6bf, type: 3}
   vegetation: {fileID: 1399232496972415611}
+  houses: {fileID: 6428649192974002297}
 --- !u!33 &490421104436062870
 MeshFilter:
   m_ObjectHideFlags: 0

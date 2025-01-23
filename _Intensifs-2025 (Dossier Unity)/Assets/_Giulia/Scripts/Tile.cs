@@ -53,21 +53,22 @@ public class Tile : MonoBehaviour
     public GameObject mountainPrefab;
     
     public GameObject vegetation;
+    public GameObject houses;
 
     
     private void Awake()
     {
-
-        if (tileType == TileType.Mountain)
-        {
-            Debug.Log(tileType + " Tile Type is " + TileType.Mountain);
-        }
         
         DOTween.SetTweensCapacity(1000, 50);
         
         if (vegetation != null)
         {
             vegetation.SetActive(false);
+        }
+        
+        if (houses != null)
+        {
+            houses.SetActive(false);
         }
         
         tileRenderer = GetComponent<Renderer>();
@@ -83,7 +84,7 @@ public class Tile : MonoBehaviour
         
         rotateButton.onClick.AddListener(RotateTile);
         validateButton.onClick.AddListener(ValidatePlacement);
-        cancelButton.onClick.AddListener(() => CancelPlacement(7));
+        cancelButton.onClick.AddListener(() => CancelPlacement(8));
     }
     
     public void SetPosition(int x, int z)
@@ -416,35 +417,36 @@ public class Tile : MonoBehaviour
         rotationAngle -= 60f;
         if (rotationAngle < 0f) 
             rotationAngle += 360f;
-        
-        if (tileType == TileType.Mountain || tileType == TileType.Tunnel)
+
+        // Vérifier le nombre d'enfants avant d'accéder à leurs indices
+        if (transform.childCount > 8 && transform.GetChild(8) != null)
+        {
+            transform.GetChild(8).rotation = Quaternion.Euler(0, rotationAngle, 0);
+        }
+        else if (transform.childCount > 9 && transform.GetChild(9) != null)
         {
             transform.GetChild(9).rotation = Quaternion.Euler(0, rotationAngle, 0);
-            tileCanvas.transform.rotation = Quaternion.Euler(90, 0, 180);
         }
-
         else
         {
             transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
-            tileCanvas.transform.rotation = Quaternion.Euler(90, 0, 180);
         }
-        
+
+        // Appliquer la rotation à tileCanvas
+        tileCanvas.transform.rotation = Quaternion.Euler(90, 0, 180);
     }
+
     
     private void ValidatePlacement()
     {
         isConnected = false;
-        Debug.Log($"Début de la validation pour la tuile {name} de type {tileType}");
-
         // Vérifie les types nécessitant une connexion
         if (tileType.ToString().StartsWith("Rail") || tileType == TileType.Tunnel || tileType == TileType.Bridge)
         {
-            Debug.Log("Vérification des connexions pour Rail, Tunnel ou Bridge");
 
             // Vérifie si la tuile a des connexions directes
             if (connectedRails.Count > 0)
             {
-                Debug.Log($"La tuile {name} possède {connectedRails.Count} rails connectés.");
                 isConnected = true;
             }
             else
@@ -454,7 +456,6 @@ public class Tile : MonoBehaviour
                 {
                     if (neighbor.tileType == TileType.Station)
                     {
-                        Debug.Log($"Tuile voisine trouvée : {neighbor.name} de type {neighbor.tileType}");
                         isConnected = true;
                         break;
                     }
@@ -464,7 +465,7 @@ public class Tile : MonoBehaviour
             if (!isConnected)
             {
                 Debug.LogWarning($"Échec de la validation : la tuile {name} n'est pas connectée à une station ou un rail.");
-                TooltipManager.Instance.ShowTooltip("Rails, tunnels et ponts doivent être connectés à un autre rail ou une station !");
+                TooltipManager.Instance.ShowTooltip("Rails, tunnels and bridges needs to be connected to a rail section or a station !");
                 return;
             }
         }
@@ -472,12 +473,10 @@ public class Tile : MonoBehaviour
         // Vérifie les conditions spécifiques pour les Tunnels et Bridges
         else if (tileType == TileType.Tunnel || tileType == TileType.Bridge)
         {
-            Debug.Log("Vérification des connexions pour Tunnel ou Bridge");
             foreach (Tile neighbor in neighboringTiles)
             {
                 if (neighbor.tileType.ToString().StartsWith("Rail") || neighbor.tileType == TileType.Station)
                 {
-                    Debug.Log($"Tuile voisine valide pour Tunnel/Bridge : {neighbor.name} de type {neighbor.tileType}");
                     isConnected = true;
                     break;
                 }
@@ -486,7 +485,7 @@ public class Tile : MonoBehaviour
             if (!isConnected)
             {
                 Debug.LogWarning($"Échec de la validation : Tunnel ou Bridge non connecté correctement.");
-                TooltipManager.Instance.ShowTooltip("Tunnels et ponts doivent être connectés à un rail ou une station !");
+                TooltipManager.Instance.ShowTooltip("Rails, tunnels and bridges needs to be connected to a rail section or a station !");
                 return;
             }
         }
@@ -505,12 +504,10 @@ public class Tile : MonoBehaviour
             Transform child = transform.GetChild(7);
             if (child.name != "Vegetation")
             {
-                Debug.Log($"Destruction de l'enfant {child.name} sur la tuile {name}.");
                 Destroy(child.gameObject);
             }
         }
 
-        Debug.Log($"Placement validé pour la tuile {name} !");
         PlaceObjectOnTile();
         tileCanvas.enabled = false;
     }
@@ -566,6 +563,7 @@ public class Tile : MonoBehaviour
     {
         tileType = newType; // Mettre à jour le type
         UpdateVegetation(); // Mettre à jour l'état de la végétation
+        UpdateCity(); // Mettre à jour l'état de la végétation
     }
     
     
@@ -605,6 +603,23 @@ public class Tile : MonoBehaviour
             {
                 // Si la végétation doit disparaître, on l'efface doucement
                 vegetation.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack);
+            }
+        }
+    }
+    public void UpdateCity()
+    {
+        if (houses != null)
+        {
+            if (tileType == TileType.City)
+            {
+                // Si la végétation est inactive, on la fait apparaître doucement
+                houses.SetActive(true);
+                houses.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack);
+            }
+            else
+            {
+                // Si la végétation doit disparaître, on l'efface doucement
+                houses.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack);
             }
         }
     }

@@ -18,6 +18,7 @@ public class GridManager : MonoBehaviour
     public GameObject sawmillPrefab;
     public GameObject stoneQuarryPrefab;
     public GameObject cityPrefab;
+    public GameObject cityTilePrefab;
 
     private Tile[,] tiles;
     private TileGenerationManager tileGenerationManager;
@@ -105,6 +106,10 @@ public class GridManager : MonoBehaviour
                     {
                         prefabToInstantiate = stoneQuarryTilePrefab;
                     }
+                    else if (tileType == TileType.City && cityTilePrefab != null)
+                    {
+                        prefabToInstantiate = cityTilePrefab;
+                    }
 
                     GameObject newTile = Instantiate(prefabToInstantiate, position, Quaternion.identity, transform);
                     newTile.name = $"Tile_{x}_{z}";
@@ -140,12 +145,12 @@ public class GridManager : MonoBehaviour
                     else if (tileType == TileType.City && cityPrefab != null)
                     {
                         tileComponent.tileType = TileType.City;
-                        CreatePrefabOnTile(cityPrefab, newTile, x, z);
                         tileComponent.tag = "Structure";
                         tileComponent.isOccupied = true;
                     }
 
                     tileComponent.UpdateVegetation();
+                    tileComponent.UpdateCity();
                 }
             }
         }
