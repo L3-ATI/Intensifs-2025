@@ -6,20 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MA_mountain.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MA_mountain.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tunnel.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tunnel.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scenes/ProtoScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings_Base.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings_Base.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Models/SM_mine_v02.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Models/SM_mine_v02.obj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SM_mine.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/SM_mine.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Models/SM_sawmill.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Models/SM_sawmill.mtl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Models/SM_tunnel.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Models/SM_tunnel.mtl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Bridge.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Bridge.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

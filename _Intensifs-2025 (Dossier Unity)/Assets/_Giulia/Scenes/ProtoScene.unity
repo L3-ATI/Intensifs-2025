@@ -641,7 +641,7 @@ MonoBehaviour:
   cameras:
   - {fileID: 567671621}
   - {fileID: 1217613088}
-  minZoom: 20
+  minZoom: 10
   maxZoom: 60
   zoomSpeed: 40
 --- !u!4 &191632371

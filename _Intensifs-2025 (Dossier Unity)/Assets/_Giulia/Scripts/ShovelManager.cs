@@ -177,13 +177,9 @@ public class ShovelManager : MonoBehaviour
         {
             originalMaterial = tileRenderer.material;
 
-            if (selectedTile.tileType == TileType.Water)
+            if (selectedTile.tileType == TileType.Water || selectedTile.tileType == TileType.StoneQuarry || selectedTile.tileType == TileType.Desert)
             {
                 tileRenderer.material = highlightWaterMaterial;
-            }
-            else if (selectedTile.tileType == TileType.StoneQuarry)
-            {
-                tileRenderer.material = highlightBaseMaterial;
             }
             else
             {
