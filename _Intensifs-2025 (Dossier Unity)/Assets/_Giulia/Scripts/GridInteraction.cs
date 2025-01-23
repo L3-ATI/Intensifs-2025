@@ -243,6 +243,8 @@ public class GridInteraction : MonoBehaviour
         {
             
             tile.SetTileType((TileType)System.Enum.Parse(typeof(TileType), objectTypeToPlace));
+            TrainStation[] trainStations = GameObject.FindObjectsByType<TrainStation>(FindObjectsSortMode.None);
+            Debug.Log("Nombre de stations = " + trainStations.Length);
         }
     }
 
