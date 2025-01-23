@@ -1251,7 +1251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shovelButton: {fileID: 1782856919}
   shovelIcon: {fileID: 2143371132}
-  highlightBaseMaterial: {fileID: 0}
+  highlightBaseMaterial: {fileID: 2100000, guid: e69efa9a0970c5545a459b18f6b04219, type: 2}
   highlightGrassMaterial: {fileID: 2100000, guid: f9352b2c57bf6e942a69a061abc8e6b3, type: 2}
   highlightWaterMaterial: {fileID: 2100000, guid: eeebd76fa9e818442a7b26ed09ea9be2, type: 2}
   confirmationPanel: {fileID: 1238293683}

@@ -156,13 +156,17 @@ public class Tile : MonoBehaviour
         switch (tileType)
         {
             case TileType.Grass:
+            case TileType.Desert:
                 if (objectType == "Station")
                 {
                     // Vérifie si au moins un voisin a le tag "Structure" (ex: Sawmill, Mine, etc.)
                     bool hasStructureNeighbor = false;
                     foreach (Tile neighbor in neighboringTiles)
                     {
-                        if (neighbor != null && (neighbor.CompareTag("Structure") || neighbor.tileType == TileType.Sawmill || neighbor.tileType == TileType.Mine || neighbor.tileType == TileType.StoneQuarry))
+                        if (neighbor != null && (neighbor.CompareTag("Structure") ||
+                                                 neighbor.tileType == TileType.Sawmill ||
+                                                 neighbor.tileType == TileType.Mine ||
+                                                 neighbor.tileType == TileType.StoneQuarry))
                         {
                             hasStructureNeighbor = true;
                             break;
