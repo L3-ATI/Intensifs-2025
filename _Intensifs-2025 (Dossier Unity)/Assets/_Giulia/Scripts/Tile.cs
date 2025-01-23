@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using Object = UnityEngine.Object;
 
 public enum TileType {
-    Grass, Mountain, Water, Station,
+    Grass, Mountain, Water, Station, UpgradedStation,
     Rail00, Rail01, Rail02, Rail03, Rail04, Rail05,
     Bridge, Tunnel, Mine, Sawmill, StoneQuarry,
     Desert, City
@@ -50,10 +50,12 @@ public class Tile : MonoBehaviour
     private Material originalMaterial0, originalMaterial1;
     
     public static bool isShovelActive = false;
+    public static bool isUpgradeActive = false;
     public GameObject mountainPrefab;
     
     public GameObject vegetation;
     public GameObject houses;
+
 
     
     private void Awake()
@@ -260,7 +262,7 @@ public class Tile : MonoBehaviour
     
     private void OnMouseDown()
     {
-        if (isShovelActive || IsPointerOverUIElement() || !UIManager.isAButtonClicked)
+        if (isUpgradeActive || isShovelActive || IsPointerOverUIElement() || !UIManager.isAButtonClicked)
         {
             return;
         }
@@ -309,7 +311,7 @@ public class Tile : MonoBehaviour
     
     private void OnMouseEnter()
     {
-        if (isShovelActive || IsPointerOverUIElement() || !UIManager.isAButtonClicked)
+        if (isUpgradeActive || isShovelActive || IsPointerOverUIElement() || !UIManager.isAButtonClicked)
             return;
 
         if (GridInteraction.Instance != null)
@@ -340,7 +342,7 @@ public class Tile : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (isShovelActive || IsPointerOverUIElement() || !UIManager.isAButtonClicked)
+        if (isUpgradeActive || isShovelActive || IsPointerOverUIElement() || !UIManager.isAButtonClicked)
         {
             return;
         }

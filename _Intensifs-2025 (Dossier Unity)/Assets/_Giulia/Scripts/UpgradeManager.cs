@@ -4,22 +4,23 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 
-public class ShovelManager : MonoBehaviour
+public class UpgradeManager : MonoBehaviour
 {
-    public Button shovelButton;
-    public RectTransform shovelIcon;
-    public Material highlightStoneMaterial; 
-    public Material highlightGrassMaterial;
-    public Material highlightWaterMaterial;
-    public Material highlightStoneMaterialHOV; 
-    public Material highlightGrassMaterialHOV;
-    public Material highlightWaterMaterialHOV;
+    public Button upgradeButton;
+    public RectTransform upgradeIcon;
+    public Material upgradeStoneMaterial; 
+    public Material upgradeGrassMaterial;
+    public Material upgradeWaterMaterial;
+    public Material upgradeStoneMaterialHOV;
+    public Material upgradeGrassMaterialHOV;
+    public Material upgradeWaterMaterialHOV;
     public GameObject confirmationPanel;
     public Button confirmButton;
     public Button cancelButton;
-    public GameObject mountainPrefab;
+    public GameObject upgradePrefab; // L'objet qui remplacera l'ancien
+    public ParticleSystem upgradeEffect; // Effet de particules
 
-    public static bool isShovelActive = false;
+    public static bool isUpgradeActive = false;
     private GridInteraction gridInteractionScript;
     private Tile selectedTile = null;
     private Material originalMaterial = null;
@@ -27,7 +28,7 @@ public class ShovelManager : MonoBehaviour
 
     private void Start()
     {
-        shovelButton.onClick.AddListener(ToggleShovel);
+        upgradeButton.onClick.AddListener(ToggleUpgrade);
         gridInteractionScript = FindFirstObjectByType<GridInteraction>();
         confirmationPanel.SetActive(false);
 
@@ -37,10 +38,10 @@ public class ShovelManager : MonoBehaviour
 
     private void Update()
     {
-        if (isShovelActive)
+        if (isUpgradeActive)
         {
             Vector2 mousePosition = Input.mousePosition;
-            shovelIcon.position = mousePosition;
+            upgradeIcon.position = mousePosition;
 
             Ray ray = Camera.main.ScreenPointToRay(mousePosition);
             RaycastHit hit;
@@ -75,7 +76,7 @@ public class ShovelManager : MonoBehaviour
             lastHoveredTile = null;
         }
     }
-
+    
     private void HandleHoverTile(Tile tile)
     {
         Renderer tileRenderer = tile.GetComponent<Renderer>();
@@ -85,15 +86,15 @@ public class ShovelManager : MonoBehaviour
 
             if (tileRenderer.material.ToString() == "MA_Desert")
             {
-                tileRenderer.material = highlightWaterMaterialHOV;
+                tileRenderer.material = upgradeWaterMaterialHOV;
             }
             else if (tileRenderer.material.ToString() == "MA_Stone")
             {
-                tileRenderer.material = highlightStoneMaterialHOV;
+                tileRenderer.material = upgradeStoneMaterialHOV;
             }
             else
             {
-                tileRenderer.material = highlightGrassMaterialHOV;
+                tileRenderer.material = upgradeGrassMaterialHOV;
             }
         }
     }
@@ -108,10 +109,9 @@ public class ShovelManager : MonoBehaviour
     }
 
 
-
-    private void ToggleShovel()
+    private void ToggleUpgrade()
     {
-        if (isShovelActive)
+        if (isUpgradeActive)
         {
             if (selectedTile != null)
             {
@@ -121,24 +121,24 @@ public class ShovelManager : MonoBehaviour
                     selectedRenderer.material = originalMaterial;
                 }
             }
-            
-            isShovelActive = false;
-            shovelIcon.gameObject.SetActive(false);
+
+            isUpgradeActive = false;
+            upgradeIcon.gameObject.SetActive(false);
 
             SetTilesEnabled(true);
             SetGridInteractionEnabled(true);
 
-            Tile.isShovelActive = false;
+            Tile.isUpgradeActive = false;
         }
         else
         {
-            isShovelActive = true;
-            shovelIcon.gameObject.SetActive(true);
+            isUpgradeActive = true;
+            upgradeIcon.gameObject.SetActive(true);
 
             SetTilesEnabled(false);
             SetGridInteractionEnabled(false);
 
-            Tile.isShovelActive = true;
+            Tile.isUpgradeActive = true;
         }
     }
 
@@ -151,7 +151,7 @@ public class ShovelManager : MonoBehaviour
             tile.enabled = isEnabled;
         }
     }
-    
+
     private void SetGridInteractionEnabled(bool isEnabled)
     {
         if (gridInteractionScript != null)
@@ -159,54 +159,26 @@ public class ShovelManager : MonoBehaviour
             gridInteractionScript.enabled = isEnabled;
         }
     }
-    
+
     private void TrySelectTile(Tile tile)
     {
         if (tile == null || IsPointerOverUIElement()) return;
 
-        if (tile.tileType == TileType.Mountain)
+        if (tile.tileType == TileType.UpgradedStation)
         {
-            TooltipManager.Instance.ShowTooltip("You can't destroy a mountain.");
+            TooltipManager.Instance.ShowTooltip("This station is already upgraded !");
             return;
         }
-        if (tile.tileType == TileType.City)
+
+        if (tile.tileType != TileType.Station)
         {
-            TooltipManager.Instance.ShowTooltip("You can't destroy a city.");
+            TooltipManager.Instance.ShowTooltip("You can only upgrade stations.");
             return;
         }
-        if (tile.tileType == TileType.Mine)
-        {
-            TooltipManager.Instance.ShowTooltip("You can't destroy a mine.");
-            return;
-        }
-        if (tile.tileType == TileType.Sawmill)
-        {
-            TooltipManager.Instance.ShowTooltip("You can't destroy a sawmill.");
-            return;
-        }
-        if (tile.tileType == TileType.StoneQuarry)
-        {
-            TooltipManager.Instance.ShowTooltip("You can't destroy a stone quarry.");
-            return;
-        }
-        if (tile.tileType == TileType.Water)
-        {
-            TooltipManager.Instance.ShowTooltip("You can't destroy water.");
-            return;
-        }
-        if (tile.tileType == TileType.Grass || tile.tileType == TileType.Desert)
-        {
-            TooltipManager.Instance.ShowTooltip("You can't destroy an empty tile.");
-            return;
-        }
-        else
-        {
-            confirmationPanel.SetActive(true);
-        }
-        
+
+        confirmationPanel.SetActive(true);
         SelectTile(tile);
     }
-
 
     private void SelectTile(Tile tile)
     {
@@ -231,92 +203,82 @@ public class ShovelManager : MonoBehaviour
 
             if (tileRenderer.material.ToString() == "MA_Desert")
             {
-                tileRenderer.material = highlightWaterMaterial;
+                tileRenderer.material = upgradeWaterMaterial;
             }
             else if (tileRenderer.material.ToString() == "MA_Stone")
             {
-                tileRenderer.material = highlightStoneMaterial;
+                tileRenderer.material = upgradeStoneMaterial;
             }
             else
             {
-                tileRenderer.material = highlightGrassMaterial;
+                tileRenderer.material = upgradeGrassMaterial;
             }
         }
     }
 
     private void OnConfirm()
     {
-        if (selectedTile == null)
-            return;
+        if (selectedTile == null) return;
 
-        Debug.Log("Selected tile type: " + selectedTile.tileType);
-
-        // Vérifie que la tuile est de type modifiable
-        if (selectedTile.tileType != TileType.Mountain &&
-            selectedTile.tileType != TileType.Mine &&
-            selectedTile.tileType != TileType.Sawmill &&
-            selectedTile.tileType != TileType.StoneQuarry &&
-            selectedTile.tileType != TileType.Water &&
-            selectedTile.tileType != TileType.Grass)
-        {
-            // Parcourt les enfants de la tuile
-            for (int i = 7; i < selectedTile.transform.childCount; i++)
-            {
-                Transform childTransform = selectedTile.transform.GetChild(i);
-
-                // Vérifie que l'objet n'est pas de la végétation avant de le détruire
-                if (childTransform.name != "AddedObjectsManager")
-                {
-                    childTransform.DOScale(Vector3.zero, 0.3f)
-                        .SetEase(Ease.InBack)
-                        .OnComplete(() => Destroy(childTransform.gameObject));
-                }
-            }
-
-            // Gestion spécifique des types de tuiles
-            switch (selectedTile.tileType)
-            {
-                case TileType.Tunnel:
-                    ReplaceTile(TileType.Mountain, mountainPrefab);
-                    Debug.Log("Destroyed tunnel, replaced with mountain.");
-                    break;
-
-                case TileType.Bridge:
-                    ReplaceTile(TileType.Water);
-                    Debug.Log("Destroyed bridge, replaced with water.");
-                    break;
-
-                default:
-                    ReplaceTile(TileType.Grass);
-                    Debug.Log("Tile reset to grass.");
-                    selectedTile.GetComponentInChildren<GrassTile>().gameObject.SetActive(true);
-                    break;
-            }
-
-            selectedTile.GetComponent<Tile>().UpdateVegetation();
-            ToggleShovel();
-            confirmationPanel.SetActive(false);
-        }
+        // Remplacement de l'objet et déclenchement de l'effet de particules
+        ReplaceTileWithUpgrade(selectedTile);
+        ToggleUpgrade();
+        confirmationPanel.SetActive(false);
     }
-    
-    private void ReplaceTile(TileType newType, GameObject prefab = null)
+
+    private void ReplaceTileWithUpgrade(Tile tile)
     {
-        selectedTile.isOccupied = false;
-        selectedTile.tileType = newType;
-
-        if (prefab != null)
+        // Vérifiez si une amélioration est possible
+        if (upgradePrefab != null)
         {
-            GameObject newObject = Instantiate(prefab, selectedTile.transform.position, Quaternion.identity);
-            newObject.transform.SetParent(selectedTile.transform);
+            Quaternion originalRotation = Quaternion.identity; // Initialisation de la rotation
+
+            // Si la tuile a des enfants (par exemple, une gare existante), sauvegardez leur rotation
+            if (tile.transform.childCount > 0)
+            {
+                Transform oldStation = tile.transform.GetChild(0);
+                originalRotation = oldStation.rotation;
+            }
+
+            // Supprimez les anciens objets de la tuile
+            foreach (Transform child in tile.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            // Instanciez le nouvel objet avec la même rotation
+            GameObject newObject = Instantiate(upgradePrefab, tile.transform.position, originalRotation);
+            newObject.transform.SetParent(tile.transform);
+
+            // Déclenchez l'effet de particules
+            if (upgradeEffect != null)
+            {
+                ParticleSystem effect = Instantiate(upgradeEffect, tile.transform.position, Quaternion.identity);
+                effect.Play();
+                Destroy(effect.gameObject, effect.main.duration);
+            }
+
+            // Mettez à jour le type de la tuile
+            tile.tileType = TileType.UpgradedStation; // Nouveau type pour représenter une station améliorée
         }
     }
+
 
     private void OnCancel()
     {
-        ToggleShovel();
+        if (selectedTile != null)
+        {
+            Renderer selectedRenderer = selectedTile.GetComponent<Renderer>();
+            if (selectedRenderer != null)
+            {
+                selectedRenderer.material = originalMaterial;
+            }
+        }
+
+        ToggleUpgrade();
         confirmationPanel.SetActive(false);
     }
-    
+
     private bool IsPointerOverUIElement()
     {
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
@@ -325,7 +287,6 @@ public class ShovelManager : MonoBehaviour
         };
 
         List<RaycastResult> results = new List<RaycastResult>();
-
         EventSystem.current.RaycastAll(pointerData, results);
 
         return results.Count > 0;
