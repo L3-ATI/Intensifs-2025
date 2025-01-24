@@ -107,7 +107,6 @@ public class GridInteraction : MonoBehaviour
         }
         else
         {
-            TooltipManager.Instance.HideTooltip();
             
             if (objectTypeToPlace.StartsWith("Rail"))
             {
@@ -139,17 +138,22 @@ public class GridInteraction : MonoBehaviour
             case TileType.Mountain:
                 return objectTypeToPlace == "Tunnel" 
                     ? "You can only build tunnels on mountains." 
-                    : "Can't build here: only tunnels allowed on mountains.";
+                    : "You can't build here: only tunnels are allowed on mountains.";
 
             case TileType.Water:
                 return objectTypeToPlace == "Bridge" 
                     ? "You can only build bridges on water." 
-                    : "Can't build here: only bridges allowed on water.";
+                    : "You can't build here: only bridges are allowed on water.";
 
             case TileType.Station:
-                return "Can't build here: there's a station.";
+            case TileType.UpgradedStation:
+                return "You can't build here: there's a station.";
 
+            case TileType.City:
+                return "You can't build on a city !";
+            
             case TileType.Grass:
+            case TileType.Desert:
                 if (objectTypeToPlace == "Station" && !tile.CanPlaceObject("Station"))
                 {
                     return "Stations must be placed next to a structure !";

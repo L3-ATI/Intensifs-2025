@@ -35,13 +35,12 @@ public class TooltipManager : MonoBehaviour
             RectTransform canvasRect = tooltipPanel.transform.parent.GetComponent<RectTransform>();
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, mousePosition, null, out Vector2 localPoint);
 
-            // Ajout du décalage
             localPoint += tooltipOffset;
 
             tooltipPanel.GetComponent<RectTransform>().anchoredPosition = localPoint;
         }
 
-        if (Input.GetMouseButtonDown(0) && tooltipPanel.activeSelf)
+        if (Input.GetMouseButtonDown(1) && tooltipPanel.activeSelf)
         {
             HideTooltip();
         }
@@ -54,8 +53,8 @@ public class TooltipManager : MonoBehaviour
 
     public void ShowTooltip(string message, float duration)
     {
-        tooltipText.text = message; // Mise à jour du texte
-        LayoutRebuilder.ForceRebuildLayoutImmediate(tooltipPanel.GetComponent<RectTransform>()); // Recalcule la taille
+        tooltipText.text = message;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(tooltipPanel.GetComponent<RectTransform>());
 
         tooltipPanel.SetActive(true);
 

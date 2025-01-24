@@ -162,7 +162,15 @@ public class ShovelManager : MonoBehaviour
 
         if (tile.tileType == TileType.Mountain)
         {
-            TooltipManager.Instance.ShowTooltip("You can't destroy a mountain.");
+            if (TooltipManager.Instance != null)
+            {
+                TooltipManager.Instance.ShowTooltip("You can't destroy a mountain.");
+            }
+            else
+            {
+                Debug.LogError("TooltipManager.Instance is null!");
+            }
+
             return;
         }
         if (tile.tileType == TileType.City)
