@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8337876304363515790}
   - component: {fileID: 2617473024616907168}
   - component: {fileID: 1057170271876552886}
+  - component: {fileID: 3626829466446217985}
   m_Layer: 0
   m_Name: CurvePointC
   m_TagString: RailPath
@@ -81,6 +82,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3626829466446217985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3299999832475118485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1 &5503121165525896214
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +139,7 @@ GameObject:
   - component: {fileID: 2524358059706687031}
   - component: {fileID: 8764594977138267844}
   - component: {fileID: 7881013804336767028}
+  - component: {fileID: 124435640342416246}
   m_Layer: 0
   m_Name: CurvePointA
   m_TagString: RailPath
@@ -193,6 +210,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &124435640342416246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6098030132953336986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1001 &14457012027606050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -303,10 +335,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec26b24e70b43a4fb176c555a9773b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RailPathNext:
-  - {fileID: 6098030132953336986}
-  RailPathPrevious:
-  - {fileID: 3299999832475118485}
+  RailPathPoints:
+  - points:
+    - {fileID: 6098030132953336986}
+    - {fileID: 5503121165525896214}
+    - {fileID: 3299999832475118485}
 --- !u!4 &7245574477851913383 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}

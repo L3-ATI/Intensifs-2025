@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8233643519649587050}
   - component: {fileID: 3121848075934659941}
   - component: {fileID: 5402770328207648894}
+  - component: {fileID: 5787005989354811792}
   m_Layer: 0
   m_Name: CurvePointC
   m_TagString: RailPath
@@ -81,6 +82,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5787005989354811792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743842754623213019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1 &1066078156232738145
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +108,7 @@ GameObject:
   - component: {fileID: 2559141389290172671}
   - component: {fileID: 6892793639374002020}
   - component: {fileID: 7249831291865687255}
+  - component: {fileID: 6303547452629021350}
   m_Layer: 0
   m_Name: CurvePointD
   m_TagString: RailPath
@@ -162,6 +179,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6303547452629021350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066078156232738145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1 &1259765320550151539
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +205,7 @@ GameObject:
   - component: {fileID: 7119018792126648081}
   - component: {fileID: 6890797198159840089}
   - component: {fileID: 5577405745801117700}
+  - component: {fileID: 4368832890386092610}
   m_Layer: 0
   m_Name: CurvePointF
   m_TagString: RailPath
@@ -243,6 +276,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4368832890386092610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259765320550151539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1 &3019449721540942390
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +302,7 @@ GameObject:
   - component: {fileID: 658927477096052168}
   - component: {fileID: 2033959012221877229}
   - component: {fileID: 5128380195053807511}
+  - component: {fileID: 8873689329430461748}
   m_Layer: 0
   m_Name: CurvePointE
   m_TagString: RailPath
@@ -324,6 +373,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8873689329430461748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019449721540942390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1 &8157923024533144428
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +399,7 @@ GameObject:
   - component: {fileID: 6101547128327716482}
   - component: {fileID: 3216100025925888099}
   - component: {fileID: 8452862494852671859}
+  - component: {fileID: 2923670414990071300}
   m_Layer: 0
   m_Name: CurvePointA
   m_TagString: RailPath
@@ -405,6 +470,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2923670414990071300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157923024533144428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1 &8162943469320268146
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +496,7 @@ GameObject:
   - component: {fileID: 3205269847629236498}
   - component: {fileID: 476382264451278263}
   - component: {fileID: 5466573788666536897}
+  - component: {fileID: 498804778410422322}
   m_Layer: 0
   m_Name: CurvePointB
   m_TagString: RailPath
@@ -486,6 +567,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &498804778410422322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8162943469320268146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1001 &856840028115470155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -589,14 +685,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec26b24e70b43a4fb176c555a9773b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RailPathNext:
-  - {fileID: 8157923024533144428}
-  - {fileID: 743842754623213019}
-  - {fileID: 3019449721540942390}
-  RailPathPrevious:
-  - {fileID: 8162943469320268146}
-  - {fileID: 1066078156232738145}
-  - {fileID: 1259765320550151539}
+  RailPathPoints:
+  - points:
+    - {fileID: 8157923024533144428}
+    - {fileID: 8162943469320268146}
+  - points:
+    - {fileID: 743842754623213019}
+    - {fileID: 1066078156232738145}
+  - points:
+    - {fileID: 3019449721540942390}
+    - {fileID: 1259765320550151539}
 --- !u!4 &8023783399648669646 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}

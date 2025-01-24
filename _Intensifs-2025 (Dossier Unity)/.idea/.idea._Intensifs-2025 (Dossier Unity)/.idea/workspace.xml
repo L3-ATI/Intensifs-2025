@@ -5,11 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TooltipManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TooltipManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Desert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Desert.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Desert_HOV.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Desert_HOV.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Grass.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Grass.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Grass_HOV.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Grass_HOV.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Red_Desert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Red_Desert.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Desert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Desert.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Desert_HOV.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Desert_HOV.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Grass.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Grass.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Grass_HOV.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Grass_HOV.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Val_Desert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Val_Desert.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Desert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Desert.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Glade.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Glade.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_GladeGreenHL.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_GladeGreenHL.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_GladeRedHL.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_GladeRedHL.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_TestDoubleWPO.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_TestDoubleWPO.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_WPO3ColorsTest.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_WPO3ColorsTest.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_WPOShowcaseA 1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_WPOShowcaseA 1.mat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,10 +39,10 @@
     <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/UpgradeManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/CityTile.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2rf7T7EQpTuXwNr5OfvzVpnAJrC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -38,7 +51,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "Giulia",
+    "git-widget-placeholder": "<unknown>",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -67,6 +80,9 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
       <option name="selectedOptions">
         <list />
       </option>
@@ -77,6 +93,9 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
       <option name="selectedOptions">
         <list />
       </option>
