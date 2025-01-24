@@ -15,7 +15,6 @@ public class StationCollision : MonoBehaviour
         BottomRight,
         BottomLeft
     }
-    //private List<GameObject> Path;
 
     public Direction CurrentSide;
 
@@ -54,12 +53,21 @@ public class StationCollision : MonoBehaviour
     {
         if (other.CompareTag(objectTag))
         {
-            //Path.Add(other.gameObject);
+            Station.RailTrack[(int)CurrentSide] = other.gameObject;
+            RailPath path = other.gameObject.GetComponent<RailPath>();
+            path.RailPathPrevious[((int)CurrentSide + 3) % 6] = this.gameObject;
+            Debug.Log("Added " + CurrentSide.ToString() + " Side, Name: " + Station.RailTrack[(int)CurrentSide].name);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-
+        if (other.CompareTag(objectTag))
+        {
+            Debug.Log("Removed " + CurrentSide.ToString() + " Side, Name: " + Station.RailTrack[(int)CurrentSide].name);
+            Station.RailTrack[(int)CurrentSide] = null;
+            RailPath path = other.gameObject.GetComponent<RailPath>();
+            path.RailPathPrevious[((int)CurrentSide + 3) % 6] = null;
+        }   
     }
 }

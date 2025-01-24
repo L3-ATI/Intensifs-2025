@@ -8,6 +8,8 @@ TagManager:
   - TileTrigger
   - Rail
   - Structure
+  - Station
+  - RailPath
   layers:
   - Default
   - TransparentFX
