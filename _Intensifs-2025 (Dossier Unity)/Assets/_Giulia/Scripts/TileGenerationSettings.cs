@@ -28,6 +28,14 @@ public class TileGenerationSettings : ScriptableObject
     [Tooltip("Proximity factor for water. This multiplier affects the probability of water based on nearby tiles.")]
     [Range(0f, 1f)]
     public float waterProximityFactor = 0.01f;
+    
+    [Header("Desert Parameters")]
+    [Tooltip("Percentage of desert tiles in the generated grid.")]
+    [Range(0, 100)]
+    public float desertPercentage = 0.1f;
+    [Tooltip("Proximity factor for desert. This multiplier affects the probability of desert based on nearby tiles.")]
+    [Range(0f, 1f)]
+    public float desertProximityFactor = 0.01f;
 
     [Tooltip("Probability of creating a city cluster when conditions are met.")]
     [Range(0f, 1f)]
@@ -36,9 +44,9 @@ public class TileGenerationSettings : ScriptableObject
     [Header("Cluster Settings")]
     [Tooltip("Size of clusters for the generation process.")]
     [Range(1, 10)]
-    public int[] clusterSizes = new int[3] { 3, 5, 7 }; // Exemple avec 3 tailles de cluster (tu peux ajuster le nombre ou les valeurs)
+    public int[] clusterSizes = new int[3] { 3, 5, 7 };
 
     [Tooltip("Maximum number of clusters to create.")]
     [Range(1, 10)]
-    public int maxClusters = 5; // Ajuste cette valeur selon tes besoins
+    public int maxClusters = 5;
 }

@@ -26,102 +26,80 @@ public class TileGenerationManager : MonoBehaviour
         return proximityBoost;
     }
 
-    public float GetClusterProbability(int x, int z, float[,] probabilityMap, float basePercentage, float proximityFactor)
+    public float GetDesertProbability(int x, int z, float[,] desertProbabilityMap)
     {
-        float probability = basePercentage / 100f;
-        float proximityBoost = GetProximityBoost(x, z, probabilityMap);
-        return Mathf.Clamp01(probability + proximityBoost * proximityFactor);
+        float desertProbability = tileSettings.desertPercentage / 100f;
+        float proximityBoost = GetProximityBoost(x, z, desertProbabilityMap);
+        desertProbability += proximityBoost * tileSettings.desertProximityFactor;
+
+        desertProbability = Mathf.Clamp01(desertProbability);
+        return desertProbability;
     }
 
     public float GetWaterProbability(int x, int z, float[,] waterProbabilityMap)
     {
         float waterProbability = tileSettings.waterPercentage / 100f;
-        float proximityFactor = GetProximityBoost(x, z, waterProbabilityMap);
-        waterProbability += proximityFactor * tileSettings.waterProximityFactor;
+        float proximityBoost = GetProximityBoost(x, z, waterProbabilityMap);
+        waterProbability += proximityBoost * tileSettings.waterProximityFactor;
         return Mathf.Clamp01(waterProbability);
     }
 
     public TileType GetRandomTileType(int x, int z, float[,] waterProbabilityMap, float[,] desertProbabilityMap, float[,] cityProbabilityMap)
     {
+        float randomValue = Random.value;
 
-        // Si un désert est forcé, on le place
-        if (desertProbabilityMap[x, z] == 1f)
+        if (cityProbabilityMap[x, z] > 0f)
         {
-            Debug.Log($"Forcing Desert at ({x}, {z}) due to EnsureAtLeastOneCityCluster");
-            return TileType.Desert;
-        }
-        
-        // Si une ville est forcée, on la place
-        if (cityProbabilityMap[x, z] == 1f)
-        {
-            Debug.Log($"Forcing City at ({x}, {z}) due to EnsureAtLeastOneCityCluster");
             return TileType.City;
         }
 
-        // Calcul de la probabilité d'eau
-        float randomValue = Random.value;
         float waterProbability = GetWaterProbability(x, z, waterProbabilityMap);
-
-        // Vérifier si c'est de l'eau
         if (randomValue < waterProbability)
         {
-            Debug.Log($"Selected Water at ({x}, {z}) with random {randomValue} < waterProbability {waterProbability}");
             return TileType.Water;
         }
-        
-        // Ajout de la probabilité restante pour les autres types
-        float remainingProbability = waterProbability;
 
-        // Montagne
-        if (randomValue < remainingProbability + tileSettings.mountainPercentage / 100f)
-            return TileType.Mountain;
-        remainingProbability += tileSettings.mountainPercentage / 100f;
-
-        // Mine
-        if (randomValue < remainingProbability + tileSettings.minePercentage / 100f)
-            return TileType.Mine;
-        remainingProbability += tileSettings.minePercentage / 100f;
-
-        // Scierie
-        if (randomValue < remainingProbability + tileSettings.sawmillPercentage / 100f)
-            return TileType.Sawmill;
-        remainingProbability += tileSettings.sawmillPercentage / 100f;
-
-        // Carrière de pierre
-        if (randomValue < remainingProbability + tileSettings.stoneQuarryPercentage / 100f)
-            return TileType.StoneQuarry;
-
-        // Probabilité de la ville
-        float cityProbability = GetClusterProbability(x, z, cityProbabilityMap, 0f, 0f);
-        if (randomValue < remainingProbability + cityProbability)
+        float desertProbability = GetDesertProbability(x, z, desertProbabilityMap);
+        if (randomValue < waterProbability + desertProbability)
         {
-            Debug.Log($"Selected City at ({x}, {z}) with random {randomValue} < cityProbability {cityProbability}");
-            return TileType.City;
-        }
-
-        // Si le désert est encore une possibilité, on le force après la ville
-        float desertProbability = GetClusterProbability(x, z, desertProbabilityMap, 0f, 0f);
-        if (randomValue < remainingProbability + desertProbability)
-        {
-            Debug.Log($"Selected Desert at ({x}, {z}) with random {randomValue} < desertProbability {desertProbability}");
             return TileType.Desert;
         }
 
-        // Si rien d'autre n'est sélectionné, c'est de l'herbe
+        float remainingProbability = waterProbability + desertProbability;
+
+        float mountainProbability = tileSettings.mountainPercentage / 100f;
+        float stoneQuarryProbability = tileSettings.stoneQuarryPercentage / 100f;
+        float mineProbability = tileSettings.minePercentage / 100f;
+        float sawmillProbability = tileSettings.sawmillPercentage / 100f;
+
+        if (randomValue < remainingProbability + mountainProbability)
+        {
+            return TileType.Mountain;
+        }
+        remainingProbability += mountainProbability;
+        
+        if (randomValue < remainingProbability + stoneQuarryProbability)
+        {
+            return TileType.StoneQuarry;
+        }
+        remainingProbability += stoneQuarryProbability;
+
+        if (randomValue < remainingProbability + mineProbability)
+        {
+            return TileType.Mine;
+        }
+        remainingProbability += mineProbability;
+
+        if (randomValue < remainingProbability + sawmillProbability)
+        {
+            return TileType.Sawmill;
+        }
+
         return TileType.Grass;
     }
 
-    public void EnsureClusterPlacement(float[,] probabilityMap, int[] clusterSizes, int maxClusters)
+    public void EnsureClusterPlacement(float[,] probabilityMap, int[] clusterSizes, int maxClusters, bool isDesert = false)
     {
-        if (probabilityMap.ToString() == "desertProbabilityMap")
-        {
-            for (int i = 0; i < clusterSizes.Length; i++)
-            {
-                clusterSizes[i] += 10;
-            }
-            maxClusters += 5;
-        }
-        
         int clustersPlaced = 0;
 
         foreach (int clusterSize in clusterSizes)
@@ -190,6 +168,5 @@ public class TileGenerationManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log($"Cluster de taille {clusterSize} placé à partir de ({startX}, {startZ}).");
     }
 }

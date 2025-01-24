@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    // Singleton
     public static GridManager Instance { get; private set; }
 
     public int width;
@@ -19,6 +18,7 @@ public class GridManager : MonoBehaviour
     public GameObject sawmillPrefab;
     public GameObject stoneQuarryPrefab;
     public GameObject cityPrefab;
+    public GameObject cityTilePrefab;
 
     private Tile[,] tiles;
     private TileGenerationManager tileGenerationManager;
@@ -36,7 +36,7 @@ public class GridManager : MonoBehaviour
             Instance = this;
         }
 
-        tileGenerationManager = FindObjectOfType<TileGenerationManager>();
+        tileGenerationManager = gameObject.GetComponent<TileGenerationManager>();
         tileGenerationSettings = tileGenerationManager.tileSettings;
     }
 
@@ -49,9 +49,8 @@ public class GridManager : MonoBehaviour
     {
         bool[,] isTileValid = new bool[width, height];
         float[,] waterProbabilityMap = new float[width, height];
-        float[,] desertProbabilityMap = new float[width, height]; 
+        float[,] desertProbabilityMap = new float[width, height];
         float[,] cityProbabilityMap = new float[width, height];
-        
 
         for (int x = 0; x < width; x++)
         {
@@ -64,7 +63,7 @@ public class GridManager : MonoBehaviour
                 {
                     waterProbabilityMap[x, z] = Random.Range(0f, 1f);
                     desertProbabilityMap[x, z] = Random.value < TileGenerationSettings.cityClusterProbability ? 1f : 0f;
-                    cityProbabilityMap[x, z] = Random.value < TileGenerationSettings.cityClusterProbability ? 1f : 0f;
+                    cityProbabilityMap[x, z] = Random.value < (TileGenerationSettings.cityClusterProbability * 2f) ? 1f : 0f;
                 }
                 else
                 {
@@ -74,9 +73,11 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-        tileGenerationManager.EnsureClusterPlacement(waterProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
-        tileGenerationManager.EnsureClusterPlacement(desertProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
+
         tileGenerationManager.EnsureClusterPlacement(cityProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
+        tileGenerationManager.EnsureClusterPlacement(waterProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters);
+        tileGenerationManager.EnsureClusterPlacement(desertProbabilityMap, tileGenerationSettings.clusterSizes, tileGenerationSettings.maxClusters, true);
+
         tiles = new Tile[width, height];
 
         for (int x = 0; x < width; x++)
@@ -95,13 +96,19 @@ public class GridManager : MonoBehaviour
                     {
                         prefabToInstantiate = riverTilePrefab;
                     }
+
+                    else if (tileType == TileType.Desert && desertTilePrefab != null)
+                    {
+                        prefabToInstantiate = desertTilePrefab;
+                    }
+                    
                     else if (tileType == TileType.StoneQuarry && stoneQuarryTilePrefab != null)
                     {
                         prefabToInstantiate = stoneQuarryTilePrefab;
                     }
-                    else if (tileType == TileType.Desert && desertTilePrefab != null)
+                    else if (tileType == TileType.City && cityTilePrefab != null)
                     {
-                        prefabToInstantiate = desertTilePrefab;
+                        prefabToInstantiate = cityTilePrefab;
                     }
 
                     GameObject newTile = Instantiate(prefabToInstantiate, position, Quaternion.identity, transform);
@@ -116,6 +123,12 @@ public class GridManager : MonoBehaviour
                     {
                         CreatePrefabOnTile(mountainPrefab, newTile, x, z);
                     }
+                    else if (tileType == TileType.StoneQuarry && stoneQuarryPrefab != null)
+                    {
+                        CreatePrefabOnTile(stoneQuarryPrefab, newTile, x, z);
+                        tileComponent.tag = "Structure";
+                        tileComponent.isOccupied = true;
+                    }
                     else if (tileType == TileType.Mine && minePrefab != null)
                     {
                         CreatePrefabOnTile(minePrefab, newTile, x, z);
@@ -128,21 +141,16 @@ public class GridManager : MonoBehaviour
                         tileComponent.tag = "Structure";
                         tileComponent.isOccupied = true;
                     }
-                    else if (tileType == TileType.StoneQuarry && stoneQuarryPrefab != null)
-                    {
-                        CreatePrefabOnTile(stoneQuarryPrefab, newTile, x, z);
-                        tileComponent.tag = "Structure";
-                        tileComponent.isOccupied = true;
-                    }
+
                     else if (tileType == TileType.City && cityPrefab != null)
                     {
                         tileComponent.tileType = TileType.City;
-                        CreatePrefabOnTile(cityPrefab, newTile, x, z);
                         tileComponent.tag = "Structure";
                         tileComponent.isOccupied = true;
                     }
+
                     tileComponent.UpdateVegetation();
-                    
+                    tileComponent.UpdateCity();
                 }
             }
         }

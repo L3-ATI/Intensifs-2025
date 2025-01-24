@@ -8,9 +8,12 @@ public class ShovelManager : MonoBehaviour
 {
     public Button shovelButton;
     public RectTransform shovelIcon;
-    public Material highlightBaseMaterial; 
+    public Material highlightStoneMaterial; 
     public Material highlightGrassMaterial;
     public Material highlightWaterMaterial;
+    public Material highlightStoneMaterialHOV; 
+    public Material highlightGrassMaterialHOV;
+    public Material highlightWaterMaterialHOV;
     public GameObject confirmationPanel;
     public Button confirmButton;
     public Button cancelButton;
@@ -20,39 +23,90 @@ public class ShovelManager : MonoBehaviour
     private GridInteraction gridInteractionScript;
     private Tile selectedTile = null;
     private Material originalMaterial = null;
+    private Tile lastHoveredTile = null;
 
     private void Start()
     {
         shovelButton.onClick.AddListener(ToggleShovel);
         gridInteractionScript = FindFirstObjectByType<GridInteraction>();
-        confirmationPanel.SetActive(false); 
-        
+        confirmationPanel.SetActive(false);
+
         confirmButton.onClick.AddListener(OnConfirm);
         cancelButton.onClick.AddListener(OnCancel);
     }
+
     private void Update()
     {
         if (isShovelActive)
         {
-            // Met à jour la position de l'icône de la pelle
             Vector2 mousePosition = Input.mousePosition;
             shovelIcon.position = mousePosition;
 
-            // Raycast pour détecter les tuiles sous la souris
             Ray ray = Camera.main.ScreenPointToRay(mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                Tile tile = hit.collider.GetComponent<Tile>();
-                if (tile != null && tile != selectedTile) // Assure que la tuile survolée est différente de la sélectionnée
+                Tile hoveredTile = hit.collider.GetComponent<Tile>();
+
+                // Si on survole une nouvelle tuile
+                if (hoveredTile != null && hoveredTile != lastHoveredTile)
                 {
-                    // Appel de TrySelectTile pour sélectionner la tuile lorsqu'elle est survolée
-                    TrySelectTile(tile);
+                    HandleHoverTile(hoveredTile); // Appliquer le matériau de surbrillance
                 }
+
+                // Réinitialiser l'ancienne tuile si elle n'est plus survolée
+                if (lastHoveredTile != null && lastHoveredTile != hoveredTile)
+                {
+                    ResetTileMaterial(lastHoveredTile);
+                }
+
+                lastHoveredTile = hoveredTile;
+            }
+
+            if (Input.GetMouseButtonDown(0) && lastHoveredTile != null)
+            {
+                TrySelectTile(lastHoveredTile);
+            }
+        }
+        else if (lastHoveredTile != null)
+        {
+            ResetTileMaterial(lastHoveredTile);
+            lastHoveredTile = null;
+        }
+    }
+
+    private void HandleHoverTile(Tile tile)
+    {
+        Renderer tileRenderer = tile.GetComponent<Renderer>();
+        if (tileRenderer != null)
+        {
+            originalMaterial = tileRenderer.material;
+
+            if (tileRenderer.material.ToString() == "MA_Desert")
+            {
+                tileRenderer.material = highlightWaterMaterialHOV;
+            }
+            else if (tileRenderer.material.ToString() == "MA_Stone")
+            {
+                tileRenderer.material = highlightStoneMaterialHOV;
+            }
+            else
+            {
+                tileRenderer.material = highlightGrassMaterialHOV;
             }
         }
     }
+
+    private void ResetTileMaterial(Tile tile)
+    {
+        Renderer tileRenderer = tile.GetComponent<Renderer>();
+        if (tileRenderer != null && originalMaterial != null)
+        {
+            tileRenderer.material = originalMaterial;
+        }
+    }
+
 
 
     private void ToggleShovel()
@@ -108,9 +162,8 @@ public class ShovelManager : MonoBehaviour
     
     private void TrySelectTile(Tile tile)
     {
-        if (tile == null) return;
+        if (tile == null || IsPointerOverUIElement()) return;
 
-        // Vérifications pour s'assurer que la tuile peut être modifiée
         if (tile.tileType == TileType.Mountain)
         {
             TooltipManager.Instance.ShowTooltip("You can't destroy a mountain.");
@@ -148,10 +201,10 @@ public class ShovelManager : MonoBehaviour
         }
         else
         {
-            // Si la tuile est modifiable, montre le panneau de confirmation
             confirmationPanel.SetActive(true);
-            SelectTile(tile);
         }
+        
+        SelectTile(tile);
     }
 
 
@@ -162,28 +215,27 @@ public class ShovelManager : MonoBehaviour
             return;
         }
         
-        if (selectedTile != null)
+        if (tile != null)
         {
-            Renderer selectedRenderer = selectedTile.GetComponent<Renderer>();
+            Renderer selectedRenderer = tile.GetComponent<Renderer>();
             if (selectedRenderer != null)
             {
                 selectedRenderer.material = originalMaterial;
             }
         }
 
-        selectedTile = tile;
-        Renderer tileRenderer = selectedTile.GetComponent<Renderer>();
+        Renderer tileRenderer = tile.GetComponent<Renderer>();
         if (tileRenderer != null)
         {
             originalMaterial = tileRenderer.material;
 
-            if (selectedTile.tileType == TileType.Water)
+            if (tileRenderer.material.ToString() == "MA_Desert")
             {
                 tileRenderer.material = highlightWaterMaterial;
             }
-            else if (selectedTile.tileType == TileType.StoneQuarry)
+            else if (tileRenderer.material.ToString() == "MA_Stone")
             {
-                tileRenderer.material = highlightBaseMaterial;
+                tileRenderer.material = highlightStoneMaterial;
             }
             else
             {
@@ -213,7 +265,7 @@ public class ShovelManager : MonoBehaviour
                 Transform childTransform = selectedTile.transform.GetChild(i);
 
                 // Vérifie que l'objet n'est pas de la végétation avant de le détruire
-                if (childTransform.name != "Vegetation")
+                if (childTransform.name != "AddedObjectsManager")
                 {
                     childTransform.DOScale(Vector3.zero, 0.3f)
                         .SetEase(Ease.InBack)
@@ -237,10 +289,11 @@ public class ShovelManager : MonoBehaviour
                 default:
                     ReplaceTile(TileType.Grass);
                     Debug.Log("Tile reset to grass.");
+                    selectedTile.GetComponentInChildren<GrassTile>().gameObject.SetActive(true);
                     break;
             }
 
-            // Désactive la pelle et le panneau de confirmation
+            selectedTile.GetComponent<Tile>().UpdateVegetation();
             ToggleShovel();
             confirmationPanel.SetActive(false);
         }

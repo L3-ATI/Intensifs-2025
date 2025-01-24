@@ -10,17 +10,19 @@ public class UIManager : MonoBehaviour
     public Button bridgeButton, tunnelButton;
 
     [Space(20)]
-    
-    public Button currentlySelectedButton = null; // Bouton actuellement sélectionné
-    public static bool isAButtonClicked { get; private set; } = false; // Booléen pour savoir si un bouton est cliqué
+
+    public Button currentlySelectedButton = null;
+    public static bool isAButtonClicked { get; private set; } = false;
 
     [Space(20)]
 
-    public Vector3 normalScale = Vector3.one; // Échelle par défaut des boutons
-    public Vector3 selectedScale = new Vector3(1.2f, 1.2f, 1); // Échelle des boutons sélectionnés
-    public float normalOpacity = 1f; // Opacité par défaut
-    public float selectedOpacity = 0.6f; // Opacité des boutons sélectionnés
-    public float animationDuration = 0.3f; // Durée des animations DOTween
+    public Vector3 normalScale = Vector3.one;
+    public Vector3 selectedScale = new Vector3(1.2f, 1.2f, 1);
+    public Color normalColor = Color.white;
+    public Color selectedColor = Color.yellow;
+    public float normalOpacity = 1f;
+    public float selectedOpacity = 0.6f;
+    public float animationDuration = 0.3f;
 
     private void Start()
     {
@@ -39,61 +41,50 @@ public class UIManager : MonoBehaviour
     {
         if (currentlySelectedButton == button)
         {
-            // Si le bouton cliqué est déjà sélectionné, désélectionnez-le
             DeselectButton();
         }
         else
         {
-            // Sélectionner un nouveau bouton
             SelectButton(button, objectType);
         }
     }
 
     private void SelectButton(Button button, string objectType)
     {
-        // Déselectionner le bouton précédent s'il existe
         if (currentlySelectedButton != null)
         {
             DeselectButton();
         }
 
-        // Sélectionner le nouveau bouton
         currentlySelectedButton = button;
         isAButtonClicked = true;
 
-        // Mettre à jour le type d'objet dans GridInteraction
         GridInteraction.Instance.objectTypeToPlace = objectType;
 
-        // Ajouter l'animation pour indiquer la sélection
-        AnimateButton(button, selectedScale, selectedOpacity);
+        AnimateButton(button, selectedScale, selectedOpacity, selectedColor);
     }
 
     private void DeselectButton()
     {
-        // Déselectionner le bouton actuellement sélectionné
         if (currentlySelectedButton != null)
         {
-            AnimateButton(currentlySelectedButton, normalScale, normalOpacity);
+            AnimateButton(currentlySelectedButton, normalScale, normalOpacity, normalColor);
             currentlySelectedButton = null;
         }
 
-        // Réinitialiser le booléen
         isAButtonClicked = false;
 
-        // Optionnel : Réinitialiser le type d'objet dans GridInteraction
         GridInteraction.Instance.objectTypeToPlace = null;
     }
 
-    private void AnimateButton(Button button, Vector3 targetScale, float targetOpacity)
+    private void AnimateButton(Button button, Vector3 targetScale, float targetOpacity, Color targetColor)
     {
-        // Animation de l'échelle
         button.transform.DOScale(targetScale, animationDuration);
 
-        // Animation de l'opacité
         Image buttonImage = button.GetComponent<Image>();
         if (buttonImage != null)
         {
-            Color color = buttonImage.color;
+            buttonImage.DOColor(targetColor, animationDuration);
             buttonImage.DOFade(targetOpacity, animationDuration);
         }
     }

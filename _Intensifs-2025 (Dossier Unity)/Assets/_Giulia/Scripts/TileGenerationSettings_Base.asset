@@ -16,7 +16,9 @@ MonoBehaviour:
   minePercentage: 2
   sawmillPercentage: 2
   stoneQuarryPercentage: 2
-  waterPercentage: 0.1
-  waterProximityFactor: 0.01
-  clusterSizes: 030000000500000007000000
-  maxClusters: 3
+  waterPercentage: 0.001
+  waterProximityFactor: 0.05
+  desertPercentage: 10
+  desertProximityFactor: 1
+  clusterSizes: 040000000400000004000000050000000500000006000000
+  maxClusters: 10

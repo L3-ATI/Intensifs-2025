@@ -67,7 +67,7 @@ PrefabInstance:
     - target: {fileID: 6082777237880216548, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: vegetation
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 158314697147713772}
     - target: {fileID: 6082777237880216548, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: highlightValidMaterial
       value: 
@@ -82,19 +82,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7981967541868126903, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7981967541868126903, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: b6ac01fc03b81754fbc5a9e2cccfde0c, type: 2}
+      objectReference: {fileID: 2100000, guid: fe7c97c9a1019604e86ea6bb526095fd, type: 2}
     - target: {fileID: 7981967541868126903, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: b6ac01fc03b81754fbc5a9e2cccfde0c, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1399232496972415611, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
+--- !u!1 &158314697147713772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1399232496972415611, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
+  m_PrefabInstance: {fileID: 1250136930550532759}
+  m_PrefabAsset: {fileID: 0}
