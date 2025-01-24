@@ -20,9 +20,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: T_WagonPassagers
+  m_Name: T_LocomotiveB
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 2100000, guid: 7de1160ee756462458712927644dcabb, type: 2}
+  m_Parent: {fileID: 2100000, guid: 97509261b095b834ea61c20ee2959cb5, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -39,11 +39,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: d3de5a029a4554648b3f3b0ec83946b7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5729b19fdc8081b44ac2b15b0093358b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d3de5a029a4554648b3f3b0ec83946b7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5729b19fdc8081b44ac2b15b0093358b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
