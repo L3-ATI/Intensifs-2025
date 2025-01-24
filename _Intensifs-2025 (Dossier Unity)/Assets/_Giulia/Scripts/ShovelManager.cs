@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -8,12 +9,8 @@ public class ShovelManager : MonoBehaviour
 {
     public Button shovelButton;
     public RectTransform shovelIcon;
-    public Material highlightStoneMaterial; 
-    public Material highlightGrassMaterial;
-    public Material highlightWaterMaterial;
-    public Material highlightStoneMaterialHOV; 
-    public Material highlightGrassMaterialHOV;
-    public Material highlightWaterMaterialHOV;
+    public Material shovelMaterial; 
+    public Material shovelSelMaterial;
     public GameObject confirmationPanel;
     public Button confirmButton;
     public Button cancelButton;
@@ -22,7 +19,6 @@ public class ShovelManager : MonoBehaviour
     public static bool isShovelActive = false;
     private GridInteraction gridInteractionScript;
     private Tile selectedTile = null;
-    private Material originalMaterial = null;
     private Tile lastHoveredTile = null;
     
     private bool isTileLocked = false;
@@ -63,63 +59,64 @@ public class ShovelManager : MonoBehaviour
 
                 lastHoveredTile = hoveredTile;
             }
-
-            if (Input.GetMouseButtonDown(0) && lastHoveredTile != null)
-            {
-                TrySelectTile(lastHoveredTile);
-            }
         }
+        
         else if (lastHoveredTile != null)
         {
             ResetTileMaterial(lastHoveredTile);
             lastHoveredTile = null;
         }
+
+        if (Input.GetMouseButtonDown(0) && lastHoveredTile != null)
+        {
+            TrySelectTile(lastHoveredTile);
+        }
     }
 
     private void HandleHoverTile(Tile tile)
     {
+        if (isTileLocked && tile == selectedTile)
+        {
+            return;
+        }
+
         Renderer tileRenderer = tile.GetComponent<Renderer>();
         if (tileRenderer != null)
         {
-            originalMaterial = tileRenderer.material;
-
-            if (tileRenderer.material.ToString() == "MA_Desert" || tileRenderer.material == highlightWaterMaterial)
+            Material[] materials = tileRenderer.materials;
+        
+            if (materials.Length > 1)
             {
-                tileRenderer.material = highlightWaterMaterialHOV;
-            }
-            else if (tileRenderer.material.ToString() == "MA_Stone" || tileRenderer.material == highlightStoneMaterial)
-            {
-                tileRenderer.material = highlightStoneMaterialHOV;
+                materials[1] = shovelMaterial;
             }
             else
             {
-                tileRenderer.material = highlightGrassMaterialHOV;
+                Array.Resize(ref materials, 2);
+                materials[1] = shovelMaterial;
             }
+        
+            tileRenderer.materials = materials;
         }
     }
 
     private void ResetTileMaterial(Tile tile)
     {
-        Renderer tileRenderer = tile.GetComponent<Renderer>();
-        if (tileRenderer != null && originalMaterial != null)
+        if (tile != null && tile != selectedTile)
         {
-            tileRenderer.material = originalMaterial;
+            Renderer tileRenderer = tile.GetComponent<Renderer>();
+            if (tileRenderer != null)
+            {
+                Material[] originalOnly = new Material[] { tileRenderer.materials[0] };
+                tileRenderer.materials = originalOnly;
+            }
         }
     }
+
 
     private void ToggleShovel()
     {
         if (isShovelActive)
         {
-            if (selectedTile != null)
-            {
-                Renderer selectedRenderer = selectedTile.GetComponent<Renderer>();
-                if (selectedRenderer != null)
-                {
-                    selectedRenderer.material = originalMaterial;
-                }
-            }
-            
             isShovelActive = false;
             shovelIcon.gameObject.SetActive(false);
 
@@ -217,24 +214,17 @@ public class ShovelManager : MonoBehaviour
             Renderer tileRenderer = tile.GetComponent<Renderer>();
             if (tileRenderer != null)
             {
-                originalMaterial = tileRenderer.material;
+                List<Material> materials = new List<Material>(tileRenderer.materials);
 
-                if (tileRenderer.material.ToString() == "MA_Desert" || tileRenderer.material == highlightWaterMaterialHOV)
+                if (!materials.Contains(shovelSelMaterial))
                 {
-                    tileRenderer.material = highlightWaterMaterial;
+                    materials.Add(shovelSelMaterial);
                 }
-                else if (tileRenderer.material.ToString() == "MA_Stone" || tileRenderer.material == highlightStoneMaterialHOV)
-                {
-                    tileRenderer.material = highlightStoneMaterial;
-                }
-                else
-                {
-                    tileRenderer.material = highlightGrassMaterial;
-                }
-            
+
+                tileRenderer.materials = materials.ToArray();
+
+                selectedTile = tile;
             }
-
-            selectedTile = tile;
         }
     }
 
@@ -243,8 +233,13 @@ public class ShovelManager : MonoBehaviour
         if (selectedTile == null)
             return;
 
-        Debug.Log("Selected tile type: " + selectedTile.tileType);
-
+        Renderer tileRenderer = selectedTile.GetComponent<Renderer>();
+        if (tileRenderer != null)
+        {
+            Material[] originalOnly = new Material[] { tileRenderer.materials[0] };
+            tileRenderer.materials = originalOnly;
+        }
+        
         if (selectedTile.tileType != TileType.Mountain &&
             selectedTile.tileType != TileType.Mine &&
             selectedTile.tileType != TileType.Sawmill &&
@@ -303,6 +298,7 @@ public class ShovelManager : MonoBehaviour
             ToggleShovel();
             confirmationPanel.SetActive(false);
             isTileLocked = false;
+            selectedTile = null;
         }
     }
     
@@ -322,17 +318,14 @@ public class ShovelManager : MonoBehaviour
     {
         if (selectedTile != null)
         {
-            Renderer tileRenderer = selectedTile.GetComponent<Renderer>();
-            if (tileRenderer != null)
-            {
-                tileRenderer.material = originalMaterial;
-            }
+            ResetTileMaterial(selectedTile);
         }
 
-        selectedTile = null;
         isTileLocked = false;
         confirmationPanel.SetActive(false);
+        selectedTile = null;
     }
+
     
     private bool IsPointerOverUIElement()
     {

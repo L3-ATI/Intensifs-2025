@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -8,12 +9,8 @@ public class UpgradeManager : MonoBehaviour
 {
     public Button upgradeButton;
     public RectTransform upgradeIcon;
-    public Material upgradeStoneMaterial; 
-    public Material upgradeGrassMaterial;
-    public Material upgradeWaterMaterial;
-    public Material upgradeStoneMaterialHOV;
-    public Material upgradeGrassMaterialHOV;
-    public Material upgradeWaterMaterialHOV;
+    public Material upgradeMaterial;
+    public Material upgradeSelMaterial;
     public GameObject confirmationPanel;
     public Button confirmButton;
     public Button cancelButton;
@@ -23,7 +20,6 @@ public class UpgradeManager : MonoBehaviour
     public static bool isUpgradeActive = false;
     private GridInteraction gridInteractionScript;
     private Tile selectedTile = null;
-    private Material originalMaterial = null;
     private Tile lastHoveredTile = null;
     
     private bool isTileLocked = false;
@@ -52,13 +48,11 @@ public class UpgradeManager : MonoBehaviour
             {
                 Tile hoveredTile = hit.collider.GetComponent<Tile>();
 
-                // Si on survole une nouvelle tuile
                 if (hoveredTile != null && hoveredTile != lastHoveredTile)
                 {
-                    HandleHoverTile(hoveredTile); // Appliquer le matériau de surbrillance
+                    HandleHoverTile(hoveredTile);
                 }
 
-                // Réinitialiser l'ancienne tuile si elle n'est plus survolée
                 if (lastHoveredTile != null && lastHoveredTile != hoveredTile)
                 {
                     ResetTileMaterial(lastHoveredTile);
@@ -66,16 +60,17 @@ public class UpgradeManager : MonoBehaviour
 
                 lastHoveredTile = hoveredTile;
             }
+            
+            else if (lastHoveredTile != null)
+            {
+                ResetTileMaterial(lastHoveredTile);
+                lastHoveredTile = null;
+            }
 
             if (Input.GetMouseButtonDown(0) && lastHoveredTile != null)
             {
                 TrySelectTile(lastHoveredTile);
             }
-        }
-        else if (lastHoveredTile != null)
-        {
-            ResetTileMaterial(lastHoveredTile);
-            lastHoveredTile = null;
         }
     }
     
@@ -84,29 +79,32 @@ public class UpgradeManager : MonoBehaviour
         Renderer tileRenderer = tile.GetComponent<Renderer>();
         if (tileRenderer != null)
         {
-            originalMaterial = tileRenderer.material;
 
-            if (tileRenderer.material.ToString() == "MA_Desert" || tileRenderer.material == upgradeWaterMaterial)
+            Material[] materials = tileRenderer.materials;
+            if (materials.Length > 1)
             {
-                tileRenderer.material = upgradeWaterMaterialHOV;
-            }
-            else if (tileRenderer.material.ToString() == "MA_Stone" || tileRenderer.material == upgradeStoneMaterial)
-            {
-                tileRenderer.material = upgradeStoneMaterialHOV;
+                materials[1] = upgradeMaterial;
             }
             else
             {
-                tileRenderer.material = upgradeGrassMaterialHOV;
+                Array.Resize(ref materials, 2);
+                materials[1] = upgradeMaterial;
             }
+            
+            tileRenderer.materials = materials;
         }
     }
-
+    
     private void ResetTileMaterial(Tile tile)
     {
-        Renderer tileRenderer = tile.GetComponent<Renderer>();
-        if (tileRenderer != null && originalMaterial != null)
+        if (tile != null)
         {
-            tileRenderer.material = originalMaterial;
+            Renderer tileRenderer = tile.GetComponent<Renderer>();
+            if (tileRenderer != null)
+            {
+                Material[] originalOnly = new Material[] { tileRenderer.materials[0] };
+                tileRenderer.materials = originalOnly;
+            }
         }
     }
     
@@ -114,15 +112,6 @@ public class UpgradeManager : MonoBehaviour
     {
         if (isUpgradeActive)
         {
-            if (selectedTile != null)
-            {
-                Renderer selectedRenderer = selectedTile.GetComponent<Renderer>();
-                if (selectedRenderer != null)
-                {
-                    selectedRenderer.material = originalMaterial;
-                }
-            }
-
             isUpgradeActive = false;
             upgradeIcon.gameObject.SetActive(false);
 
@@ -195,41 +184,47 @@ public class UpgradeManager : MonoBehaviour
             Renderer tileRenderer = tile.GetComponent<Renderer>();
             if (tileRenderer != null)
             {
-                originalMaterial = tileRenderer.material;
+                List<Material> materials = new List<Material>(tileRenderer.materials);
 
-                if (tileRenderer.material.ToString() == "MA_Desert" || tileRenderer.material == upgradeWaterMaterialHOV)
+                if (!materials.Contains(upgradeSelMaterial))
                 {
-                    tileRenderer.material = upgradeWaterMaterial;
+                    materials.Add(upgradeSelMaterial);
                 }
-                else if (tileRenderer.material.ToString() == "MA_Stone" || tileRenderer.material == upgradeStoneMaterialHOV)
-                {
-                    tileRenderer.material = upgradeStoneMaterial;
-                }
-                else
-                {
-                    tileRenderer.material = upgradeGrassMaterial;
-                }
+
+                tileRenderer.materials = materials.ToArray();
+
+                selectedTile = tile;
             }
-
-            selectedTile = tile;
         }
     }
-
+    
     private void OnConfirm()
     {
-        if (selectedTile == null) return;
+        if (selectedTile != null)
+        {
+            Renderer selectedRenderer = selectedTile.GetComponent<Renderer>();
+            if (selectedRenderer != null)
+            {
+                List<Material> materials = new List<Material>(selectedRenderer.materials);
+                if (materials.Contains(upgradeSelMaterial))
+                {
+                    materials.Remove(upgradeSelMaterial);
+                }
+                selectedRenderer.materials = materials.ToArray();
+            }
+        }
 
         ReplaceTileWithUpgrade(selectedTile);
         ToggleUpgrade();
         confirmationPanel.SetActive(false);
         isTileLocked = false;
+        ResetTileMaterial(selectedTile);
     }
 
     private void ReplaceTileWithUpgrade(Tile tile)
     {
         if (upgradePrefab != null)
         {
-            // Jouer l'effet de particules si présent
             if (upgradeEffect != null)
             {
                 ParticleSystem effect = Instantiate(upgradeEffect, tile.transform);
@@ -240,50 +235,37 @@ public class UpgradeManager : MonoBehaviour
 
             Quaternion originalRotation = Quaternion.identity;
 
-            // Vérifier s'il y a un enfant à l'index 7 (ancien objet à remplacer)
             if (tile.transform.childCount >= 7)
             {
                 Transform oldStation = tile.transform.GetChild(8);
                 originalRotation = oldStation.rotation;
 
-                // Animation de disparition (rotation + réduction de l'échelle)
                 oldStation.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack);
                 oldStation.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
                     .SetEase(Ease.InBack)
                     .OnComplete(() =>
                     {
-                        Destroy(oldStation.gameObject); // Supprimer l'ancien objet une fois l'animation terminée
+                        Destroy(oldStation.gameObject);
                     });
             }
 
-            // Instancier le nouvel objet avec une animation d'apparition (rotation + agrandissement)
             GameObject newObject = Instantiate(upgradePrefab, tile.transform.position, originalRotation, tile.transform);
-            newObject.transform.localScale = Vector3.zero; // Initialement à échelle 0
-            newObject.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack); // Animation de croissance
+            newObject.transform.localScale = Vector3.zero;
+            newObject.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
             newObject.transform.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
-                .SetEase(Ease.OutBack); // Animation de rotation
+                .SetEase(Ease.OutBack);
 
             tile.tileType = TileType.UpgradedStation;
         }
     }
-
-
-
+    
     private void OnCancel()
     {
-        if (selectedTile != null)
-        {
-            Renderer selectedRenderer = selectedTile.GetComponent<Renderer>();
-            if (selectedRenderer != null)
-            {
-                selectedRenderer.material = originalMaterial;
-            }
-        }
-
         ToggleUpgrade();
         selectedTile = null;
         isTileLocked = false;
         confirmationPanel.SetActive(false);
+        ResetTileMaterial(selectedTile);
     }
 
     private bool IsPointerOverUIElement()
