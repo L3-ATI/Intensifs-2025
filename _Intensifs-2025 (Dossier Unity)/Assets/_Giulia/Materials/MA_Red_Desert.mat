@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Biome2:
-        m_Texture: {fileID: 2800000, guid: 3cd26db2c563f8247a5988d2a6b539e7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 31156945176d5b94b9bb07359dc2de9d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:

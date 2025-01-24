@@ -17,14 +17,16 @@ public class UpgradeManager : MonoBehaviour
     public GameObject confirmationPanel;
     public Button confirmButton;
     public Button cancelButton;
-    public GameObject upgradePrefab; // L'objet qui remplacera l'ancien
-    public ParticleSystem upgradeEffect; // Effet de particules
+    public GameObject upgradePrefab;
+    public ParticleSystem upgradeEffect;
 
     public static bool isUpgradeActive = false;
     private GridInteraction gridInteractionScript;
     private Tile selectedTile = null;
     private Material originalMaterial = null;
     private Tile lastHoveredTile = null;
+    
+    private bool isTileLocked = false;
 
     private void Start()
     {
@@ -38,7 +40,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void Update()
     {
-        if (isUpgradeActive)
+        if (isUpgradeActive && !isTileLocked)
         {
             Vector2 mousePosition = Input.mousePosition;
             upgradeIcon.position = mousePosition;
@@ -84,11 +86,11 @@ public class UpgradeManager : MonoBehaviour
         {
             originalMaterial = tileRenderer.material;
 
-            if (tileRenderer.material.ToString() == "MA_Desert")
+            if (tileRenderer.material.ToString() == "MA_Desert" || tileRenderer.material == upgradeWaterMaterial)
             {
                 tileRenderer.material = upgradeWaterMaterialHOV;
             }
-            else if (tileRenderer.material.ToString() == "MA_Stone")
+            else if (tileRenderer.material.ToString() == "MA_Stone" || tileRenderer.material == upgradeStoneMaterial)
             {
                 tileRenderer.material = upgradeStoneMaterialHOV;
             }
@@ -107,8 +109,7 @@ public class UpgradeManager : MonoBehaviour
             tileRenderer.material = originalMaterial;
         }
     }
-
-
+    
     private void ToggleUpgrade()
     {
         if (isUpgradeActive)
@@ -129,6 +130,7 @@ public class UpgradeManager : MonoBehaviour
             SetGridInteractionEnabled(true);
 
             Tile.isUpgradeActive = false;
+            isTileLocked = false;
         }
         else
         {
@@ -162,7 +164,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void TrySelectTile(Tile tile)
     {
-        if (tile == null || IsPointerOverUIElement()) return;
+        if (tile == null || IsPointerOverUIElement() || isTileLocked) return;
 
         if (tile.tileType == TileType.UpgradedStation)
         {
@@ -178,6 +180,7 @@ public class UpgradeManager : MonoBehaviour
 
         confirmationPanel.SetActive(true);
         SelectTile(tile);
+        isTileLocked = true;
     }
 
     private void SelectTile(Tile tile)
@@ -186,33 +189,29 @@ public class UpgradeManager : MonoBehaviour
         {
             return;
         }
-        
+
         if (tile != null)
         {
-            Renderer selectedRenderer = tile.GetComponent<Renderer>();
-            if (selectedRenderer != null)
+            Renderer tileRenderer = tile.GetComponent<Renderer>();
+            if (tileRenderer != null)
             {
-                selectedRenderer.material = originalMaterial;
-            }
-        }
+                originalMaterial = tileRenderer.material;
 
-        Renderer tileRenderer = tile.GetComponent<Renderer>();
-        if (tileRenderer != null)
-        {
-            originalMaterial = tileRenderer.material;
+                if (tileRenderer.material.ToString() == "MA_Desert" || tileRenderer.material == upgradeWaterMaterialHOV)
+                {
+                    tileRenderer.material = upgradeWaterMaterial;
+                }
+                else if (tileRenderer.material.ToString() == "MA_Stone" || tileRenderer.material == upgradeStoneMaterialHOV)
+                {
+                    tileRenderer.material = upgradeStoneMaterial;
+                }
+                else
+                {
+                    tileRenderer.material = upgradeGrassMaterial;
+                }
+            }
 
-            if (tileRenderer.material.ToString() == "MA_Desert")
-            {
-                tileRenderer.material = upgradeWaterMaterial;
-            }
-            else if (tileRenderer.material.ToString() == "MA_Stone")
-            {
-                tileRenderer.material = upgradeStoneMaterial;
-            }
-            else
-            {
-                tileRenderer.material = upgradeGrassMaterial;
-            }
+            selectedTile = tile;
         }
     }
 
@@ -220,48 +219,54 @@ public class UpgradeManager : MonoBehaviour
     {
         if (selectedTile == null) return;
 
-        // Remplacement de l'objet et déclenchement de l'effet de particules
         ReplaceTileWithUpgrade(selectedTile);
         ToggleUpgrade();
         confirmationPanel.SetActive(false);
+        isTileLocked = false;
     }
 
     private void ReplaceTileWithUpgrade(Tile tile)
     {
-        // Vérifiez si une amélioration est possible
         if (upgradePrefab != null)
         {
-            Quaternion originalRotation = Quaternion.identity; // Initialisation de la rotation
-
-            // Si la tuile a des enfants (par exemple, une gare existante), sauvegardez leur rotation
-            if (tile.transform.childCount > 0)
-            {
-                Transform oldStation = tile.transform.GetChild(0);
-                originalRotation = oldStation.rotation;
-            }
-
-            // Supprimez les anciens objets de la tuile
-            foreach (Transform child in tile.transform)
-            {
-                Destroy(child.gameObject);
-            }
-
-            // Instanciez le nouvel objet avec la même rotation
-            GameObject newObject = Instantiate(upgradePrefab, tile.transform.position, originalRotation);
-            newObject.transform.SetParent(tile.transform);
-
-            // Déclenchez l'effet de particules
+            // Jouer l'effet de particules si présent
             if (upgradeEffect != null)
             {
-                ParticleSystem effect = Instantiate(upgradeEffect, tile.transform.position, Quaternion.identity);
+                ParticleSystem effect = Instantiate(upgradeEffect, tile.transform);
+                effect.transform.localPosition = Vector3.zero;
                 effect.Play();
                 Destroy(effect.gameObject, effect.main.duration);
             }
 
-            // Mettez à jour le type de la tuile
-            tile.tileType = TileType.UpgradedStation; // Nouveau type pour représenter une station améliorée
+            Quaternion originalRotation = Quaternion.identity;
+
+            // Vérifier s'il y a un enfant à l'index 7 (ancien objet à remplacer)
+            if (tile.transform.childCount >= 7)
+            {
+                Transform oldStation = tile.transform.GetChild(8);
+                originalRotation = oldStation.rotation;
+
+                // Animation de disparition (rotation + réduction de l'échelle)
+                oldStation.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack);
+                oldStation.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
+                    .SetEase(Ease.InBack)
+                    .OnComplete(() =>
+                    {
+                        Destroy(oldStation.gameObject); // Supprimer l'ancien objet une fois l'animation terminée
+                    });
+            }
+
+            // Instancier le nouvel objet avec une animation d'apparition (rotation + agrandissement)
+            GameObject newObject = Instantiate(upgradePrefab, tile.transform.position, originalRotation, tile.transform);
+            newObject.transform.localScale = Vector3.zero; // Initialement à échelle 0
+            newObject.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack); // Animation de croissance
+            newObject.transform.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
+                .SetEase(Ease.OutBack); // Animation de rotation
+
+            tile.tileType = TileType.UpgradedStation;
         }
     }
+
 
 
     private void OnCancel()
@@ -276,6 +281,8 @@ public class UpgradeManager : MonoBehaviour
         }
 
         ToggleUpgrade();
+        selectedTile = null;
+        isTileLocked = false;
         confirmationPanel.SetActive(false);
     }
 

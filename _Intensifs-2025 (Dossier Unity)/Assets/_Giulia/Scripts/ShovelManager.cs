@@ -24,6 +24,8 @@ public class ShovelManager : MonoBehaviour
     private Tile selectedTile = null;
     private Material originalMaterial = null;
     private Tile lastHoveredTile = null;
+    
+    private bool isTileLocked = false;
 
     private void Start()
     {
@@ -37,7 +39,7 @@ public class ShovelManager : MonoBehaviour
 
     private void Update()
     {
-        if (isShovelActive)
+        if (isShovelActive && !isTileLocked)
         {
             Vector2 mousePosition = Input.mousePosition;
             shovelIcon.position = mousePosition;
@@ -49,13 +51,11 @@ public class ShovelManager : MonoBehaviour
             {
                 Tile hoveredTile = hit.collider.GetComponent<Tile>();
 
-                // Si on survole une nouvelle tuile
                 if (hoveredTile != null && hoveredTile != lastHoveredTile)
                 {
-                    HandleHoverTile(hoveredTile); // Appliquer le matériau de surbrillance
+                    HandleHoverTile(hoveredTile);
                 }
 
-                // Réinitialiser l'ancienne tuile si elle n'est plus survolée
                 if (lastHoveredTile != null && lastHoveredTile != hoveredTile)
                 {
                     ResetTileMaterial(lastHoveredTile);
@@ -83,11 +83,11 @@ public class ShovelManager : MonoBehaviour
         {
             originalMaterial = tileRenderer.material;
 
-            if (tileRenderer.material.ToString() == "MA_Desert")
+            if (tileRenderer.material.ToString() == "MA_Desert" || tileRenderer.material == highlightWaterMaterial)
             {
                 tileRenderer.material = highlightWaterMaterialHOV;
             }
-            else if (tileRenderer.material.ToString() == "MA_Stone")
+            else if (tileRenderer.material.ToString() == "MA_Stone" || tileRenderer.material == highlightStoneMaterial)
             {
                 tileRenderer.material = highlightStoneMaterialHOV;
             }
@@ -106,8 +106,6 @@ public class ShovelManager : MonoBehaviour
             tileRenderer.material = originalMaterial;
         }
     }
-
-
 
     private void ToggleShovel()
     {
@@ -139,6 +137,7 @@ public class ShovelManager : MonoBehaviour
             SetGridInteractionEnabled(false);
 
             Tile.isShovelActive = true;
+            isTileLocked = false;
         }
     }
 
@@ -162,7 +161,7 @@ public class ShovelManager : MonoBehaviour
     
     private void TrySelectTile(Tile tile)
     {
-        if (tile == null || IsPointerOverUIElement()) return;
+        if (tile == null || IsPointerOverUIElement() || isTileLocked) return;
 
         if (tile.tileType == TileType.Mountain)
         {
@@ -199,12 +198,10 @@ public class ShovelManager : MonoBehaviour
             TooltipManager.Instance.ShowTooltip("You can't destroy an empty tile.");
             return;
         }
-        else
-        {
-            confirmationPanel.SetActive(true);
-        }
-        
+
+        confirmationPanel.SetActive(true);
         SelectTile(tile);
+        isTileLocked = true;
     }
 
 
@@ -214,33 +211,30 @@ public class ShovelManager : MonoBehaviour
         {
             return;
         }
-        
+
         if (tile != null)
         {
-            Renderer selectedRenderer = tile.GetComponent<Renderer>();
-            if (selectedRenderer != null)
+            Renderer tileRenderer = tile.GetComponent<Renderer>();
+            if (tileRenderer != null)
             {
-                selectedRenderer.material = originalMaterial;
-            }
-        }
+                originalMaterial = tileRenderer.material;
 
-        Renderer tileRenderer = tile.GetComponent<Renderer>();
-        if (tileRenderer != null)
-        {
-            originalMaterial = tileRenderer.material;
+                if (tileRenderer.material.ToString() == "MA_Desert" || tileRenderer.material == highlightWaterMaterialHOV)
+                {
+                    tileRenderer.material = highlightWaterMaterial;
+                }
+                else if (tileRenderer.material.ToString() == "MA_Stone" || tileRenderer.material == highlightStoneMaterialHOV)
+                {
+                    tileRenderer.material = highlightStoneMaterial;
+                }
+                else
+                {
+                    tileRenderer.material = highlightGrassMaterial;
+                }
+            
+            }
 
-            if (tileRenderer.material.ToString() == "MA_Desert")
-            {
-                tileRenderer.material = highlightWaterMaterial;
-            }
-            else if (tileRenderer.material.ToString() == "MA_Stone")
-            {
-                tileRenderer.material = highlightStoneMaterial;
-            }
-            else
-            {
-                tileRenderer.material = highlightGrassMaterial;
-            }
+            selectedTile = tile;
         }
     }
 
@@ -251,7 +245,6 @@ public class ShovelManager : MonoBehaviour
 
         Debug.Log("Selected tile type: " + selectedTile.tileType);
 
-        // Vérifie que la tuile est de type modifiable
         if (selectedTile.tileType != TileType.Mountain &&
             selectedTile.tileType != TileType.Mine &&
             selectedTile.tileType != TileType.Sawmill &&
@@ -259,12 +252,10 @@ public class ShovelManager : MonoBehaviour
             selectedTile.tileType != TileType.Water &&
             selectedTile.tileType != TileType.Grass)
         {
-            // Parcourt les enfants de la tuile
             for (int i = 7; i < selectedTile.transform.childCount; i++)
             {
                 Transform childTransform = selectedTile.transform.GetChild(i);
 
-                // Vérifie que l'objet n'est pas de la végétation avant de le détruire
                 if (childTransform.name != "AddedObjectsManager")
                 {
                     childTransform.DOScale(Vector3.zero, 0.3f)
@@ -273,7 +264,6 @@ public class ShovelManager : MonoBehaviour
                 }
             }
 
-            // Gestion spécifique des types de tuiles
             switch (selectedTile.tileType)
             {
                 case TileType.Tunnel:
@@ -285,17 +275,34 @@ public class ShovelManager : MonoBehaviour
                     ReplaceTile(TileType.Water);
                     Debug.Log("Destroyed bridge, replaced with water.");
                     break;
+                case TileType.Station:
+                case TileType.UpgradedStation:
+                    if (selectedTile.GetComponent<Renderer>().material.name == "MA_Desert")
+                    {
+                        ReplaceTile(TileType.Desert);
+                        Debug.Log("Destroyed Station, replaced with desert.");
+                    }
+                    else
+                    {
+                        ReplaceTile(TileType.Grass);
+                        Debug.Log("Destroyed Station, replaced with grass.");
+                    }
+                    break;
 
                 default:
                     ReplaceTile(TileType.Grass);
                     Debug.Log("Tile reset to grass.");
-                    selectedTile.GetComponentInChildren<GrassTile>().gameObject.SetActive(true);
+                    if (selectedTile.GetComponentInChildren<GrassTile>() != null)
+                    {
+                        selectedTile.GetComponentInChildren<GrassTile>().gameObject.SetActive(true);
+                    }                    
                     break;
             }
 
             selectedTile.GetComponent<Tile>().UpdateVegetation();
             ToggleShovel();
             confirmationPanel.SetActive(false);
+            isTileLocked = false;
         }
     }
     
@@ -313,7 +320,17 @@ public class ShovelManager : MonoBehaviour
 
     private void OnCancel()
     {
-        ToggleShovel();
+        if (selectedTile != null)
+        {
+            Renderer tileRenderer = selectedTile.GetComponent<Renderer>();
+            if (tileRenderer != null)
+            {
+                tileRenderer.material = originalMaterial;
+            }
+        }
+
+        selectedTile = null;
+        isTileLocked = false;
         confirmationPanel.SetActive(false);
     }
     

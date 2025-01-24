@@ -55,9 +55,6 @@ public class Tile : MonoBehaviour
     
     public GameObject vegetation;
     public GameObject houses;
-
-
-    
     private void Awake()
     {
         
@@ -420,7 +417,6 @@ public class Tile : MonoBehaviour
         if (rotationAngle < 0f) 
             rotationAngle += 360f;
 
-        // Vérifier le nombre d'enfants avant d'accéder à leurs indices
         if (transform.childCount > 8 && transform.GetChild(8) != null)
         {
             transform.GetChild(8).rotation = Quaternion.Euler(0, rotationAngle, 0);
@@ -434,7 +430,6 @@ public class Tile : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
         }
 
-        // Appliquer la rotation à tileCanvas
         tileCanvas.transform.rotation = Quaternion.Euler(90, 0, 180);
     }
 
@@ -442,18 +437,15 @@ public class Tile : MonoBehaviour
     private void ValidatePlacement()
     {
         isConnected = false;
-        // Vérifie les types nécessitant une connexion
         if (tileType.ToString().StartsWith("Rail") || tileType == TileType.Tunnel || tileType == TileType.Bridge)
         {
 
-            // Vérifie si la tuile a des connexions directes
             if (connectedRails.Count > 0)
             {
                 isConnected = true;
             }
             else
             {
-                // Vérifie les tuiles voisines pour les connexions
                 foreach (Tile neighbor in neighboringTiles)
                 {
                     if (neighbor.tileType == TileType.Station)

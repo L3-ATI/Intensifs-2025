@@ -13,10 +13,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -2432090755550338912, guid: cc843f0a2a2ae4e4195f81c0d3616680, type: 3}
     - target: {fileID: 1233493849167878193, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: -2432090755550338912, guid: d026f370eabba774287186bc4653176b, type: 3}
-    - target: {fileID: 1233493849167878193, guid: 87ba866d036b8ed4e97cf8e30f71ebd6, type: 3}
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
