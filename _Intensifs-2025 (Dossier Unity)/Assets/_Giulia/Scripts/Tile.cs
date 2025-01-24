@@ -417,13 +417,13 @@ public class Tile : MonoBehaviour
         if (rotationAngle < 0f) 
             rotationAngle += 360f;
 
-        if (transform.childCount > 8 && transform.GetChild(8) != null)
-        {
-            transform.GetChild(8).rotation = Quaternion.Euler(0, rotationAngle, 0);
-        }
-        else if (transform.childCount > 9 && transform.GetChild(9) != null)
+        if (transform.childCount > 9 && transform.GetChild(9) != null)
         {
             transform.GetChild(9).rotation = Quaternion.Euler(0, rotationAngle, 0);
+        }
+        else if (transform.childCount > 8 && transform.GetChild(8) != null)
+        {
+            transform.GetChild(8).rotation = Quaternion.Euler(0, rotationAngle, 0);
         }
         else
         {
