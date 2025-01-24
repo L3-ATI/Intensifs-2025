@@ -140,9 +140,17 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5022083947614905222, guid: c6162814d61a4a14b9c2d7d3fd6731c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5768397484973014561, guid: c6162814d61a4a14b9c2d7d3fd6731c0, type: 3}
       propertyPath: m_Name
       value: Rails_00
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197764903480308768, guid: c6162814d61a4a14b9c2d7d3fd6731c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8874764054723850856, guid: c6162814d61a4a14b9c2d7d3fd6731c0, type: 3}
       propertyPath: m_LocalPosition.x
