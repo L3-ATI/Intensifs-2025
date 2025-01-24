@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5402770328207648894}
   m_Layer: 0
   m_Name: CurvePointC
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7249831291865687255}
   m_Layer: 0
   m_Name: CurvePointD
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 5577405745801117700}
   m_Layer: 0
   m_Name: CurvePointF
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 5128380195053807511}
   m_Layer: 0
   m_Name: CurvePointE
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 8452862494852671859}
   m_Layer: 0
   m_Name: CurvePointA
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 5466573788666536897}
   m_Layer: 0
   m_Name: CurvePointB
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -498,6 +498,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -8532256301230313059, guid: b69aab90a1c123748b96cbf6c297f27d, type: 3}
+    - target: {fileID: 2490335056885656933, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5735940069638694092, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
       propertyPath: m_Name
       value: SM_rails_05
@@ -542,14 +546,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2656238391991172853, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 2490335056885656933, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 6758489908242511227, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 8476158218073839030, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 5578706640597171402, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 7107841614442667706, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 6394669884981627575, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}

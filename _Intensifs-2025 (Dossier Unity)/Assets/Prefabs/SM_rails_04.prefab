@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8262181148978837228}
   m_Layer: 0
   m_Name: CurvePointA
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3310944343865281809}
   m_Layer: 0
   m_Name: CurvePointE
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 6031266475753794876}
   m_Layer: 0
   m_Name: CurvePointC
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 189715073798755464}
   m_Layer: 0
   m_Name: CurvePointD
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 4751517095034338046}
   m_Layer: 0
   m_Name: CurvePointB
-  m_TagString: Rail
+  m_TagString: RailPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -367,9 +367,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 5636000649719025100, guid: e26a7a879b7946c4392f48bffd25953c, type: 3}
+    - target: {fileID: 2490335056885656933, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5735940069638694092, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
       propertyPath: m_Name
       value: SM_rails_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758489908242511227, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107841614442667706, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -414,11 +426,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7107841614442667706, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
     - {fileID: 2490335056885656933, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 2656238391991172853, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 6758489908242511227, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 8476158218073839030, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 5578706640597171402, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
-    - {fileID: 6394669884981627575, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}

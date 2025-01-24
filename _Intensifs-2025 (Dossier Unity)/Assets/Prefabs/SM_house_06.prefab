@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8180922626764350703}
   - component: {fileID: 87375796555581489}
   - component: {fileID: 4746206549874980029}
-  - component: {fileID: 2863584430843438270}
+  - component: {fileID: 1394219745403713014}
   m_Layer: 0
   m_Name: PansMesh_01
   m_TagString: Untagged
@@ -173,23 +173,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!111 &2863584430843438270
-Animation:
+--- !u!95 &1394219745403713014
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8954354907744028379}
   m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: 1eed4d82efc78784c8a93f47ce28a15b, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 1eed4d82efc78784c8a93f47ce28a15b, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 532387f2ec5d50248bdbd69e43b2b44c, type: 2}
+  m_CullingMode: 0
   m_UpdateMode: 0
-  m_CullingType: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7810768693241609990
 PrefabInstance:
   m_ObjectHideFlags: 0

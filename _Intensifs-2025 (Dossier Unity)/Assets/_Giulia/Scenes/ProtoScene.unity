@@ -1489,6 +1489,8 @@ MonoBehaviour:
   currentlySelectedButton: {fileID: 0}
   normalScale: {x: 1, y: 1, z: 1}
   selectedScale: {x: 1.3, y: 1.3, z: 1.3}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   normalOpacity: 0.8
   selectedOpacity: 1
   animationDuration: 0.2
@@ -1509,6 +1511,9 @@ MonoBehaviour:
   highlightStoneMaterial: {fileID: 0}
   highlightGrassMaterial: {fileID: 2100000, guid: f9352b2c57bf6e942a69a061abc8e6b3, type: 2}
   highlightWaterMaterial: {fileID: 2100000, guid: eeebd76fa9e818442a7b26ed09ea9be2, type: 2}
+  highlightStoneMaterialHOV: {fileID: 0}
+  highlightGrassMaterialHOV: {fileID: 0}
+  highlightWaterMaterialHOV: {fileID: 0}
   confirmationPanel: {fileID: 1238293683}
   confirmButton: {fileID: 436036779}
   cancelButton: {fileID: 553366709}
