@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7834505133395927382}
   - component: {fileID: 1441512515345015771}
   - component: {fileID: 8262181148978837228}
+  - component: {fileID: 4552922918258473541}
   m_Layer: 0
   m_Name: CurvePointA
   m_TagString: RailPath
@@ -81,6 +82,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4552922918258473541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468953888592760061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1 &2748324932802584664
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +108,7 @@ GameObject:
   - component: {fileID: 9182437865130772573}
   - component: {fileID: 4380753464398032691}
   - component: {fileID: 3310944343865281809}
+  - component: {fileID: 2397682239499924574}
   m_Layer: 0
   m_Name: CurvePointE
   m_TagString: RailPath
@@ -162,6 +179,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2397682239499924574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748324932802584664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1 &4797778437675735363
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +205,7 @@ GameObject:
   - component: {fileID: 7186653196872902596}
   - component: {fileID: 797014104635975477}
   - component: {fileID: 6031266475753794876}
+  - component: {fileID: 2492003594226163685}
   m_Layer: 0
   m_Name: CurvePointC
   m_TagString: RailPath
@@ -243,6 +276,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2492003594226163685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4797778437675735363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1 &4856689588839686356
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,6 +333,7 @@ GameObject:
   - component: {fileID: 4568584924895493070}
   - component: {fileID: 6433757330243648419}
   - component: {fileID: 4751517095034338046}
+  - component: {fileID: 4415030945013895796}
   m_Layer: 0
   m_Name: CurvePointB
   m_TagString: RailPath
@@ -355,6 +404,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4415030945013895796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8180189875012967212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fd5eec565e14247919073f7b656e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTag:
+  - RailPath
+  - Station
 --- !u!1001 &5275537084330225138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -465,12 +529,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec26b24e70b43a4fb176c555a9773b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RailPathNext:
-  - {fileID: 468953888592760061}
-  - {fileID: 4797778437675735363}
-  RailPathPrevious:
-  - {fileID: 8180189875012967212}
-  - {fileID: 2748324932802584664}
+  RailPathPoints:
+  - points:
+    - {fileID: 468953888592760061}
+    - {fileID: 8180189875012967212}
+  - points:
+    - {fileID: 4797778437675735363}
+    - {fileID: 4856689588839686356}
+    - {fileID: 2748324932802584664}
 --- !u!4 &3280966941525902711 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}

@@ -443,12 +443,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec26b24e70b43a4fb176c555a9773b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RailPathNext:
-  - {fileID: 4884180106002620626}
-  - {fileID: 4982358485131458551}
-  RailPathPrevious:
-  - {fileID: 7518273148946220186}
-  - {fileID: 6584436803815225471}
+  RailPathPoints:
+  - points:
+    - {fileID: 4884180106002620626}
+    - {fileID: 7518273148946220186}
+  - points:
+    - {fileID: 4982358485131458551}
+    - {fileID: 6584436803815225471}
 --- !u!4 &4010352114112275606 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7259291370363594885, guid: b4b0d34c62c0f4641a116a4975385c5d, type: 3}

@@ -5,20 +5,17 @@ using UnityEngine.Splines;
 
 public class MoveAlongSpline : MonoBehaviour
 {
-    private SplineContainer Thespline;
+    private Spline TheSpline;
     public float speed = 1f;
     private float distancePercentage = 0f;
     private float splineLength;
     private bool movingForward = true;
     private bool isRotated = false;
-    private void Start()
-    {
-        Thespline = TrainsSplineController.Path;
-        splineLength = Thespline.CalculateLength();
-    }
 
     void Update()
     {
+        if (TheSpline == null) return;
+        
         if (movingForward)
         {
             distancePercentage += speed * Time.deltaTime / splineLength;
@@ -26,7 +23,7 @@ public class MoveAlongSpline : MonoBehaviour
             {
                 distancePercentage = 1f;
                 movingForward = false;
-                RotateObject(); // Appliquer la rotation à 180°
+                RotateObject(); // Appliquer la rotation ï¿½ 180ï¿½
             }
         }
         else
@@ -36,23 +33,29 @@ public class MoveAlongSpline : MonoBehaviour
             {
                 distancePercentage = 0f;
                 movingForward = true;
-                RotateObject(); // Remettre l’orientation initiale
+                RotateObject(); // Remettre lï¿½orientation initiale
             }
         }
 
-        // Mise à jour de la position
-        Vector3 currentPosition = Thespline.EvaluatePosition(distancePercentage);
+        // Mise ï¿½ jour de la position
+        Vector3 currentPosition = TheSpline.EvaluatePosition(distancePercentage);
         transform.position = currentPosition;
 
         // Calcul de la direction
-        Vector3 nextPosition = Thespline.EvaluatePosition(distancePercentage + 0.05f);
+        Vector3 nextPosition = TheSpline.EvaluatePosition(distancePercentage + 0.05f);
         Vector3 direction = nextPosition - currentPosition;
-        transform.rotation = Quaternion.LookRotation(direction) * (isRotated ? Quaternion.Euler(0, 180, 0) : Quaternion.identity);
+        transform.rotation = (direction.Equals(Vector3.zero) ? Quaternion.identity : Quaternion.LookRotation(direction)) * (isRotated ? Quaternion.Euler(0, 180, 0) : Quaternion.identity);
     }
 
     // Fonction pour faire tourner l'objet
     private void RotateObject()
     {
         isRotated = !isRotated;
+    }
+
+    public void SetSpline(Spline spline)
+    {
+        TheSpline = spline;
+        splineLength = spline.GetLength();
     }
 }

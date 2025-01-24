@@ -94,9 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8930996295da7a6408c4e366e34448b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrigger: 0
-  isTriggeringWith: {fileID: 0}
-  objectTag: Rail
+  objectTag: RailPath
   CurrentSide: 3
 --- !u!1 &386443999363723990
 GameObject:
@@ -192,9 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8930996295da7a6408c4e366e34448b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrigger: 0
-  isTriggeringWith: {fileID: 0}
-  objectTag: Rail
+  objectTag: RailPath
   CurrentSide: 5
 --- !u!1 &1592910464741894562
 GameObject:
@@ -290,9 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8930996295da7a6408c4e366e34448b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrigger: 0
-  isTriggeringWith: {fileID: 0}
-  objectTag: Rail
+  objectTag: RailPath
   CurrentSide: 0
 --- !u!1 &2017226815682597187
 GameObject:
@@ -474,9 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8930996295da7a6408c4e366e34448b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrigger: 0
-  isTriggeringWith: {fileID: 0}
-  objectTag: Rail
+  objectTag: RailPath
   CurrentSide: 4
 --- !u!1 &5735940069638694092
 GameObject:
@@ -526,7 +518,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5735940069638694092}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
   m_Name: 
@@ -571,7 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5fb1c7a0df0ac409de3ab291faef2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RailPath: []
+  RailTrack: []
 --- !u!1 &6916005704085699832
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,9 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8930996295da7a6408c4e366e34448b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrigger: 0
-  isTriggeringWith: {fileID: 0}
-  objectTag: Rail
+  objectTag: RailPath
   CurrentSide: 1
 --- !u!1 &8748176669331327049
 GameObject:
@@ -764,9 +754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8930996295da7a6408c4e366e34448b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrigger: 0
-  isTriggeringWith: {fileID: 0}
-  objectTag: Rail
+  objectTag: RailPath
   CurrentSide: 2
 --- !u!1001 &6801099717900022527
 PrefabInstance:

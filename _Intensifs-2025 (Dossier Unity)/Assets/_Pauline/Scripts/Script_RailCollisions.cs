@@ -1,25 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Splines;
 
-public class StationCollision : MonoBehaviour
+public class RailCollisions : MonoBehaviour
 {
-    public string objectTag = "RailPath"; // Tag auquel cet objet doit r�agir (par d�faut "Tile")
-    public enum Direction
-    {
-        Left,
-        TopLeft,
-        TopRight,
-        Right,
-        BottomRight,
-        BottomLeft
-    }
-
-    public Direction CurrentSide;
-
-    private TrainStation Station;
+    public List<string> objectTag = new List<string>(){"RailPath", "Station"}; // Tag auquel cet objet doit r�agir (par d�faut "Tile")
+    
+    private RailPath Rail;
     private TrainsSplineController SplineController;
     public GameObject Connection;
-
+    
     IEnumerator Start()
     {
         yield return new WaitForSeconds(0.1f); // Attendez un court instant avant d'ex�cuter le code de d�tection des collisions
@@ -37,8 +28,8 @@ public class StationCollision : MonoBehaviour
     private void Awake()
     {
         // R�cup�re la r�f�rence � la tuile (le parent du collider)
-        Station = GetComponentInParent<TrainStation>();
-        if (Station == null)
+        Rail = GetComponentInParent<RailPath>();
+        if (Rail == null)
         {
             Debug.LogError("Aucune r�f�rence � la tuile trouv�e ! Le collider n'est peut-�tre pas attach� au bon objet.");
         }
@@ -53,37 +44,27 @@ public class StationCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(objectTag))
+        if (objectTag.Contains(other.tag))
         {
             Connection = other.gameObject;
             Debug.Log(this.name + " connected to " + Connection.name);
-            StartCoroutine(CreateSpline());
-            StopCoroutine(RemoveSpline(other.gameObject.GetComponent<RailCollisions>()));
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(objectTag))
+        if (objectTag.Contains(other.tag))
         {
             Debug.Log(this.name + " disconnected from " + Connection.name);
-            StartCoroutine(RemoveSpline(other.gameObject.GetComponent<RailCollisions>()));
-            StopCoroutine(CreateSpline());
+            StartCoroutine(RemoveSpline());
             Connection = null;
         }   
     }
-
-    IEnumerator CreateSpline()
-    {
-        yield return new WaitForSeconds(0.5f);
-        
-        SplineController.TryCreateSpline(this);
-    }
     
-    IEnumerator RemoveSpline(RailCollisions rail)
+    IEnumerator RemoveSpline()
     {
         yield return new WaitForSeconds(0.5f);
         
-        SplineController.TryRemoveSpline(rail);
+        SplineController.TryRemoveSpline(this);
     }
 }
