@@ -3,6 +3,7 @@ using UnityEngine.Splines;
 using System.Collections; // Pour utiliser les coroutines
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 public class TrainsSplineController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class TrainsSplineController : MonoBehaviour
     public GameObject Wagon;
 
     public static SplineContainer Path;
+
+    private List<MoveAlongSpline> trains;
     
     void Start()
     {
@@ -19,6 +22,8 @@ public class TrainsSplineController : MonoBehaviour
         // Assure que le SplineContainer est pr�sent
         Path = GetComponent<SplineContainer>() ?? gameObject.AddComponent<SplineContainer>();
         Path.Spline.Clear();
+        
+        trains = new List<MoveAlongSpline>();
 
         // D�marrer la coroutine pour ajouter un autre wagon apr�s 0.1 seconde
         //StartCoroutine(InstantiateWagonAfterDelay(1f));
@@ -79,22 +84,33 @@ public class TrainsSplineController : MonoBehaviour
                 return;
         
         Path.AddSpline(currentSpline);
+
+        if (Path.Spline.Count-1 == trains.Count) return;
+        
         MoveAlongSpline train = Instantiate(Locomotive).GetComponent<MoveAlongSpline>();
         train.SetSpline(currentSpline);
+        trains.Add(train);
     }
     
     public void TryRemoveSpline(RailCollisions rail)
     {
         List<Spline> splineToRemove = new List<Spline>();
+        List<MoveAlongSpline> trainToRemove = new List<MoveAlongSpline>();
 
-        foreach (var spline in Path.Splines)
+        for (int i = 1; i < Path.Splines.Count; i++)
         {
-            if (DoesSplineContains(spline, rail))
-                splineToRemove.Add(spline);
+            if (DoesSplineContains(Path.Splines[i], rail))
+            {
+                splineToRemove.Add(Path.Splines[i]);
+                trainToRemove.Add(trains[i-1]);
+            }
         }
 
-        foreach (var spline in splineToRemove)
-            Path.RemoveSpline(spline);
+        for (int i = 0; i < splineToRemove.Count; i++)
+        {
+            Path.RemoveSpline(splineToRemove[i]);
+            trains.Remove(trainToRemove[i]);
+        }
         
         Debug.Log("Spline to remove count: " + splineToRemove.Count);
     }
