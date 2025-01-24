@@ -106,10 +106,15 @@ public class ShovelManager : MonoBehaviour
             Renderer tileRenderer = tile.GetComponent<Renderer>();
             if (tileRenderer != null)
             {
-                Material[] originalOnly = new Material[] { tileRenderer.materials[0] };
-                tileRenderer.materials = originalOnly;
+                Material[] originalMaterials = tileRenderer.materials;
+
+                List<Material> filteredMaterials = new List<Material>(originalMaterials);
+                filteredMaterials.RemoveAll(mat => mat != null && mat.name.StartsWith(shovelMaterial.name));
+
+                tileRenderer.materials = new Material[] { filteredMaterials[0] };
             }
         }
+
     }
 
 
@@ -224,16 +229,18 @@ public class ShovelManager : MonoBehaviour
             {
                 List<Material> materials = new List<Material>(tileRenderer.materials);
 
+                materials.RemoveAll(mat => mat != null && mat.name.StartsWith(shovelMaterial.name));
+
                 if (!materials.Contains(shovelSelMaterial))
                 {
                     materials.Add(shovelSelMaterial);
                 }
 
                 tileRenderer.materials = materials.ToArray();
-
                 selectedTile = tile;
             }
         }
+
     }
 
     private void OnConfirm()
@@ -280,7 +287,7 @@ public class ShovelManager : MonoBehaviour
                     break;
                 case TileType.Station:
                 case TileType.UpgradedStation:
-                    if (selectedTile.GetComponent<Renderer>().material.name == "MA_Desert")
+                    if (selectedTile.GetComponent<Renderer>().material.name == "MA_ground_desert")
                     {
                         ReplaceTile(TileType.Desert);
                         Debug.Log("Destroyed Station, replaced with desert.");
@@ -324,11 +331,7 @@ public class ShovelManager : MonoBehaviour
 
     private void OnCancel()
     {
-        if (selectedTile != null)
-        {
-            ResetTileMaterial(selectedTile);
-        }
-
+        ResetTileMaterial(selectedTile);
         isTileLocked = false;
         confirmationPanel.SetActive(false);
         selectedTile = null;

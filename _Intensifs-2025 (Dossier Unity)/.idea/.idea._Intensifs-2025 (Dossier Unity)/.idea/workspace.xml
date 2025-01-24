@@ -5,24 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/MA_H_canc.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/MA_H_canc.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/MA_H_delSel.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/MA_H_delSel.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/MA_H_upSel.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/MA_H_upSel.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/MA_H_val.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/MA_H_val.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Desert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Desert.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Desert_HOV.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Desert_HOV.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Grass.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Grass.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Grass_HOV.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Des_Grass_HOV.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Red_Desert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Red_Desert.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Desert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Desert.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Desert_HOV.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Desert_HOV.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Grass.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Grass.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Grass_HOV.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Up_Grass_HOV.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Val_Desert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Materials/MA_Val_Desert.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Desert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Desert.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Glade.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Glade.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_GladeGreenHL.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_GladeGreenHL.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_GladeRedHL.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_GladeRedHL.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_TestDoubleWPO.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_TestDoubleWPO.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_WPO3ColorsTest.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_WPO3ColorsTest.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_WPOShowcaseA 1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_WPOShowcaseA 1.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/croix.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/croix.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/evolution.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/evolution.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/fleche.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/fleche.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/ok.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/ok.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/ok.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/ok.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/tune.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/tune.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_City.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_City.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Desert.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Desert.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_Sand.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_StoneQuarry.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Prefabs/Tile_StoneQuarry.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Settings/TestSceneGlobalVolume.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Settings/TestSceneGlobalVolume.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Desert.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Desert.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_FoliageGreenUnlit.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_FoliageGreenUnlit.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_FoliageLightGreenUnlit.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_FoliageLightGreenUnlit.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_FoliageLitDarkGreen.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_FoliageLitDarkGreen.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_FoliageLitGreen.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_FoliageLitGreen.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Glade.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_Glade.mat.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +66,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "<unknown>",
+    "git-widget-placeholder": "Giulia",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -80,9 +95,6 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
-      <option name="runtimes">
-        <list />
-      </option>
       <option name="selectedOptions">
         <list />
       </option>
@@ -93,9 +105,6 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
-      <option name="runtimes">
-        <list />
-      </option>
       <option name="selectedOptions">
         <list />
       </option>
