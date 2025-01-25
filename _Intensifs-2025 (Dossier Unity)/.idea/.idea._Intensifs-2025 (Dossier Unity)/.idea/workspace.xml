@@ -7,43 +7,6 @@
     <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/gare.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/gare.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/pont.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/pont.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/rails_droit.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/rails_droit.psd.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/CameraController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/CameraController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/CityTile.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/CityTile.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GrassTile.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GrassTile.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridInteraction.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/GridManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/RailConnector.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/RailConnector.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/Tile.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileCollision.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileCollision.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings_Base.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TileGenerationSettings_Base.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TooltipManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/TooltipManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/UIManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/UpgradeManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/UpgradeManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Textures/T_LVL1StationColor.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Textures/T_LVL1StationColor.png.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +20,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/UpgradeManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Giulia/Scripts/CityTile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/HideUIManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -151,7 +113,7 @@
       <workItem from="1737467777548" duration="10325000" />
       <workItem from="1737544838164" duration="17394000" />
       <workItem from="1737671521547" duration="764000" />
-      <workItem from="1737804735668" duration="3741000" />
+      <workItem from="1737804735668" duration="4365000" />
     </task>
     <servers />
   </component>
