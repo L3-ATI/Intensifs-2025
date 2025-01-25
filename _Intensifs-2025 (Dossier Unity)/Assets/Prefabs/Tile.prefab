@@ -62,13 +62,24 @@ MonoBehaviour:
   - {fileID: 6748234104700929385, guid: 123863ea6103ef347bd05307b22b787b, type: 3}
   - {fileID: 323495883081305133, guid: 407015328fa533d4c83219bf1538cb18, type: 3}
   - {fileID: 336022082155299784, guid: 169f8858ee5f56348a7cf61242e7b8d5, type: 3}
+  cactusPrefabs:
+  - {fileID: 5735940069638694092, guid: 980cb8d3d4bddef40b7a2625c0e9de5f, type: 3}
+  - {fileID: 5750624938705671414, guid: a9d3bdf4b6ceb4c4e94b45d703c5411c, type: 3}
+  - {fileID: 5676603584738722746, guid: 283d649833d7c424791bd43933e7c4f4, type: 3}
+  rocksPrefabs:
+  - {fileID: 5735940069638694092, guid: ac6a97ec81666df48b8a1dccaf21fac2, type: 3}
+  - {fileID: 3882253354216755574, guid: a31736f9e9565384ebe16588289a6769, type: 3}
+  - {fileID: 5283715571187290052, guid: 2962a6ded4af0fd4a82007e2505c10b6, type: 3}
   vegetationScaleRange: {x: 0.9, y: 1.1}
   vegetationParent: {fileID: 5795411053572511945}
   isGrassTile: 1
+  isDesertTile: 0
   grassProbability: 0.6
   bushProbability: 0.3
   flowerProbability: 0.5
   treeProbability: 0.5
+  cactusProbability: 0.8
+  rocksProbability: 0.7
 --- !u!1 &1457668999076622447
 GameObject:
   m_ObjectHideFlags: 0
