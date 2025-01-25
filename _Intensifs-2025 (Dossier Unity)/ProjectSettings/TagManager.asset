@@ -2,8 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Train
+  - TileTrigger
+  - Rail
+  - Structure
+  - Station
+  - RailPath
   layers:
   - Default
   - TransparentFX
@@ -41,6 +47,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: test
+    uniqueID: 2881117697
+    locked: 0
   m_RenderingLayers:
   - Default
   - Light Layer 1
@@ -50,27 +59,3 @@ TagManager:
   - Light Layer 5
   - Light Layer 6
   - Light Layer 7
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
