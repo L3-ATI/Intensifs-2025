@@ -21,6 +21,8 @@ public class BuildableItem
 
 public class RessourcesManager : MonoBehaviour
 {
+    public static RessourcesManager Instance { get; private set; }
+    
     [Header("Starting Resources")]
     public int startingMoney = 1000;
     public int startingWood = 500;
@@ -40,7 +42,18 @@ public class RessourcesManager : MonoBehaviour
     private int currentWood;
     private int currentStone;
     private int currentIron;
-
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Plus d'une instance de RessourcesManager existe !");
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         currentMoney = startingMoney;
@@ -112,7 +125,7 @@ public class RessourcesManager : MonoBehaviour
         }
     }
 
-    public void AddResources(int money, int wood, int stone, int iron)
+    public void AddResources(int money, int wood, int iron, int stone)
     {
         currentMoney += money;
         currentWood += wood;

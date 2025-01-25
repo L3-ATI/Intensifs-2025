@@ -277,37 +277,122 @@ public class ShovelManager : MonoBehaviour
             switch (selectedTile.tileType)
             {
                 case TileType.Tunnel:
+                    RessourcesManager.Instance.AddResources(25,5,2,0);
                     ReplaceTile(TileType.Mountain, mountainPrefab);
-                    Debug.Log("Destroyed tunnel, replaced with mountain.");
+                    break;
+                
+                case TileType.Bridge:
+                    RessourcesManager.Instance.AddResources(20,5,2,5);
+                    ReplaceTile(TileType.Water);
                     break;
 
-                case TileType.Bridge:
-                    ReplaceTile(TileType.Water);
-                    Debug.Log("Destroyed bridge, replaced with water.");
-                    break;
                 case TileType.Station:
-                case TileType.UpgradedStation:
+                    RessourcesManager.Instance.AddResources(15,6,6,6);
                     if (selectedTile.GetComponent<Renderer>().material.name == "MA_ground_desert")
                     {
                         ReplaceTile(TileType.Desert);
-                        Debug.Log("Destroyed Station, replaced with desert.");
                     }
                     else
                     {
                         ReplaceTile(TileType.Grass);
-                        Debug.Log("Destroyed Station, replaced with grass.");
+                    }
+                    break;
+                case TileType.UpgradedStation:
+                    RessourcesManager.Instance.AddResources(25,10,10,10);
+                    if (selectedTile.GetComponent<Renderer>().material.name == "MA_ground_desert")
+                    {
+                        ReplaceTile(TileType.Desert);
+                    }
+                    else
+                    {
+                        ReplaceTile(TileType.Grass);
+                    }
+                    break;
+
+                case TileType.Rail00:
+                    RessourcesManager.Instance.AddResources(4,1,1,0);
+                    if (selectedTile.GetComponent<Renderer>().material.name == "MA_ground_desert")
+                    {
+                        ReplaceTile(TileType.Desert);
+                    }
+                    else
+                    {
+                        ReplaceTile(TileType.Grass);
+                    }
+                    break;
+
+                case TileType.Rail01:
+                    RessourcesManager.Instance.AddResources(4,1,1,0);
+                    if (selectedTile.GetComponent<Renderer>().material.name == "MA_ground_desert")
+                    {
+                        ReplaceTile(TileType.Desert);
+                    }
+                    else
+                    {
+                        ReplaceTile(TileType.Grass);
+                    }
+                    break;
+
+                case TileType.Rail02:
+                    RessourcesManager.Instance.AddResources(4,1,1,0);
+                    if (selectedTile.GetComponent<Renderer>().material.name == "MA_ground_desert")
+                    {
+                        ReplaceTile(TileType.Desert);
+                    }
+                    else
+                    {
+                        ReplaceTile(TileType.Grass);
+                    }
+                    break;
+
+
+                case TileType.Rail03:
+                    RessourcesManager.Instance.AddResources(9,1,1,1);
+                    if (selectedTile.GetComponent<Renderer>().material.name == "MA_ground_desert")
+                    {
+                        ReplaceTile(TileType.Desert);
+                    }
+                    else
+                    {
+                        ReplaceTile(TileType.Grass);
+                    }
+                    break;
+
+
+                case TileType.Rail04:
+                    RessourcesManager.Instance.AddResources(9,1,1,1);
+                    if (selectedTile.GetComponent<Renderer>().material.name == "MA_ground_desert")
+                    {
+                        ReplaceTile(TileType.Desert);
+                    }
+                    else
+                    {
+                        ReplaceTile(TileType.Grass);
+                    }
+                    break;
+
+
+                case TileType.Rail05:
+                    RessourcesManager.Instance.AddResources(14,3,3,2);
+                    if (selectedTile.GetComponent<Renderer>().material.name == "MA_ground_desert")
+                    {
+                        ReplaceTile(TileType.Desert);
+                    }
+                    else
+                    {
+                        ReplaceTile(TileType.Grass);
                     }
                     break;
 
                 default:
                     ReplaceTile(TileType.Grass);
-                    Debug.Log("Tile reset to grass.");
                     if (selectedTile.GetComponentInChildren<GrassTile>() != null)
                     {
                         selectedTile.GetComponentInChildren<GrassTile>().gameObject.SetActive(true);
                     }
                     break;
             }
+
             
             selectedTile.GetComponent<Tile>().UpdateVegetation();
             ToggleShovel();
