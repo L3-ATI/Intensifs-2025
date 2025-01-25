@@ -7696,7 +7696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbfdadf93c1fee4da65100af856da83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingMoney: 150
+  startingMoney: 100
   startingWood: 40
   startingStone: 40
   startingIron: 40
