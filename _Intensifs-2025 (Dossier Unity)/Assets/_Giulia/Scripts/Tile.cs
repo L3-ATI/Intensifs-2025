@@ -464,7 +464,6 @@ public class Tile : MonoBehaviour
             }
         }
 
-        // Vérifie les conditions spécifiques pour les Tunnels et Bridges
         else if (tileType == TileType.Tunnel || tileType == TileType.Bridge)
         {
             foreach (Tile neighbor in neighboringTiles)
@@ -484,15 +483,6 @@ public class Tile : MonoBehaviour
             }
         }
 
-        // Vérifie si la tuile est occupée
-        if (isOccupied)
-        {
-            Debug.LogWarning($"La tuile {name} est déjà occupée.");
-            tileCanvas.enabled = false;
-            return;
-        }
-
-        // Vérifie les enfants inutiles
         if (transform.childCount > 7)
         {
             Transform child = transform.GetChild(7);
@@ -502,10 +492,50 @@ public class Tile : MonoBehaviour
             }
         }
 
+        HandlePurchase();
         PlaceObjectOnTile();
         tileCanvas.enabled = false;
     }
 
+    private void HandlePurchase()
+    {
+        RessourcesManager ressourcesManager = FindObjectOfType<RessourcesManager>();
+
+        if (ressourcesManager == null)
+        {
+            Debug.LogError("RessourcesManager introuvable dans la scène !");
+            return;
+        }
+
+        BuildableItem itemToPurchase = null;
+
+        foreach (var item in ressourcesManager.buildableItems)
+        {
+            if (
+                (tileType == TileType.Rail00 && item.itemName == "Rail 01") ||
+                (tileType == TileType.Rail00 && item.itemName == "Rail 02") ||
+                (tileType == TileType.Rail00 && item.itemName == "Rail 03") ||
+                (tileType == TileType.Rail00 && item.itemName == "Rail 04") ||
+                (tileType == TileType.Rail00 && item.itemName == "Rail 05") ||
+                (tileType == TileType.Rail00 && item.itemName == "Rail 06") ||
+                (tileType == TileType.Tunnel && item.itemName == "Tunnel") ||
+                (tileType == TileType.Bridge && item.itemName == "Bridge") ||
+                (tileType == TileType.Station && item.itemName == "Station"))
+            {
+                itemToPurchase = item;
+                break;
+            }
+        }
+
+        if (itemToPurchase != null)
+        {
+            ressourcesManager.PurchaseItem(itemToPurchase);
+        }
+        else
+        {
+            Debug.LogWarning($"Aucun BuildableItem associé au type {tileType}.");
+        }
+    }
 
     public void CancelPlacement(int childIndex)
     {
@@ -524,9 +554,9 @@ public class Tile : MonoBehaviour
                 .SetEase(Ease.InBack)
                 .OnComplete(() =>
                 {
-                    if (childObject.name != "Vegetation") // Vérifie si son nom n'est pas "Vegetation"
+                    if (childObject.name != "Vegetation")
                     {
-                        Destroy(childObject); // Détruit l'enfant seulement si son nom n'est pas "Vegetation"
+                        Destroy(childObject);
                     }
                 });
         }
