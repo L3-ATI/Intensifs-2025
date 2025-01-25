@@ -58,8 +58,6 @@ public class Tile : MonoBehaviour
     private void Awake()
     {
         
-        DOTween.SetTweensCapacity(1000, 50);
-        
         if (vegetation != null)
         {
             vegetation.SetActive(false);
@@ -619,6 +617,15 @@ public class Tile : MonoBehaviour
         {
             if (tileType == TileType.Grass)
             {
+                vegetation.GetComponent<GrassTile>().isGrassTile = true;
+                vegetation.GetComponent<GrassTile>().isDesertTile = false;
+                vegetation.SetActive(true);
+                vegetation.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack);
+            }
+            else if (tileType == TileType.Desert)
+            {
+                vegetation.GetComponent<GrassTile>().isDesertTile = true;
+                vegetation.GetComponent<GrassTile>().isGrassTile = false;
                 vegetation.SetActive(true);
                 vegetation.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack);
             }
@@ -634,13 +641,11 @@ public class Tile : MonoBehaviour
         {
             if (tileType == TileType.City)
             {
-                // Si la végétation est inactive, on la fait apparaître doucement
                 houses.SetActive(true);
                 houses.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack);
             }
             else
             {
-                // Si la végétation doit disparaître, on l'efface doucement
                 houses.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack);
             }
         }

@@ -8,32 +8,35 @@ public class GrassTile : MonoBehaviour
     public GameObject[] bushPrefabs;
     public GameObject[] flowerPrefabs;
     public GameObject[] treePrefabs;
+    public GameObject[] cactusPrefabs, rocksPrefabs;
 
     public Vector2 vegetationScaleRange = new Vector2(0.5f, 1.5f);
     public Transform vegetationParent;
 
     [Header("Tile Type Settings")]
     public bool isGrassTile = true;
+    public bool isDesertTile = false;
 
-    // Probabilités définissant la quantité de chaque type de végétation
     [Range(0f, 1f)] public float grassProbability = 0.7f;
     [Range(0f, 1f)] public float bushProbability = 0.3f;
     [Range(0f, 1f)] public float flowerProbability = 0.4f;
     [Range(0f, 1f)] public float treeProbability = 0.1f;
+    [Range(0f, 1f)] public float cactusProbability = 0.8f, rocksProbability = 0.7f;
 
     private void Start()
     {
-        if (isGrassTile)
+        if (isDesertTile)
         {
-            // Générer la végétation en fonction des probabilités
+            // Augmenter la probabilité et la plage pour les cactus et les pierres
+            GenerateVegetation(cactusPrefabs, cactusProbability, 0, 3);
+            GenerateVegetation(rocksPrefabs, rocksProbability, 0, 5);
+        }
+        else if (isGrassTile)
+        {
             GenerateVegetation(grassPrefabs, grassProbability, 0, 8);
             GenerateVegetation(bushPrefabs, bushProbability, 0, 4);
             GenerateVegetation(flowerPrefabs, flowerProbability, 0, 6);
             GenerateVegetation(treePrefabs, treeProbability, 0, 2);
-        }
-        else
-        {
-            Debug.Log($"La tuile {gameObject.name} n'est pas de type herbe, aucune végétation générée.");
         }
     }
 
@@ -45,10 +48,9 @@ public class GrassTile : MonoBehaviour
             return;
         }
 
-        // Utilisation de la probabilité pour déterminer la quantité
         int vegetationCount = Mathf.FloorToInt(Random.Range(minCount, maxCount + 1) * probability);
+        Debug.Log($"Tentative de génération de végétation : {vegetationCount} éléments.");
 
-        // Générer entre minCount et maxCount éléments en fonction de la probabilité
         if (vegetationCount <= 0) return;
 
         List<Vector3> usedPositions = new List<Vector3>();
