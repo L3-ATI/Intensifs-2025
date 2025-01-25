@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="7c163a43-e8a9-40ff-bb85-f18f331a0107" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea._Intensifs-2025 (Dossier Unity)/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/RessourcesManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/RessourcesManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Giulia/Scripts/ShovelManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Other/OPTIFranklinGothic-Medium SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Other/OPTIFranklinGothic-Medium SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SM_tunnel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/SM_tunnel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/WagonPassagers.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/WagonPassagers.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/WagonRessources.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/WagonRessources.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_FoliageLitDarkGreen.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Materials/MA_FoliageLitDarkGreen.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Pauline/Scripts/Script_CreateSpline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Pauline/Scripts/Script_CreateSpline.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,20 +38,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;Giulia&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "Pauline__new",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.33f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="D:\6000.0.33f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;D:\Git Repositories\Intensifs-2025\_Intensifs-2025 (Dossier Unity)&quot; -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="D:\Git Repositories\Intensifs-2025\_Intensifs-2025 (Dossier Unity)" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -55,7 +59,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.33f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="D:\6000.0.33f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;D:\Git Repositories\Intensifs-2025\_Intensifs-2025 (Dossier Unity)&quot; -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="D:\Git Repositories\Intensifs-2025\_Intensifs-2025 (Dossier Unity)" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -67,6 +71,9 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
       <option name="selectedOptions">
         <list />
       </option>
@@ -77,6 +84,9 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
       <option name="selectedOptions">
         <list />
       </option>
