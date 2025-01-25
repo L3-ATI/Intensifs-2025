@@ -305,10 +305,10 @@ public class ShovelManager : MonoBehaviour
                     if (selectedTile.GetComponentInChildren<GrassTile>() != null)
                     {
                         selectedTile.GetComponentInChildren<GrassTile>().gameObject.SetActive(true);
-                    }                    
+                    }
                     break;
             }
-
+            
             selectedTile.GetComponent<Tile>().UpdateVegetation();
             ToggleShovel();
             confirmationPanel.SetActive(false);

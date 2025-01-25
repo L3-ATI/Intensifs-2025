@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 [System.Serializable]
 public class BuildableItem
@@ -47,7 +48,7 @@ public class RessourcesManager : MonoBehaviour
         currentStone = startingStone;
         currentIron = startingIron;
 
-        UpdateResourceUI();
+        UpdateResourceUI(true);
 
         foreach (var item in buildableItems)
         {
@@ -55,12 +56,22 @@ public class RessourcesManager : MonoBehaviour
         }
     }
 
-    private void UpdateResourceUI()
+    private void UpdateResourceUI(bool instant = false)
     {
-        moneyText.text = $"{currentMoney}";
-        woodText.text = $"{currentWood}";
-        stoneText.text = $"{currentStone}";
-        ironText.text = $"{currentIron}";
+        if (instant)
+        {
+            moneyText.text = $"{currentMoney}";
+            woodText.text = $"{currentWood}";
+            stoneText.text = $"{currentStone}";
+            ironText.text = $"{currentIron}";
+        }
+        else
+        {
+            StartCoroutine(AnimateText(moneyText, int.Parse(moneyText.text), currentMoney));
+            StartCoroutine(AnimateText(woodText, int.Parse(woodText.text), currentWood));
+            StartCoroutine(AnimateText(stoneText, int.Parse(stoneText.text), currentStone));
+            StartCoroutine(AnimateText(ironText, int.Parse(ironText.text), currentIron));
+        }
     }
 
     private void UpdateItemUI(BuildableItem item)
@@ -70,7 +81,7 @@ public class RessourcesManager : MonoBehaviour
         item.stoneCostText.text = $"{item.stoneCost}";
         item.ironCostText.text = $"{item.ironCost}";
     }
-
+    
     public bool CanAffordItem(BuildableItem item)
     {
         return currentMoney >= item.basePrice &&
@@ -109,5 +120,19 @@ public class RessourcesManager : MonoBehaviour
         currentIron += iron;
 
         UpdateResourceUI();
+    }
+
+    private IEnumerator AnimateText(TextMeshProUGUI text, int startValue, int endValue, float duration = 0.5f)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            int currentValue = Mathf.RoundToInt(Mathf.Lerp(startValue, endValue, t));
+            text.text = currentValue.ToString();
+            yield return null;
+        }
+        text.text = endValue.ToString();
     }
 }
