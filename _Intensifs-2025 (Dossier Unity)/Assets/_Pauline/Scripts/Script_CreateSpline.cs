@@ -4,12 +4,14 @@ using System.Collections; // Pour utiliser les coroutines
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class TrainsSplineController : MonoBehaviour
 {
 
     public GameObject Locomotive;
-    public GameObject Wagon;
+    public GameObject Wpassager;
+    public GameObject Wressource;
 
     public static SplineContainer Path;
 
@@ -85,11 +87,25 @@ public class TrainsSplineController : MonoBehaviour
         
         Path.AddSpline(currentSpline);
 
-        if (Path.Spline.Count-1 == trains.Count) return;
+        Debug.Log("spline Lenght : " + (Path.Splines.Count-1));
         
+        if (Path.Splines.Count-1 == trains.Count) return;
+
         MoveAlongSpline train = Instantiate(Locomotive).GetComponent<MoveAlongSpline>();
         train.SetSpline(currentSpline);
         trains.Add(train);
+
+        if (currentSpline.GetLength() > 20)
+        {
+            StopCoroutine(InstantiateWagonAfterDelay(0.8f,true, currentSpline));
+            StartCoroutine(InstantiateWagonAfterDelay(0.8f,true, currentSpline));
+        }
+
+        if (currentSpline.GetLength() > 40)
+        {
+            StopCoroutine(InstantiateWagonAfterDelay(1.6f,false, currentSpline));
+            StartCoroutine(InstantiateWagonAfterDelay(1.6f,false, currentSpline));
+        }
     }
     
     public void TryRemoveSpline(RailCollisions rail)
@@ -108,7 +124,14 @@ public class TrainsSplineController : MonoBehaviour
 
         for (int i = 0; i < splineToRemove.Count; i++)
         {
+            MoveAlongSpline[] wagons = FindObjectsByType<MoveAlongSpline>(FindObjectsSortMode.None);
+            foreach (var wagon in wagons)
+            {
+                if(wagon.GetSpline().Equals(splineToRemove[i]))
+                    Destroy(wagon.gameObject);
+            }
             Path.RemoveSpline(splineToRemove[i]);
+            Destroy(trainToRemove[i].gameObject);
             trains.Remove(trainToRemove[i]);
         }
         
@@ -128,11 +151,14 @@ public class TrainsSplineController : MonoBehaviour
     }
 
     // Coroutine pour instancier un wagon apr�s un d�lai
-    IEnumerator InstantiateWagonAfterDelay(float delay)
+    IEnumerator InstantiateWagonAfterDelay(float delay, bool passager, Spline spline)
     {
         yield return new WaitForSeconds(delay); // Attendre pendant le d�lai
+        Debug.Log("WAGON " + passager);
 
         // Instancier un autre wagon
-        Instantiate(Wagon);
+        MoveAlongSpline wagon = Instantiate(passager ? Wpassager : Wressource).GetComponent<MoveAlongSpline>();
+        wagon.SetSpline(spline);
+
     }
 }

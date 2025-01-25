@@ -63,7 +63,7 @@ public class RailCollisions : MonoBehaviour
     
     IEnumerator RemoveSpline()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         
         SplineController.TryRemoveSpline(this);
     }
