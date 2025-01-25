@@ -1,132 +1,113 @@
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ResourceManager : MonoBehaviour
+[System.Serializable]
+public class BuildableItem
 {
-    [Header("Resource Counters")]
-    public TextMeshProUGUI woodCounter;
-    public TextMeshProUGUI stoneCounter;
-    public TextMeshProUGUI ironCounter;
-    public TextMeshProUGUI moneyCounter;
+    public string itemName;                  // Nom de l'élément (Station, Rail, etc.)
+    public int basePrice;                    // Prix en argent
+    public int priceIncrement;               // Incrément du prix après chaque achat
+    public int woodCost;                     // Coût en bois
+    public int stoneCost;                    // Coût en pierre
+    public int ironCost;                     // Coût en fer
 
-    [Header("Initial Resources")]
-    public int startingWood = 100;
-    public int startingStone = 100;
-    public int startingIron = 100;
-    public int startingMoney = 500;
+    [Header("UI References")]
+    public TextMeshProUGUI priceText;        // Texte affichant le prix en argent
+    public TextMeshProUGUI woodCostText;     // Texte affichant le coût en bois
+    public TextMeshProUGUI stoneCostText;    // Texte affichant le coût en pierre
+    public TextMeshProUGUI ironCostText;     // Texte affichant le coût en fer
+}
 
+public class RessourcesManager : MonoBehaviour
+{
+    [Header("Starting Resources")]
+    public int startingMoney = 1000;
+    public int startingWood = 500;
+    public int startingStone = 500;
+    public int startingIron = 500;
+
+    [Header("UI References for Resources")]
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI woodText;
+    public TextMeshProUGUI stoneText;
+    public TextMeshProUGUI ironText;
+
+    [Header("Buildable Items")]
+    public BuildableItem[] buildableItems;
+
+    private int currentMoney;
     private int currentWood;
     private int currentStone;
     private int currentIron;
-    private int currentMoney;
-
-    [System.Serializable]
-    public class Item
-    {
-        public string name; // Nom de l'élément (par exemple, "Station", "Rail01", etc.)
-        public TextMeshProUGUI priceCounter; // Compteur pour afficher le prix dans l'UI
-        public int priceMoney; // Prix en argent
-        public int priceWood; // Coût en bois
-        public int priceStone; // Coût en pierre
-        public int priceIron; // Coût en fer
-    }
-
-    [Header("Item Prices")]
-    public List<Item> items = new List<Item>();
 
     private void Start()
     {
-        // Initialisation des ressources
+        currentMoney = startingMoney;
         currentWood = startingWood;
         currentStone = startingStone;
         currentIron = startingIron;
-        currentMoney = startingMoney;
 
-        // Met à jour les compteurs UI
-        UpdateResourceCounters();
+        UpdateResourceUI();
 
-        // Met à jour les prix affichés des items
-        UpdateItemPriceCounters();
-    }
-
-    private void UpdateResourceCounters()
-    {
-        if (woodCounter) woodCounter.text = currentWood.ToString();
-        if (stoneCounter) stoneCounter.text = currentStone.ToString();
-        if (ironCounter) ironCounter.text = currentIron.ToString();
-        if (moneyCounter) moneyCounter.text = "$" + currentMoney.ToString();
-    }
-
-    private void UpdateItemPriceCounters()
-    {
-        foreach (var item in items)
+        foreach (var item in buildableItems)
         {
-            if (item.priceCounter)
-            {
-                item.priceCounter.text = $"$ {item.priceMoney}\nW: {item.priceWood} S: {item.priceStone} I: {item.priceIron}";
-            }
+            UpdateItemUI(item);
         }
     }
 
-    // Méthode pour acheter un élément
-    public bool PurchaseItem(string itemName)
+    private void UpdateResourceUI()
     {
-        Item item = items.Find(i => i.name == itemName);
-        if (item == null)
-        {
-            Debug.LogWarning("Item not found: " + itemName);
-            return false;
-        }
+        moneyText.text = $"{currentMoney}";
+        woodText.text = $"{currentWood}";
+        stoneText.text = $"{currentStone}";
+        ironText.text = $"{currentIron}";
+    }
 
-        // Vérifie si l'achat est possible
-        if (currentMoney >= item.priceMoney &&
-            currentWood >= item.priceWood &&
-            currentStone >= item.priceStone &&
-            currentIron >= item.priceIron)
-        {
-            // Déduit les ressources
-            currentMoney -= item.priceMoney;
-            currentWood -= item.priceWood;
-            currentStone -= item.priceStone;
-            currentIron -= item.priceIron;
+    private void UpdateItemUI(BuildableItem item)
+    {
+        item.priceText.text = $"{item.basePrice}";
+        item.woodCostText.text = $"{item.woodCost}";
+        item.stoneCostText.text = $"{item.stoneCost}";
+        item.ironCostText.text = $"{item.ironCost}";
+    }
 
-            // Met à jour les compteurs
-            UpdateResourceCounters();
-            return true;
+    public bool CanAffordItem(BuildableItem item)
+    {
+        return currentMoney >= item.basePrice &&
+               currentWood >= item.woodCost &&
+               currentStone >= item.stoneCost &&
+               currentIron >= item.ironCost;
+    }
+
+    public void PurchaseItem(BuildableItem item)
+    {
+        if (CanAffordItem(item))
+        {
+            currentMoney -= item.basePrice;
+            currentWood -= item.woodCost;
+            currentStone -= item.stoneCost;
+            currentIron -= item.ironCost;
+
+            item.basePrice += item.priceIncrement;
+
+            UpdateResourceUI();
+            UpdateItemUI(item);
+
+            Debug.Log($"Purchased: {item.itemName}. New price: {item.basePrice}");
         }
         else
         {
-            TooltipManager.Instance.ShowTooltip("TEST");
-            return false;
+            TooltipManager.Instance.ShowTooltip($"Not enough resources to purchase: {item.itemName}");
         }
     }
 
-    // Méthode pour ajouter des ressources
-    public void AddResources(int wood, int stone, int iron, int money)
+    public void AddResources(int money, int wood, int stone, int iron)
     {
+        currentMoney += money;
         currentWood += wood;
         currentStone += stone;
         currentIron += iron;
-        currentMoney += money;
 
-        // Met à jour les compteurs
-        UpdateResourceCounters();
-    }
-
-    // Méthode pour ajuster dynamiquement le prix d'un item
-    public void SetItemPrice(string itemName, int money, int wood, int stone, int iron)
-    {
-        Item item = items.Find(i => i.name == itemName);
-        if (item != null)
-        {
-            item.priceMoney = money;
-            item.priceWood = wood;
-            item.priceStone = stone;
-            item.priceIron = iron;
-
-            // Met à jour l'affichage du prix
-            UpdateItemPriceCounters();
-        }
+        UpdateResourceUI();
     }
 }
