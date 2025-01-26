@@ -1,5 +1,7 @@
 using System;
-using System.Collections.Generic;using DG.Tweening;
+using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 public class GridInteraction : MonoBehaviour
@@ -115,17 +117,120 @@ public class GridInteraction : MonoBehaviour
                     TooltipManager.Instance.ShowTooltip("Rails need to be connected to a station!");
                     return;
                 }
-                tile.ShowPlacementUI(objectToPlace);
+                //tile.ShowPlacementUI(objectToPlace);
             }
 
-            else
+            /*else
             {
                 tile.ShowPlacementUI(objectToPlace);
-            }
+            }*/
 
             if (objectToPlace != null)
             {
-                PlaceObject(tile, objectToPlace);
+                if (Instance.objectTypeToPlace == "Station")
+                {
+                    BuildableItem stationItem = null;
+                    foreach (var item in RessourcesManager.Instance.buildableItems)
+                    {
+                        if (item.itemName == "Station")
+                        {
+                            stationItem = item;
+                            break;
+                        }
+                    }
+
+                    if (stationItem != null && RessourcesManager.Instance.CanAffordItem(stationItem))
+                    {
+                        PlaceObject(tile, objectToPlace);
+                        return;
+                    }
+                    else
+                    {
+                        TooltipManager.Instance.ShowTooltip("You can't afford the station !");
+                        return;
+                    }
+                }
+            
+                if (Instance.objectTypeToPlace == "Bridge")
+                {
+                    BuildableItem bridgeItem = null;
+                    foreach (var item in RessourcesManager.Instance.buildableItems)
+                    {
+                        if (item.itemName == "Bridge")
+                        {
+                            bridgeItem = item;
+                            break;
+                        }
+                    }
+
+                    if (bridgeItem != null && RessourcesManager.Instance.CanAffordItem(bridgeItem))
+                    {
+                        PlaceObject(tile, objectToPlace);
+                        return;
+                    }
+                    else
+                    {
+                        TooltipManager.Instance.ShowTooltip("You can't afford the bridge !");
+                        return;
+                    }
+                }
+            
+                if (Instance.objectTypeToPlace == "Tunnel")
+                {
+                    BuildableItem tunnelItem = null;
+                    foreach (var item in RessourcesManager.Instance.buildableItems)
+                    {
+                        if (item.itemName == "Tunnel")
+                        {
+                            tunnelItem = item;
+                            break;
+                        }
+                    }
+
+                    if (tunnelItem != null && RessourcesManager.Instance.CanAffordItem(tunnelItem))
+                    {
+                        PlaceObject(tile, objectToPlace);
+                        return;
+                    }
+                    else
+                    {
+                        TooltipManager.Instance.ShowTooltip("You can't afford the tunnel !");
+                        return;
+                    }
+                }
+            
+                else if (Instance.objectTypeToPlace.StartsWith("Rail"))
+                {
+                    string railType = Instance.objectTypeToPlace;
+                    BuildableItem railItem = null;
+
+                    Dictionary<string, string> railTypeMapping = new Dictionary<string, string>()
+                    {
+                        { "Rail00", "Rail 01" },
+                        { "Rail01", "Rail 02" },
+                        { "Rail02", "Rail 03" },
+                        { "Rail03", "Rail 04" },
+                        { "Rail04", "Rail 05" },
+                        { "Rail05", "Rail 06" },
+                    };
+
+                    if (railTypeMapping.ContainsKey(railType))
+                    {
+                        string itemName = railTypeMapping[railType];
+                        railItem = RessourcesManager.Instance.buildableItems.FirstOrDefault(item => item.itemName == itemName);
+                    }
+
+                    if (railItem != null && RessourcesManager.Instance.CanAffordItem(railItem))
+                    {
+                        PlaceObject(tile, objectToPlace);
+                        return;
+                    }
+                    else
+                    {
+                        TooltipManager.Instance.ShowTooltip($"You can't afford this rail section!");
+                        return;
+                    }
+                }
             }
         }
     }
@@ -169,28 +274,25 @@ public class GridInteraction : MonoBehaviour
                 break;
 
             default:
-                if (!tile.CanPlaceRail(objectTypeToPlace))
-                {
-                    if (tile.isOccupied)
-                    {
-                        return "You can't build on another build.";
-                    }
-                    else if (tile.tileType.ToString().StartsWith("Rail"))
-                    {
-                        return "Rails need to be connected to another rail or a station!";
-                    }
-                    else
-                    {
-                        return "Can't build here.";
-                    }
-                }
-                else
-                {
-                    return "Can't build here.";
-                }
+                return "Can't build here.";
+                
         }
-
-        return "Can't build here.";
+        if (objectTypeToPlace.StartsWith("Rail"))
+        {
+            if (tile.isOccupied)
+            {
+                return "You can't build on another build.";
+            }
+            else 
+            {
+                return "Rails need to be connected to another rail or a station!";
+            }
+        }
+        else
+        {
+            return "Can't build here.";
+        }
+        
     }
 
     public GameObject GetRailPrefab(string railType)

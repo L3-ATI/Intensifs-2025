@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
@@ -285,22 +286,110 @@ public class Tile : MonoBehaviour
 
             if (GridInteraction.Instance.objectTypeToPlace == "Station")
             {
-                ShowPlacementUI(GridInteraction.Instance.stationPrefab);
-            }
-            else if (GridInteraction.Instance.objectTypeToPlace == "Bridge")
-            {
-                ShowPlacementUI(GridInteraction.Instance.bridgePrefab);
-            }
-            else if (GridInteraction.Instance.objectTypeToPlace == "Tunnel")
-            {
+                BuildableItem stationItem = null;
+                foreach (var item in RessourcesManager.Instance.buildableItems)
+                {
+                    if (item.itemName == "Station")
+                    {
+                        stationItem = item;
+                        break;
+                    }
+                }
 
-                ShowPlacementUI(GridInteraction.Instance.tunnelPrefab);
+                if (stationItem != null && RessourcesManager.Instance.CanAffordItem(stationItem))
+                {
+                    ShowPlacementUI(GridInteraction.Instance.stationPrefab);
+                    return;
+                }
+                else
+                {
+                    TooltipManager.Instance.ShowTooltip("You can't afford the station !");
+                    return;
+                }
             }
+            
+            if (GridInteraction.Instance.objectTypeToPlace == "Bridge")
+            {
+                BuildableItem bridgeItem = null;
+                foreach (var item in RessourcesManager.Instance.buildableItems)
+                {
+                    if (item.itemName == "Bridge")
+                    {
+                        bridgeItem = item;
+                        break;
+                    }
+                }
+
+                if (bridgeItem != null && RessourcesManager.Instance.CanAffordItem(bridgeItem))
+                {
+                    ShowPlacementUI(GridInteraction.Instance.bridgePrefab);
+                    return;
+                }
+                else
+                {
+                    TooltipManager.Instance.ShowTooltip("You can't afford the bridge !");
+                    return;
+                }
+            }
+            
+            if (GridInteraction.Instance.objectTypeToPlace == "Tunnel")
+            {
+                BuildableItem tunnelItem = null;
+                foreach (var item in RessourcesManager.Instance.buildableItems)
+                {
+                    if (item.itemName == "Tunnel")
+                    {
+                        tunnelItem = item;
+                        break;
+                    }
+                }
+
+                if (tunnelItem != null && RessourcesManager.Instance.CanAffordItem(tunnelItem))
+                {
+                    ShowPlacementUI(GridInteraction.Instance.tunnelPrefab);
+                    return;
+                }
+                else
+                {
+                    TooltipManager.Instance.ShowTooltip("You can't afford the tunnel !");
+                    return;
+                }
+            }
+            
             else if (GridInteraction.Instance.objectTypeToPlace.StartsWith("Rail"))
             {
-                GameObject prefab = GridInteraction.Instance.GetRailPrefab(GridInteraction.Instance.objectTypeToPlace);
-                ShowPlacementUI(prefab);
+                string railType = GridInteraction.Instance.objectTypeToPlace;
+                BuildableItem railItem = null;
+
+                Dictionary<string, string> railTypeMapping = new Dictionary<string, string>()
+                {
+                    { "Rail00", "Rail 01" },
+                    { "Rail01", "Rail 02" },
+                    { "Rail02", "Rail 03" },
+                    { "Rail03", "Rail 04" },
+                    { "Rail04", "Rail 05" },
+                    { "Rail05", "Rail 06" },
+                };
+
+                if (railTypeMapping.ContainsKey(railType))
+                {
+                    string itemName = railTypeMapping[railType];
+                    railItem = RessourcesManager.Instance.buildableItems.FirstOrDefault(item => item.itemName == itemName);
+                }
+
+                if (railItem != null && RessourcesManager.Instance.CanAffordItem(railItem))
+                {
+                    GameObject railPrefab = GridInteraction.Instance.GetRailPrefab(railType);
+                    ShowPlacementUI(railPrefab);
+                    return;
+                }
+                else
+                {
+                    TooltipManager.Instance.ShowTooltip($"You can't afford this rail section!");
+                    return;
+                }
             }
+
         }
     }
     
