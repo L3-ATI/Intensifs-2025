@@ -3904,31 +3904,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 451886078}
   m_CullTransparentMesh: 1
---- !u!1 &489689936 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8576355118726530679, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-  m_PrefabInstance: {fileID: 1123710434}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &489689942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489689936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6099b72a6044445488e3cd84545b27de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyPerCity: 20
-  woodPerSawmill: 10
-  stonePerQuarry: 10
-  ironPerMine: 10
-  moneyPerCityLV2: 30
-  woodPerSawmillLV2: 10
-  stonePerQuarryLV2: 10
-  ironPerMineLV2: 10
 --- !u!114 &546965334 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4437452810300488531, guid: ae3aa56dbf604474aaea603d2b4b2231, type: 3}
@@ -13595,66 +13570,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1001 &1123710434
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2434705038168690640, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434705038168690640, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434705038168690640, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434705038168690640, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434705038168690640, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434705038168690640, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434705038168690640, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434705038168690640, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434705038168690640, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434705038168690640, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576355118726530679, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      propertyPath: m_Name
-      value: Locomotive
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8576355118726530679, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 489689942}
-  m_SourcePrefab: {fileID: 100100000, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
 --- !u!1 &1161564669
 GameObject:
   m_ObjectHideFlags: 0
@@ -25904,4 +25819,3 @@ SceneRoots:
   - {fileID: 964865248}
   - {fileID: 1361597291}
   - {fileID: 1099305755}
-  - {fileID: 1123710434}
