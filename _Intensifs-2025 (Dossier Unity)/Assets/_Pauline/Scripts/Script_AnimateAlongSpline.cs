@@ -58,4 +58,9 @@ public class MoveAlongSpline : MonoBehaviour
         TheSpline = spline;
         splineLength = spline.GetLength();
     }
+
+    public Spline GetSpline()
+    {
+        return TheSpline;
+    }
 }

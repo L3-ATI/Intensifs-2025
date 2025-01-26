@@ -270,7 +270,7 @@ public class ShovelManager : MonoBehaviour
                 {
                     childTransform.DOScale(Vector3.zero, 0.3f)
                         .SetEase(Ease.InBack)
-                        .OnComplete(() => Destroy(childTransform.gameObject));
+                        .OnComplete(() => Destroy(childTransform.gameObject, 0.5f));
                 }
             }
 

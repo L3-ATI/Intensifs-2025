@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659987276982934725}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.14036126, z: -0, w: 0.9901004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2, y: 2.5, z: -3.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5397726174830403218}
-  m_LocalEulerAnglesHint: {x: 0, y: -16.138, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3521815351669515034
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -56,7 +56,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   objectTag:
   - RailPath
   - Station
+  Connection: {fileID: 0}
 --- !u!1 &2261939647432943614
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +195,7 @@ MonoBehaviour:
   objectTag:
   - RailPath
   - Station
+  Connection: {fileID: 0}
 --- !u!1 &2534350933321565932
 GameObject:
   m_ObjectHideFlags: 0

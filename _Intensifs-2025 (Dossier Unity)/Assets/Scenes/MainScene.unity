@@ -8731,7 +8731,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Locomotive: {fileID: 8576355118726530679, guid: 0459c26b9ae55b74a80f4b21c03c7e3a, type: 3}
-  Wagon: {fileID: 8576355118726530679, guid: c2514cd1e0dc8934a8e58094294548da, type: 3}
+  Wpassager: {fileID: 8576355118726530679, guid: b77e1a471fb66f842a9f18007243f822, type: 3}
+  Wressource: {fileID: 8576355118726530679, guid: 40eda206b7ae5394293f3d54de0a94fb, type: 3}
 --- !u!114 &1099305754
 MonoBehaviour:
   m_ObjectHideFlags: 0
