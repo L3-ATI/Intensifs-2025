@@ -9602,6 +9602,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6412461686346344811, guid: e7bfcabc59609744980bbb62ba33d71d, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15283,6 +15287,10 @@ PrefabInstance:
     - target: {fileID: 4012581550118240347, guid: ca5e8e57fe8813649be47c0c5dd31b54, type: 3}
       propertyPath: m_Name
       value: MainCinemachineCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4208875320372675171, guid: ca5e8e57fe8813649be47c0c5dd31b54, type: 3}
+      propertyPath: field of view
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7550219713191222471, guid: ca5e8e57fe8813649be47c0c5dd31b54, type: 3}
       propertyPath: m_LocalPosition.x
