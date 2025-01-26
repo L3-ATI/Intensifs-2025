@@ -239,7 +239,7 @@ public class UpgradeManager : MonoBehaviour
 
             if (tile.transform.childCount >= 7)
             {
-                Transform oldStation = tile.transform.GetChild(8);
+                Transform oldStation = tile.transform.GetChild(7);
                 originalRotation = oldStation.rotation;
 
                 oldStation.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack);

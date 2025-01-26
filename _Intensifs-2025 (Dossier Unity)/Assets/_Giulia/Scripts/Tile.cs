@@ -216,7 +216,7 @@ public class Tile : MonoBehaviour
     {
         foreach (Tile neighbor in neighboringTiles)
         {
-            if (neighbor != null && (neighbor.tileType.ToString().StartsWith("Rail") || neighbor.tileType == TileType.Station))
+            if (neighbor != null && (neighbor.tileType.ToString().StartsWith("Rail") || neighbor.tileType == TileType.Station) || neighbor.tileType == TileType.UpgradedStation)
             {
                 return true;
             }
@@ -475,6 +475,10 @@ public class Tile : MonoBehaviour
             {
                 return true;
             }
+            if (neighbor != null && neighbor.tileType == TileType.UpgradedStation && neighbor.isOccupied)
+            {
+                return true;
+            }
         }
 
         foreach (Tile neighbor in neighboringTiles)
@@ -539,7 +543,7 @@ public class Tile : MonoBehaviour
             {
                 foreach (Tile neighbor in neighboringTiles)
                 {
-                    if (neighbor.tileType == TileType.Station)
+                    if (neighbor.tileType == TileType.Station || neighbor.tileType == TileType.UpgradedStation)
                     {
                         isConnected = true;
                         break;
@@ -559,7 +563,7 @@ public class Tile : MonoBehaviour
         {
             foreach (Tile neighbor in neighboringTiles)
             {
-                if (neighbor.tileType.ToString().StartsWith("Rail") || neighbor.tileType == TileType.Station)
+                if (neighbor.tileType.ToString().StartsWith("Rail") || neighbor.tileType == TileType.Station || neighbor.tileType == TileType.UpgradedStation)
                 {
                     isConnected = true;
                     break;
