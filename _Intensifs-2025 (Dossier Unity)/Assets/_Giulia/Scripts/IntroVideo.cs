@@ -13,10 +13,18 @@ public class IntroVideo : MonoBehaviour
     void Start()
     {
         videoPlayer = GetComponent<VideoPlayer>();
-
         videoPlayer.loopPointReached += OnVideoFinished;
 
         logoImage.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        // Vérifie si la souris est cliquée ou si un bouton est pressé
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        {
+            SkipIntro();
+        }
     }
 
     void OnVideoFinished(VideoPlayer vp)
@@ -37,6 +45,37 @@ public class IntroVideo : MonoBehaviour
         logoImage.CrossFadeAlpha(0.0f, fadeDuration, false);
 
         // Attendre que le fade out soit terminé
+        yield return new WaitForSeconds(fadeDuration);
+
+        // Charger la scène suivante
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    private void SkipIntro()
+    {
+        // Si la vidéo est en cours, on la saute immédiatement
+        if (videoPlayer.isPlaying)
+        {
+            videoPlayer.Stop();
+        }
+
+        // Si le logo est visible, on commence immédiatement le fade out
+        if (logoImage.gameObject.activeSelf)
+        {
+            StopCoroutine("ShowLogoAndFade");
+            logoImage.CrossFadeAlpha(0.0f, fadeDuration, false);
+            StartCoroutine(LoadNextSceneAfterFade());
+        }
+        else
+        {
+            // Si le logo n'est pas encore affiché, on passe directement à la scène suivante
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
+
+    private IEnumerator LoadNextSceneAfterFade()
+    {
+        // Attendre la fin du fade out du logo
         yield return new WaitForSeconds(fadeDuration);
 
         // Charger la scène suivante
