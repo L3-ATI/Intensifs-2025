@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Leslie/scenes/test_shaders.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Intro.unity
+    guid: a1a8caeeb23185440a03350a5ef83189
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: 33b2c6834febf0f418bfab7adde1cdd9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -56,6 +56,10 @@ public class Tile : MonoBehaviour
     
     public GameObject vegetation;
     public GameObject houses;
+    
+    [Space(20)]
+    public GameObject placementParticlesPrefab;
+    
     private void Awake()
     {
         
@@ -578,6 +582,19 @@ public class Tile : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
+        
+        if (placementParticlesPrefab != null)
+        {
+            GameObject particles = Instantiate(placementParticlesPrefab, transform.position, Quaternion.identity);
+            particles.transform.SetParent(transform);
+
+            Destroy(particles, 2f);
+        }
+        else
+        {
+            Debug.LogWarning("Prefab de particules non assigné pour la tuile.");
+        }
+
 
         HandlePurchase();
         PlaceObjectOnTile();
