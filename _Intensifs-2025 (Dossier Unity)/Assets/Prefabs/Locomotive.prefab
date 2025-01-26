@@ -327,6 +327,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: cf87bd47df954d44ab550e5a0d6b4915, type: 2}
+    - target: {fileID: -1445191491810580595, guid: 87c2eb9771bd39846ac2340184b63fab, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: cf87bd47df954d44ab550e5a0d6b4915, type: 2}
+    - target: {fileID: -429509185410205247, guid: 87c2eb9771bd39846ac2340184b63fab, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 97509261b095b834ea61c20ee2959cb5, type: 2}
     - target: {fileID: 919132149155446097, guid: 87c2eb9771bd39846ac2340184b63fab, type: 3}
       propertyPath: m_Name
       value: SM_train

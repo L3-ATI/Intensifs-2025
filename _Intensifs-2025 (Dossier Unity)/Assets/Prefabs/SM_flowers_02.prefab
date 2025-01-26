@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 159130033411486837, guid: 1b85036a060d1594b833f01b2593df5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1360230884100381062, guid: 1b85036a060d1594b833f01b2593df5e, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -54,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6946263498866097638, guid: 1b85036a060d1594b833f01b2593df5e, type: 3}
       propertyPath: m_Name
-      value: PR_flowers_02 Variant
+      value: SM_flowers_02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
